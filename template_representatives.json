@@ -1,0 +1,382 @@
+{
+  "TC01": {
+    "id": "Q0001",
+    "question": "What are the papers written by the person Wazir Muhammad?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/211/3355> }"
+  },
+  "TC04": {
+    "id": "Q0002",
+    "question": "What is the Wikidata ID of Yvo Desmedt?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/pid/d/YvoDesmedt> <https://dblp.org/rdf/schema#wikidata> ?answer }"
+  },
+  "TC02": {
+    "id": "Q0003",
+    "question": "What is the primary affiliation of Leandro Krug Wives?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/pid/w/LeandroKrugWives> <https://dblp.org/rdf/schema#primaryAffiliation> ?answer }"
+  },
+  "TC05": {
+    "id": "Q0004",
+    "question": "What is the webpage of Ravi Kumar?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/pid/k/RaviKumar> <https://dblp.org/rdf/schema#webpage> ?answer }"
+  },
+  "TC15": {
+    "id": "Q0351",
+    "question": "Which papers did Dan O. Popa publish in the last 9 years?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/61/5165> . ?answer <https://dblp.org/rdf/schema#yearOfPublication> ?y FILTER(?y > YEAR(NOW())-9) }"
+  },
+  "TC11": {
+    "id": "Q0352",
+    "question": "Mention the venues in which Alberto R. published.",
+    "sparql": "SELECT DISTINCT ?answer WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/274/3007> . ?x <https://dblp.org/rdf/schema#publishedIn> ?answer }"
+  },
+  "TC12": {
+    "id": "Q0354",
+    "question": "Which papers did Eti Ben-Simon and Andrey Z. write together?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/83/11395> . ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/83/10230> }"
+  },
+  "TC14": {
+    "id": "Q0356",
+    "question": "Who are the co-authors of M. Guizani?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/15/1123> . ?x <https://dblp.org/rdf/schema#authoredBy> ?answer FILTER(?answer != <https://dblp.org/pid/15/1123>) }"
+  },
+  "TC16": {
+    "id": "Q0395",
+    "question": "Mention the papers published by B. Berger with the author from MIT.",
+    "sparql": "SELECT DISTINCT ?answer WHERE { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/b/BonnieBerger> . ?answer <https://dblp.org/rdf/schema#authoredBy> ?y . ?y <https://dblp.org/rdf/schema#primaryAffiliation> 'MIT, Cambridge, USA' }"
+  },
+  "TC21": {
+    "id": "Q0701",
+    "question": "Which papers did author W. Kwasowiec publish and in which year?",
+    "sparql": "SELECT DISTINCT ?firstanswer ?secondanswer WHERE { ?firstanswer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/59/2677> . ?firstanswer <https://dblp.org/rdf/schema#yearOfPublication> ?secondanswer }"
+  },
+  "TC24": {
+    "id": "Q0702",
+    "question": "List the titles of the papers that Hosam M. Mahmoud published and in which venues.",
+    "sparql": "SELECT DISTINCT ?firstanswer ?secondanswer WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/m/HosamMMahmoud> . ?x <https://dblp.org/rdf/schema#publishedIn> ?firstanswer . ?x <https://dblp.org/rdf/schema#title> ?secondanswer }"
+  },
+  "TC25": {
+    "id": "Q0703",
+    "question": "What are the titles of the papers that Andrew P. Black published in the last six years and in which venues?",
+    "sparql": "SELECT DISTINCT ?firstanswer ?secondanswer WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/b/APBlack> . ?x <https://dblp.org/rdf/schema#yearOfPublication> ?y . FILTER(?y > YEAR(NOW())-6) . ?x <https://dblp.org/rdf/schema#publishedIn> ?firstanswer . ?x <https://dblp.org/rdf/schema#title> ?secondanswer }"
+  },
+  "TC23": {
+    "id": "Q0704",
+    "question": "Name the co-authors of Dingxuan Li in the last three years and where are they affiliated?",
+    "sparql": "SELECT DISTINCT ?firstanswer ?secondanswer WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/300/8467> . ?x <https://dblp.org/rdf/schema#yearOfPublication> ?y . FILTER(?y > YEAR(NOW())-3) . ?x <https://dblp.org/rdf/schema#authoredBy> ?firstanswer FILTER(?firstanswer != <https://dblp.org/pid/300/8467>) . ?firstanswer <https://dblp.org/rdf/schema#primaryAffiliation> ?secondanswer }"
+  },
+  "TC32": {
+    "id": "Q1051",
+    "question": "Did Wanlei Zhou and Chowdhury, Morshed U. co-author the paper 'MVGL Analyser for Multi-classifier Based Spam Filtering System'?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/ACISicis/IslamZC09> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/92/2939> . <https://dblp.org/rec/conf/ACISicis/IslamZC09> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/74/4874> }"
+  },
+  "TC33": {
+    "id": "Q1052",
+    "question": "Did Andreas Rauh publish the paper 'Observer-based predictive temperature control for distributed heating systems based on the method of integrodifferential relations' in MMAR?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/mmar/RauhSDA12> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/85/1529> . <https://dblp.org/rec/conf/mmar/RauhSDA12> <https://dblp.org/rdf/schema#publishedIn> 'MMAR' }"
+  },
+  "TC35": {
+    "id": "Q1053",
+    "question": "Has J. Florens published in Computer Graphics in the last 5 years?",
+    "sparql": "ASK { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/26/5845> . ?x <https://dblp.org/rdf/schema#yearOfPublication> ?y . FILTER(?y > YEAR(NOW())-5) . ?x <https://dblp.org/rdf/schema#publishedIn> 'Computer Graphics' }"
+  },
+  "TC34": {
+    "id": "Q1054",
+    "question": "Did Ye, Xinyue publish the paper 'Assessment of drought occurrence in Bei-bu wheat districts, China between 1960 and 2012' in the last 7 years?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/geoinformatics/ZhaiSYYH17> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/118/4187> . <https://dblp.org/rec/conf/geoinformatics/ZhaiSYYH17> <https://dblp.org/rdf/schema#yearOfPublication> ?y . FILTER(?y > YEAR(NOW())-7) }"
+  },
+  "TC31": {
+    "id": "Q1059",
+    "question": "Did Joseph P. Simonis publish the paper 'Globalization Techniques for Newton-Krylov Methods and Applications to the Fully Coupled Solution of the Navier-Stokes Equations'?",
+    "sparql": "ASK { <https://dblp.org/rec/journals/siamrev/PawlowskiSSW06> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/31/9301> }"
+  },
+  "TC44": {
+    "id": "Q1401",
+    "question": "Wasn't the paper 'Compressed-Domain Classification of Texture Images' published by the author Bayoumi, M. A. in CAMP?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/camp/WilsonB00> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/b/MagdyABayoumi> . <https://dblp.org/rec/conf/camp/WilsonB00> <https://dblp.org/rdf/schema#publishedIn> 'CAMP' FILTER NOT EXISTS { <https://dblp.org/rec/conf/camp/WilsonB00> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/b/MagdyABayoumi> . <https://dblp.org/rec/conf/camp/WilsonB00> <https://dblp.org/rdf/schema#publishedIn> 'CAMP' } }"
+  },
+  "TC41": {
+    "id": "Q1403",
+    "question": "Was the paper 'A Priority Queue Transform' not published by the person Michael L. Fredman?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/wae/Fredman99> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/15/454> FILTER NOT EXISTS { <https://dblp.org/rec/conf/wae/Fredman99> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/15/454> } }"
+  },
+  "TC43": {
+    "id": "Q1408",
+    "question": "Was the paper 'A mechanism for replicated data consistency in mobile computing environments' not co-authored by Lifschitz, S\\u00E9rgio and A. Brayner?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/sac/MonteiroBL07> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/l/SLifschitz> . <https://dblp.org/rec/conf/sac/MonteiroBL07> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/b/AngeloBrayner> FILTER NOT EXISTS { <https://dblp.org/rec/conf/sac/MonteiroBL07> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/l/SLifschitz> . <https://dblp.org/rec/conf/sac/MonteiroBL07> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/b/AngeloBrayner> } }"
+  },
+  "TC53": {
+    "id": "Q1751",
+    "question": "Didn't Warren, James R. and Piekarski, W. not co-author a paper?",
+    "sparql": "ASK { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/00/256> . ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/15/2169> }"
+  },
+  "TC51": {
+    "id": "Q1753",
+    "question": "Wasn't the paper 'Modeling Syntactic Complexity with P Systems: A Preview' not not published by the person named Benedek Nagy?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/uc/EnguixN14> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/06/6134> }"
+  },
+  "TC54": {
+    "id": "Q1755",
+    "question": "Isn't A. Maria Tulino not affiliated with Univerisit\\u00E0 Federico II, Napoli, Italy?",
+    "sparql": "ASK { <https://dblp.org/pid/03/4183> <https://dblp.org/rdf/schema#primaryAffiliation> 'Univerisit\\u00E0 Federico II, Napoli, Italy' }"
+  },
+  "TC63": {
+    "id": "Q2101",
+    "question": "In VL/HCC and Comput. Music. J., what papers did S. Conversy publish?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/42/4104> { ?answer <https://dblp.org/rdf/schema#publishedIn> 'VL/HCC' } UNION { ?answer <https://dblp.org/rdf/schema#publishedIn> 'Comput. Music. J.' } }"
+  },
+  "TC64": {
+    "id": "Q2104",
+    "question": "List all the primary affiliations of Lucie M\\u00E9nard and Eric F..",
+    "sparql": "SELECT DISTINCT ?answer WHERE { { <https://dblp.org/pid/47/5322> <https://dblp.org/rdf/schema#primaryAffiliation> ?answer } UNION { <https://dblp.org/pid/80/6326> <https://dblp.org/rdf/schema#primaryAffiliation> ?answer } }"
+  },
+  "TC61": {
+    "id": "Q2106",
+    "question": "List all the papers that Dumas, Sylvie and B. Weber published.",
+    "sparql": "SELECT DISTINCT ?answer WHERE { { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/32/4726> } UNION { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/03/5411> } }"
+  },
+  "TC91": {
+    "id": "Q2451",
+    "question": "Name the author who published the paper on Engineering graphics and has the name Long.",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/cad/PengLL14> <https://dblp.org/rdf/schema#authoredBy> ?answer }"
+  },
+  "TC92": {
+    "id": "Q2453",
+    "question": "Mention the publication on Feature selection that was published by Tarik in Int. J. Inf. Syst. Model. Des..",
+    "sparql": "SELECT DISTINCT ?answer WHERE { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/186/7642> . ?answer <https://dblp.org/rdf/schema#publishedIn> 'Int. J. Inf. Syst. Model. Des.' }"
+  },
+  "TC93": {
+    "id": "Q2455",
+    "question": "Name the venue in which Luping published the paper about Class separability.",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/tnn/ZhouWS10> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/45/933> . <https://dblp.org/rec/journals/tnn/ZhouWS10> <https://dblp.org/rdf/schema#publishedIn> ?answer }"
+  },
+  "TC75": {
+    "id": "Q2801",
+    "question": "What is the average number of papers published by Darko Kirovski per year?",
+    "sparql": "SELECT (AVG(?count) AS ?answer) { SELECT (COUNT(?y) AS ?count) WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/81/4627> . ?x <https://dblp.org/rdf/schema#yearOfPublication> ?y } GROUP BY ?y }"
+  },
+  "TC73": {
+    "id": "Q2802",
+    "question": "Count the number of co-authors that Ragab, M. has.",
+    "sparql": "SELECT (COUNT(DISTINCT ?answer) AS ?count) WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/205/4727> . ?x <https://dblp.org/rdf/schema#authoredBy> ?answer FILTER(?answer != <https://dblp.org/pid/205/4727>) }"
+  },
+  "TC72": {
+    "id": "Q2803",
+    "question": "Report the count of papers that Fanggang Wang has published in IEEE Wirel. Commun..",
+    "sparql": "SELECT (COUNT(DISTINCT ?answer) AS ?count) WHERE { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/84/2752> . ?answer <https://dblp.org/rdf/schema#publishedIn> 'IEEE Wirel. Commun.' }"
+  },
+  "TC71": {
+    "id": "Q2811",
+    "question": "How many research papers has Ishimatsu, Jun published?",
+    "sparql": "SELECT (COUNT(DISTINCT ?answer) AS ?count) WHERE { ?answer <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/74/7568> }"
+  },
+  "TC76": {
+    "id": "Q2817",
+    "question": "What is the average number of co-authors for papers published by Foto N. Afrati?",
+    "sparql": "SELECT (AVG(?count) AS ?answer) { SELECT (COUNT(?y) AS ?count) WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/a/FotoNAfrati> . ?x <https://dblp.org/rdf/schema#numberOfCreators> ?y } GROUP BY ?y }"
+  },
+  "TC84": {
+    "id": "Q3151",
+    "question": "Who is the most frequent co-author of Cioppa, A. Della and how many publications do they have together?",
+    "sparql": "SELECT (GROUP_CONCAT(?answer; separator=', ') AS ?answer) ?count WHERE { SELECT DISTINCT ?answer (COUNT(?answer) AS ?count) WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/60/2630> . ?x <https://dblp.org/rdf/schema#authoredBy> ?answer FILTER(?answer != <https://dblp.org/pid/60/2630>)} GROUP BY ?answer } ORDER BY DESC(?count) LIMIT 1"
+  },
+  "TC81": {
+    "id": "Q3152",
+    "question": "Mention the year in which Nestor R. Polanco published the most papers.",
+    "sparql": "SELECT (GROUP_CONCAT(?answer; separator=', ') AS ?answer) ?count WHERE { SELECT DISTINCT ?answer (COUNT(?answer) AS ?count) WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/202/3643> . ?x <https://dblp.org/rdf/schema#yearOfPublication> ?answer } GROUP BY ?answer } ORDER BY DESC(?count) LIMIT 1"
+  },
+  "TC85": {
+    "id": "Q3153",
+    "question": "When was the first paper by Tom Tollenaere published?",
+    "sparql": "SELECT DISTINCT MIN(xsd:integer(?answer)) AS ?answer WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/44/6536> . ?x <https://dblp.org/rdf/schema#yearOfPublication> ?answer }"
+  },
+  "TC86": {
+    "id": "Q3155",
+    "question": "When was the last paper by Dikovskii, A. Ja. published?",
+    "sparql": "SELECT DISTINCT MAX(xsd:integer(?answer)) AS ?answer WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/44/5658> . ?x <https://dblp.org/rdf/schema#yearOfPublication> ?answer }"
+  },
+  "TC82": {
+    "id": "Q3158",
+    "question": "Least number of papers were published by Younis Al Rozz in which year?",
+    "sparql": "SELECT (GROUP_CONCAT(?answer; separator=', ') AS ?answer) ?count WHERE { SELECT DISTINCT ?answer (COUNT(?answer) AS ?count) WHERE { ?x <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/209/8796> . ?x <https://dblp.org/rdf/schema#yearOfPublication> ?answer } GROUP BY ?answer } ORDER BY ASC(?count) LIMIT 1"
+  },
+  "TP03": {
+    "id": "Q3501",
+    "question": "In which venue was the paper 'Fuzzy Perceptual Watermarking For Ownership Verification' published?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/conf/ipcv/MotwaniH09a> <https://dblp.org/rdf/schema#publishedIn> ?answer }"
+  },
+  "TP01": {
+    "id": "Q3502",
+    "question": "Who is the author of the paper 'Preface'?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/fodm/Zadeh02> <https://dblp.org/rdf/schema#authoredBy> ?answer }"
+  },
+  "TP02": {
+    "id": "Q3503",
+    "question": "What year was 'CLP-based protein fragment assembly' published?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/tplp/PaluDFP10> <https://dblp.org/rdf/schema#yearOfPublication> ?answer }"
+  },
+  "TP05": {
+    "id": "Q3505",
+    "question": "How many authors does 'Web-based Visualization of Generalized 3D City Models using HTML5 and X3DOM' have?",
+    "sparql": "SELECT ?answer WHERE { <https://dblp.org/rec/journals/smartcr/MaoCW12> <https://dblp.org/rdf/schema#numberOfCreators> ?answer }"
+  },
+  "TP16": {
+    "id": "Q3851",
+    "question": "The authors of 'Multi modal spatio temporal co-trained CNNs with single modal testing on RGB-D based sign language gesture recognition' published in which other years?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/vlc/RaviSKEKK19> <https://dblp.org/rdf/schema#authoredBy> ?x . <https://dblp.org/rec/journals/vlc/RaviSKEKK19> <https://dblp.org/rdf/schema#yearOfPublication> ?y . ?z <https://dblp.org/rdf/schema#authoredBy> ?x . ?z <https://dblp.org/rdf/schema#yearOfPublication> ?answer FILTER (?answer != ?y) }"
+  },
+  "TP12": {
+    "id": "Q3852",
+    "question": "Which other publications were published by the authors of 'A new distributed topology control algorithm for wireless environments with non-uniform path loss and multipath propagation'?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/adhoc/SethuG10> <https://dblp.org/rdf/schema#authoredBy> ?x . ?answer <https://dblp.org/rdf/schema#authoredBy> ?x FILTER (?answer != <https://dblp.org/rec/journals/adhoc/SethuG10>) }"
+  },
+  "TP14": {
+    "id": "Q3855",
+    "question": "The authors of 'Visual Exploration of Semantic Relationships in Neural Word Embeddings' have which webpages?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/tvcg/LiuBTSWLP18> <https://dblp.org/rdf/schema#authoredBy> ?x . ?x <https://dblp.org/rdf/schema#webpage> ?answer }"
+  },
+  "TP13": {
+    "id": "Q3859",
+    "question": "What are the venues of the other papers published by the authors of 'Using multi-criteria decision making for personalized point-of-interest recommendations'?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/conf/gis/LyuCWL14> <https://dblp.org/rdf/schema#authoredBy> ?x . ?y <https://dblp.org/rdf/schema#authoredBy> ?x . ?y <https://dblp.org/rdf/schema#publishedIn> ?answer FILTER (?y != <https://dblp.org/rec/conf/gis/LyuCWL14>) }"
+  },
+  "TP17": {
+    "id": "Q3860",
+    "question": "Where was the paper 'A New Two-objective Single Machine Scheduling Problem Considers a Past-sequence-dependent Setup Time and Learning Effect' authored by Chen, Y. published?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/conf/ickii/ChenC18> <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/89/4335> . <https://dblp.org/rec/conf/ickii/ChenC18> <https://dblp.org/rdf/schema#publishedIn> ?answer }"
+  },
+  "TP23": {
+    "id": "Q4201",
+    "question": "Find the authors of 'On the Stability of Best Effort Flow Control Mechanisms in On-Chip Architectures' and the other papers they published.",
+    "sparql": "SELECT DISTINCT ?firstanswer ?secondanswer WHERE { <https://dblp.org/rec/conf/mascots/TalebiK08> <https://dblp.org/rdf/schema#authoredBy> ?firstanswer . ?secondanswer <https://dblp.org/rdf/schema#authoredBy> ?firstanswer FILTER (?secondanswer != <https://dblp.org/rec/conf/mascots/TalebiK08>) }"
+  },
+  "TP22": {
+    "id": "Q4202",
+    "question": "Who are the authors of 'Optimal two-phase vaccine allocation to geographically different regions under uncertainty' and where are they from?",
+    "sparql": "SELECT DISTINCT ?firstanswer ?secondanswer WHERE { <https://dblp.org/rec/journals/eor/YarmandIDL14> <https://dblp.org/rdf/schema#authoredBy> ?firstanswer . ?firstanswer <https://dblp.org/rdf/schema#primaryAffiliation> ?secondanswer }"
+  },
+  "TP24": {
+    "id": "Q4203",
+    "question": "List the authors of 'Diversity as width' and the venues of the other papers they published.",
+    "sparql": "SELECT DISTINCT ?firstanswer ?secondanswer WHERE { <https://dblp.org/rec/journals/scw/BasiliV13> <https://dblp.org/rdf/schema#authoredBy> ?firstanswer . ?x <https://dblp.org/rdf/schema#authoredBy> ?firstanswer . ?x <https://dblp.org/rdf/schema#publishedIn> ?secondanswer FILTER (?x != <https://dblp.org/rec/journals/scw/BasiliV13>) }"
+  },
+  "TP36": {
+    "id": "Q4551",
+    "question": "Did the authors of 'Behavioral modeling of delta-sigma modulators' also publish a paper in the venue Order?",
+    "sparql": "ASK { <https://dblp.org/rec/journals/csi/DavisF98> <https://dblp.org/rdf/schema#authoredBy> ?x . ?y <https://dblp.org/rdf/schema#authoredBy> ?x FILTER (?y != <https://dblp.org/rec/journals/csi/DavisF98>) . ?y <https://dblp.org/rdf/schema#publishedIn> 'Order' }"
+  },
+  "TP34": {
+    "id": "Q4552",
+    "question": "Was the publication 'A hardware-in-the-loop simulator to test control systems of hydroelectric plants' published in the year 2009?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/springsim/Galindo-GarciaR09> <https://dblp.org/rdf/schema#yearOfPublication> '2009' }"
+  },
+  "TP35": {
+    "id": "Q4554",
+    "question": "Did the authors of the paper 'MASAGA: A Linearly-Convergent Stochastic First-Order Method for Optimization on Manifolds' also publish the paper 'An Improved Global-Best-Guided Cuckoo Search Algorithm for Multiplierless Design of Two-Dimensional IIR Filters'?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/pkdd/BabanezhadLSS18> <https://dblp.org/rdf/schema#authoredBy> ?x . <https://dblp.org/rec/journals/cssp/DhabalV19> <https://dblp.org/rdf/schema#authoredBy> ?x FILTER (<https://dblp.org/rec/journals/cssp/DhabalV19> != <https://dblp.org/rec/conf/pkdd/BabanezhadLSS18>) }"
+  },
+  "TP33": {
+    "id": "Q4569",
+    "question": "Do the authors of 'Assessing the veracity of identity assertions via OSNs' have Duke University as their primary affiliation?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/comsnets/SirivianosKGY12> <https://dblp.org/rdf/schema#authoredBy> ?x . ?x <https://dblp.org/rdf/schema#primaryAffiliation> 'Duke University, Durham, USA' }"
+  },
+  "TP44": {
+    "id": "Q4901",
+    "question": "Did the authors of the publication 'Compact and Side Channel Secure Discrete Gaussian Sampling' not publish 'Towards Rapid Dynamic Partial Reconfiguration in Video-Based Driver Assistance Systems'?",
+    "sparql": "ASK { <https://dblp.org/rec/journals/iacr/RoyRVV14> <https://dblp.org/rdf/schema#authoredBy> ?x . <https://dblp.org/rec/conf/arc/ClausAAS10> <https://dblp.org/rdf/schema#authoredBy> ?x FILTER (<https://dblp.org/rec/conf/arc/ClausAAS10> != <https://dblp.org/rec/journals/iacr/RoyRVV14>) FILTER NOT EXISTS { <https://dblp.org/rec/journals/iacr/RoyRVV14> <https://dblp.org/rdf/schema#authoredBy> ?x . <https://dblp.org/rec/conf/arc/ClausAAS10> <https://dblp.org/rdf/schema#authoredBy> ?x FILTER (<https://dblp.org/rec/conf/arc/ClausAAS10> != <https://dblp.org/rec/journals/iacr/RoyRVV14>) } }"
+  },
+  "TP42": {
+    "id": "Q4902",
+    "question": "Wasn't the paper 'Controlling passage through resonances in vibratory actuators' published in the year 1999?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/eucc/TomchinaN99> <https://dblp.org/rdf/schema#yearOfPublication> '1999' FILTER NOT EXISTS { <https://dblp.org/rec/conf/eucc/TomchinaN99> <https://dblp.org/rdf/schema#yearOfPublication> '1999' } }"
+  },
+  "TP43": {
+    "id": "Q4905",
+    "question": "Did the authors of the publication 'Improved Coefficient Recovery and Its Application for Rewritable Data Embedding' not publish a paper in J. Imaging?",
+    "sparql": "ASK { <https://dblp.org/rec/journals/jimaging/SiiOW21> <https://dblp.org/rdf/schema#authoredBy> ?x . ?y <https://dblp.org/rdf/schema#authoredBy> ?x FILTER (?y != <https://dblp.org/rec/journals/jimaging/SiiOW21>) . ?y <https://dblp.org/rdf/schema#publishedIn> 'J. Imaging' FILTER NOT EXISTS { <https://dblp.org/rec/journals/jimaging/SiiOW21> <https://dblp.org/rdf/schema#publishedIn> 'J. Imaging' } }"
+  },
+  "TP53": {
+    "id": "Q5251",
+    "question": "Did the authors of the publication 'Effective Community Search Over Location-Based Social Networks: Conceptual Framework with Preliminary Result' not not publish a paper in Australasian Database Conference?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/adc/AlaqtaWA19> <https://dblp.org/rdf/schema#authoredBy> ?x . ?y <https://dblp.org/rdf/schema#authoredBy> ?x FILTER (?y != <https://dblp.org/rec/conf/adc/AlaqtaWA19>) . ?y <https://dblp.org/rdf/schema#publishedIn> 'ADC' }"
+  },
+  "TP52": {
+    "id": "Q5252",
+    "question": "Was the paper 'Decentralised Multi-intersection Congestion Control for Connected Autonomous Vehicles' not not published in the year 2020?",
+    "sparql": "ASK { <https://dblp.org/rec/conf/eumas/VuARF20> <https://dblp.org/rdf/schema#yearOfPublication> '2020' }"
+  },
+  "TP62": {
+    "id": "Q5601",
+    "question": "Mention the years in which 'MobileAid: A Fast and Effective Cognitive Aid System on Mobile Devices' and 'A Novel Approach of Neural Topic Modelling for Document Clustering' were published.",
+    "sparql": "SELECT DISTINCT ?answer WHERE { { <https://dblp.org/rec/journals/access/LiuLLCX20> <https://dblp.org/rdf/schema#yearOfPublication> ?answer } UNION { <https://dblp.org/rec/conf/ssci/SubramaniSS18> <https://dblp.org/rdf/schema#yearOfPublication> ?answer } }"
+  },
+  "TP61": {
+    "id": "Q5602",
+    "question": "Name the authors of 'Cluster Contrast for Unsupervised Person Re-Identification' and 'Measuring and Disrupting Anti-Adblockers Using Differential Execution Analysis'.",
+    "sparql": "SELECT DISTINCT ?answer WHERE { { <https://dblp.org/rec/journals/corr/abs-2103-11568> <https://dblp.org/rdf/schema#authoredBy> ?answer } UNION { <https://dblp.org/rec/journals/corr/abs-2103-11568> <https://dblp.org/rdf/schema#authoredBy> ?answer } }"
+  },
+  "TP63": {
+    "id": "Q5603",
+    "question": "Mention the venues in which 'On Parallelizing Matrix Multiplication by the Column-Row Method' and 'Rectified Factor Networks' were published.",
+    "sparql": "SELECT DISTINCT ?answer WHERE { { <https://dblp.org/rec/journals/corr/abs-1210-0461> <https://dblp.org/rdf/schema#publishedIn> ?answer } UNION { <https://dblp.org/rec/journals/corr/ClevertUMRH15> <https://dblp.org/rdf/schema#publishedIn> ?answer } }"
+  },
+  "TP92": {
+    "id": "Q5951",
+    "question": "In 1997 in ICIP (2), what are the titles of the papers on Fractal image?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/conf/icip/RuhlHS97> <https://dblp.org/rdf/schema#publishedIn> 'ICIP (2)' . <https://dblp.org/rec/conf/icip/RuhlHS97> <https://dblp.org/rdf/schema#yearOfPublication> '1997' . <https://dblp.org/rec/conf/icip/RuhlHS97> <https://dblp.org/rdf/schema#title> ?answer }"
+  },
+  "TP91": {
+    "id": "Q5952",
+    "question": "In J. Integr. Des. Process. Sci. in 2013, who are the authors that published papers about Model extrapolation?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/jid/HowarMW13> <https://dblp.org/rdf/schema#authoredBy> ?answer . <https://dblp.org/rec/journals/jid/HowarMW13> <https://dblp.org/rdf/schema#publishedIn> 'J. Integr. Des. Process. Sci.' . <https://dblp.org/rec/journals/jid/HowarMW13> <https://dblp.org/rdf/schema#yearOfPublication> '2013' }"
+  },
+  "TP93": {
+    "id": "Q5953",
+    "question": "When was the paper on Manufacturing knowledge models by Loughborough University published?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/ao/ChungooraY11> <https://dblp.org/rdf/schema#authoredBy> ?x . ?x <https://dblp.org/rdf/schema#primaryAffiliation> 'Loughborough University, UK' . <https://dblp.org/rec/journals/ao/ChungooraY11> <https://dblp.org/rdf/schema#yearOfPublication> ?answer }"
+  },
+  "TP74": {
+    "id": "Q6301",
+    "question": "Count the papers published by the authors of 'Impacts of monetary instruments on overnight spread under the interest rate corridor framework: evidence from China' in 2021.",
+    "sparql": "SELECT DISTINCT (COUNT(?answer) AS ?count) WHERE { <https://dblp.org/rec/journals/bpmj/ChangFHH21> <https://dblp.org/rdf/schema#authoredBy> ?x . ?answer <https://dblp.org/rdf/schema#authoredBy> ?x . ?answer <https://dblp.org/rdf/schema#yearOfPublication> '2021' }"
+  },
+  "TP75": {
+    "id": "Q6302",
+    "question": "Mention the count of papers published by the authors of 'Semi-automatic Composition of Geospatial Web Services Using JBoss Rules' in RuleML.",
+    "sparql": "SELECT DISTINCT (COUNT(?answer) AS ?count) WHERE { <https://dblp.org/rec/conf/ruleml/ZahariaVB08> <https://dblp.org/rdf/schema#authoredBy> ?x . ?answer <https://dblp.org/rdf/schema#authoredBy> ?x . ?answer <https://dblp.org/rdf/schema#publishedIn> 'RuleML' }"
+  },
+  "TP73": {
+    "id": "Q6303",
+    "question": "How many different affiliations do the authors of 'The Poetess Archive Database' have?",
+    "sparql": "SELECT (COUNT(DISTINCT ?answer) AS ?count) WHERE { <https://dblp.org/rec/journals/dhq/Mandell09> <https://dblp.org/rdf/schema#authoredBy> ?x . ?x <https://dblp.org/rdf/schema#primaryAffiliation> ?answer }"
+  },
+  "TP71": {
+    "id": "Q6308",
+    "question": "What is the count of authors of 'Neuro-fuzzy Control of Autonomous Robotics' who have University of Texas at Arlington, TX, USA as their primary affiliation?",
+    "sparql": "SELECT (COUNT(DISTINCT ?answer) AS ?count) WHERE { <https://dblp.org/rec/reference/complexity/StinguL09> <https://dblp.org/rdf/schema#authoredBy> ?answer . ?answer <https://dblp.org/rdf/schema#primaryAffiliation> 'University of Texas at Arlington, TX, USA' }"
+  },
+  "TP82": {
+    "id": "Q6651",
+    "question": "Who has published the most papers among the authors of 'Efficient histogramming of large-scale geospatial rasters in supporting of web-based queries'?",
+    "sparql": "SELECT (GROUP_CONCAT(?answer; separator=', ') AS ?answer) ?count WHERE { SELECT DISTINCT ?answer (COUNT(?x) AS ?count) WHERE { <https://dblp.org/rec/conf/gis/YouZ11> <https://dblp.org/rdf/schema#authoredBy> ?answer . ?x <https://dblp.org/rdf/schema#authoredBy> ?answer } GROUP BY ?answer } ORDER BY DESC(?count) LIMIT 1"
+  },
+  "TP83": {
+    "id": "Q6652",
+    "question": "In which year were the first papers of the authors of 'Named Entity Extraction using AdaBoost' published?",
+    "sparql": "SELECT DISTINCT ?answer MIN(xsd:integer(?y)) AS ?y WHERE { <https://dblp.org/rec/conf/conll/CarrerasMP02> <https://dblp.org/rdf/schema#authoredBy> ?answer . ?x <https://dblp.org/rdf/schema#authoredBy> ?answer . ?x <https://dblp.org/rdf/schema#yearOfPublication> ?y }"
+  },
+  "TP86": {
+    "id": "Q6658",
+    "question": "Which one has more number of authors, 'Plastic Waste is Exponentially Filling our Oceans, but where are the Robots?' or 'A Refined Mean Field Approximation'?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/journals/corr/abs-1809-00798> <https://dblp.org/rdf/schema#numberOfCreators> ?x . <https://dblp.org/rec/conf/sigmetrics/GastH18> <https://dblp.org/rdf/schema#numberOfCreators> ?y . BIND(IF(?x > ?y, <https://dblp.org/rec/journals/corr/abs-1809-00798>, <https://dblp.org/rec/conf/sigmetrics/GastH18>) AS ?answer) }"
+  },
+  "TP81": {
+    "id": "Q6660",
+    "question": "Mention the primary affiliation of most of the authors of 'Faster fast evaluation of thin plate splines in two dimensions'.",
+    "sparql": "SELECT (GROUP_CONCAT(?answer; separator=', ') AS ?answer) ?count WHERE { SELECT DISTINCT ?answer (COUNT(?answer) AS ?count) WHERE { <https://dblp.org/rec/journals/jcam/BeatsonOR14> <https://dblp.org/rdf/schema#authoredBy> ?x . ?x <https://dblp.org/rdf/schema#primaryAffiliation> ?answer } GROUP BY ?answer } ORDER BY DESC(?count) LIMIT 1"
+  },
+  "TP85": {
+    "id": "Q6665",
+    "question": "Which one was published first, 'Exploring the Relationship between Experience and Group Performance in Software Review' or 'A Time Efficient Threshold Based Ant Colony System for Cloud Load Balancing'?",
+    "sparql": "SELECT DISTINCT ?answer WHERE { <https://dblp.org/rec/conf/apsec/WongW03> <https://dblp.org/rdf/schema#yearOfPublication> ?x . <https://dblp.org/rec/conf/cicba/BanerjeeRRSD18> <https://dblp.org/rdf/schema#yearOfPublication> ?y . BIND(IF(?x < ?y, <https://dblp.org/rec/conf/apsec/WongW03>, <https://dblp.org/rec/conf/cicba/BanerjeeRRSD18>) AS ?answer) }"
+  }
+}
