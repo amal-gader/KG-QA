@@ -2,3 +2,4 @@ venv
 .env
 .history
 __pycache__
+milvus_demo.db
