@@ -1,4 +1,0 @@
-{% for message in messages %}
-{{ '<|start_of_turn|>user\n' + message['content'] + '<|end_of_turn|>' if message['role'] == 'user' else '<|start_of_turn|>model\n' + message['content'] + '<|end_of_turn|>' }}
-{% endfor %}
-{{ '<|start_of_turn|>model\n' }}

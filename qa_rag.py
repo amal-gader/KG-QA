@@ -100,7 +100,7 @@ def setup_models(config: dict[str, Any]):
     llm = OpenAILike(
     api_base="https://llms-inference.innkube.fim.uni-passau.de",
     api_key=api_key,
-    model="deepseekr1")
+    model="llama3.1")
     Settings.llm = llm
 
     # Settings.llm = OpenAILike(
@@ -139,7 +139,9 @@ def create_index(documents: list, vector_store: MilvusVectorStore):
 def query_document(index: VectorStoreIndex, question: str, top_k: int):
     """Query document with given question"""
     query_engine = index.as_query_engine(similarity_top_k=top_k)
-    return query_engine.query(question)
+    instruction = "Give a concise and a direct answer without statements like 'based on the context' or 'The text does not define'."
+    response = query_engine.query(instruction + question)
+    return response
 
 
 def get_parser() -> argparse.ArgumentParser:
@@ -206,9 +208,9 @@ def get_parser() -> argparse.ArgumentParser:
 #     dataset = load_dataset("allenai/qasper")
 #     df = dataset["train"].to_pandas()
     
-#     for row in df:
-#         filename = title_to_filename(row['title'])
-#         question = df['qas']['question'][0]
+#     filename = title_to_filename(df['title'].iloc[0]) + ".pdf"
+#     print(filename)
+#     question = df['qas'].iloc[0]['question'][0]
     
 #     # Parse command line arguments
 #     args = get_parser().parse_args()
@@ -307,6 +309,7 @@ def main():
             print(f"Done: {title}")
         except Exception as e:
             print(f"Querying failed for {title}: {e}")
+            
     #save results
     pd.DataFrame(results).to_csv("rag_responses.csv", index=False)
     print("Results saved to rag_responses.csv.")
