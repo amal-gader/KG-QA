@@ -1,0 +1,250 @@
+# SPDX-License-Identifier: Apache-2.0
+# SPDX-FileCopyrightText: Copyright contributors to the vLLM project
+"""
+RAG (Retrieval Augmented Generation) Implementation with LlamaIndex
+================================================================
+
+This script demonstrates a RAG system using:
+- LlamaIndex: For document indexing and retrieval
+- Milvus: As vector store backend
+- vLLM: For embedding and text generation
+
+Features:
+1. Document Loading & Processing
+2. Embedding & Storage
+3. Query Processing
+
+Requirements:
+1. Install dependencies:
+pip install llama-index llama-index-readers-web \
+            llama-index-llms-openai-like    \
+            llama-index-embeddings-openai-like \
+            llama-index-vector-stores-milvus \
+
+2. Start services:
+    # Start embedding service (port 8000)
+    vllm serve ssmits/Qwen2-7B-Instruct-embed-base
+
+    # Start chat service (port 8001)
+    vllm serve qwen/Qwen1.5-0.5B-Chat --port 8001
+
+Usage:
+    python retrieval_augmented_generation_with_llamaindex.py
+
+Notes:
+    - Ensure both vLLM services are running before executing
+    - Default ports: 8000 (embedding), 8001 (chat)
+    - First run may take time to download models
+"""
+
+import argparse
+from argparse import Namespace
+from datasets import load_dataset
+import pandas as pd
+from typing import Any
+
+from llama_index.core import Settings, StorageContext, VectorStoreIndex
+from llama_index.core.node_parser import SentenceSplitter
+from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
+from llama_index.readers.web import SimpleWebPageReader
+from llama_index.vector_stores.milvus import MilvusVectorStore
+from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.llms.openai_like import OpenAILike
+
+
+
+
+from dotenv import load_dotenv
+import os
+
+from utils import title_to_filename
+
+
+load_dotenv()
+api_key = os.getenv("UNI_API_KEY")
+
+
+
+
+def init_config(args: Namespace):
+    """Initialize configuration with command line arguments"""
+    return {
+        "db_path": args.db_path,
+        "chunk_size": args.chunk_size,
+        "chunk_overlap": args.chunk_overlap,
+        "top_k": args.top_k,
+    }
+
+
+def load_documents(url: str) -> list:
+    """Load and process web documents"""
+    return SimpleWebPageReader(html_to_text=True).load_data([url])
+
+
+def setup_models(config: dict[str, Any]):
+    """Configure embedding and chat models"""
+    
+    Settings.embed_model=HuggingFaceEmbedding(model_name="BAAI/bge-small-en")
+   
+    llm = OpenAILike(
+    api_base="https://llms-inference.innkube.fim.uni-passau.de",
+    api_key=api_key,
+    model="llama3.1")
+    Settings.llm = llm
+
+   
+
+    Settings.transformations = [
+        SentenceSplitter(
+            chunk_size=config["chunk_size"],
+            chunk_overlap=config["chunk_overlap"],
+        )
+    ]
+
+
+def setup_vector_store(db_path: str) -> MilvusVectorStore:
+    """Initialize vector store"""
+    sample_emb = Settings.embed_model.get_text_embedding("test")
+    print(f"Embedding dimension: {len(sample_emb)}")
+    return MilvusVectorStore(uri=db_path, dim=len(sample_emb), overwrite=True)
+
+
+def create_index(documents: list, vector_store: MilvusVectorStore):
+    """Create document index"""
+    storage_context = StorageContext.from_defaults(vector_store=vector_store)
+    return VectorStoreIndex.from_documents(
+        documents,
+        storage_context=storage_context,
+    )
+
+
+def query_document(index: VectorStoreIndex, question: str, top_k: int):
+    """Query document with given question"""
+    query_engine = index.as_query_engine(similarity_top_k=top_k)
+    instruction = "Give a concise and a direct answer without statements like 'based on the context' or 'The text does not define'."
+    response = query_engine.query(instruction + question)
+    return response
+
+
+def get_parser() -> argparse.ArgumentParser:
+    """Parse command line arguments"""
+    parser = argparse.ArgumentParser(description="RAG with vLLM and LlamaIndex")
+
+   
+    parser.add_argument(
+        "--db-path", default="./milvus_demo.db", help="Path to Milvus database"
+    )
+    parser.add_argument(
+        "-i", "--interactive", action="store_true", help="Enable interactive Q&A mode"
+    )
+    parser.add_argument(
+        "-c",
+        "--chunk-size",
+        type=int,
+        default=500,
+        help="Chunk size for document splitting",
+    )
+    parser.add_argument(
+        "-o",
+        "--chunk-overlap",
+        type=int,
+        default=100,
+        help="Chunk overlap for document splitting",
+    )
+    parser.add_argument(
+        "-k", "--top-k", type=int, default=1, help="Number of top results to retrieve"
+    )
+    parser.add_argument(
+        "-title", "--paper", type=int, default=1, help="The title of the paper to be queried"
+    )
+    parser.add_argument(
+        "-q", "--query", type=int, default=1, help="The query to answer about the paper"
+    )
+
+    return parser
+
+
+def pipeline_for_one_document():
+   
+    args = get_parser().parse_args()
+    
+    config = init_config(args)
+    setup_models(config)
+    # Setup vector store
+    vector_store = setup_vector_store(config["db_path"])
+    title = args.paper
+    query = args.query
+    filename = title_to_filename(title)
+    pdf_path = f"pdfs/{filename}.pdf"
+    
+    documents = SimpleDirectoryReader(input_files=[pdf_path]).load_data()
+       
+    try:
+        index = create_index(documents, vector_store)
+        response = query_document(index, query, config["top_k"])
+        print(response)
+    except Exception as e:
+        print(f"Querying failed for {title}: {e}")
+            
+    
+
+def main():
+    # Load dataset
+    dataset = load_dataset("allenai/qasper")
+    df = dataset["train"].to_pandas()
+
+    # Parse command line arguments
+    args = get_parser().parse_args()
+
+    # Initialize configuration
+    config = init_config(args)
+
+    # Setup models
+    setup_models(config)
+
+    # Setup vector store
+    vector_store = setup_vector_store(config["db_path"])
+
+    results = []
+
+    for i, row in df.iterrows():
+        title = row["title"]
+        filename = title_to_filename(title)
+        pdf_path = f"pdfs/{filename}.pdf"
+        
+        if not os.path.exists(pdf_path):
+            print(f"PDF not found: {pdf_path}")
+            continue
+        
+        # Get the first question
+        try:
+            question = row["qas"]["question"][0]
+        except (IndexError, KeyError, TypeError):
+            print(f" No valid question found for: {title}")
+            continue
+
+        # Load document
+        documents = SimpleDirectoryReader(input_files=[pdf_path]).load_data()
+        
+
+        # Build index and query
+        try:
+            index = create_index(documents, vector_store)
+            response = query_document(index, question, config["top_k"])
+            results.append({
+                "title": title,
+                "question": question,
+                "response": response
+            })
+            print(f"Done: {title}")
+        except Exception as e:
+            print(f"Querying failed for {title}: {e}")
+            
+    #save results
+    pd.DataFrame(results).to_csv("rag_responses.csv", index=False)
+    print("Results saved to rag_responses.csv.")
+
+
+
+if __name__ == "__main__":
+    main()

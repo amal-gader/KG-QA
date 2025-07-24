@@ -1,0 +1,16 @@
+PREFIX orkgc: <http://orkg.org/orkg/class/>
+PREFIX orkgp: <http://orkg.org/orkg/predicate/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?model_lbl ?dataset_lbl ?paper_lbl
+WHERE {
+  ?paper orkgp:P31 ?cont.
+  ?cont  orkgp:HAS_BENCHMARK ?benchmark;
+         orkgp:HAS_MODEL     ?model.
+  ?benchmark orkgp:HAS_DATASET    ?dataset.
+
+  ?paper     rdfs:label ?paper_lbl.
+  ?model     rdfs:label ?model_lbl.
+  ?dataset   rdfs:label ?dataset_lbl.
+  FILTER (str(?dataset_lbl) = "Chainstore")
+}

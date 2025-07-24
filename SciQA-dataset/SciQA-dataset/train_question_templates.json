@@ -1,0 +1,372 @@
+{
+  "T02": {
+    "id": "AQ0508",
+    "question": "What are the titles and IDs of research papers that include a benchmark for the DDI extraction 2013 corpus dataset?",
+    "sparql": "SELECT DISTINCT ?paper ?paper_lbl\nWHERE {\n  ?dataset        a                orkgc:Dataset;\n                  rdfs:label       ?dataset_lbl.\n  FILTER (str(?dataset_lbl) = \"DDI extraction 2013 corpus\")\n  ?benchmark      orkgp:HAS_DATASET       ?dataset.\n  ?cont          orkgp:HAS_BENCHMARK      ?benchmark.\n  ?paper         orkgp:P31                ?cont;\n                 rdfs:label               ?paper_lbl.\n}"
+  },
+  "T07": {
+    "id": "AQ2344",
+    "question": "List the code links in papers that use the A2C+CoEX model in any benchmark?",
+    "sparql": "SELECT DISTINCT ?code\nWHERE {\n  ?model    a            orkgc:Model;\n            rdfs:label    ?model_lbl.\n  FILTER (str(?model_lbl) = \"A2C+CoEX\")\n  ?benchmark      orkgp:HAS_DATASET        ?dataset.\n  ?cont           orkgp:HAS_BENCHMARK      ?benchmark.\n  ?cont           orkgp:HAS_MODEL          ?model;\n                  orkgp:HAS_SOURCE_CODE    ?code.\n}"
+  },
+  "T01": {
+    "id": "AQ0169",
+    "question": "Can you list the models that have been evaluated on the SentEval dataset?",
+    "sparql": "SELECT DISTINCT ?model ?model_lbl\nWHERE {\n  ?dataset       a                orkgc:Dataset;\n                  rdfs:label       ?dataset_lbl.\n  FILTER (str(?dataset_lbl) = \"SentEval\")\n  ?benchmark      orkgp:HAS_DATASET       ?dataset;\n                  orkgp:HAS_EVALUATION    ?eval.\n  ?paper         orkgp:HAS_BENCHMARK      ?benchmark.\n  OPTIONAL {?paper      orkgp:HAS_MODEL          ?model.\n            ?model      rdfs:label               ?model_lbl.}\n}"
+  },
+  "T06": {
+    "id": "AQ1857",
+    "question": "What are the most commonly used benchmark datasets for the Image Generation research field?",
+    "sparql": "SELECT DISTINCT ?dataset ?dataset_lbl\nWHERE {\n  ?problem       a                orkgc:Problem;\n                 rdfs:label       ?problem_lbl.  \n  FILTER (str(?problem_lbl) = \"Image Generation\")\n  ?dataset       a                orkgc:Dataset;\n                  rdfs:label       ?dataset_lbl.\n  ?benchmark      orkgp:HAS_DATASET       ?dataset.\n  ?cont           orkgp:HAS_BENCHMARK      ?benchmark;\n                  orkgp:P32                ?problem.\n}"
+  },
+  "T05": {
+    "id": "AQ1751",
+    "question": "What is the name of the top performing model in terms of Score score when benchmarked on the Atari 2600 Defender dataset?",
+    "sparql": "SELECT DISTINCT ?model ?model_lbl\nWHERE {\n  ?metric     a       orkgc:Metric;\n              rdfs:label  ?metric_lbl.\n  FILTER (str(?metric_lbl) = \"Score\")\n  {\n    SELECT ?model ?model_lbl\n    WHERE {\n      ?dataset       a                orkgc:Dataset;\n                      rdfs:label       ?dataset_lbl.\n      FILTER (str(?dataset_lbl) = \"Atari 2600 Defender\")\n      ?benchmark      orkgp:HAS_DATASET       ?dataset;\n                      orkgp:HAS_EVALUATION    ?eval.\n      ?eval           orkgp:HAS_VALUE         ?value;\n                      orkgp:HAS_METRIC         ?metric.\n      ?cont         orkgp:HAS_BENCHMARK      ?benchmark;\n                    orkgp:HAS_MODEL          ?model.\n      ?model      rdfs:label               ?model_lbl.\n    }\n    ORDER BY DESC(?value)\n    LIMIT 1\n  }\n}"
+  },
+  "T04": {
+    "id": "AQ1222",
+    "question": "What is the top benchmark score and its metric on the Walker, walk (DMControl100k) dataset?",
+    "sparql": "SELECT DISTINCT ?metric ?metric_lbl (MAX(?value) AS ?score)\nWHERE {\n  {\n    SELECT ?metric ?metric_lbl ?value\n    WHERE {\n      ?dataset       a                orkgc:Dataset;\n                      rdfs:label       ?dataset_lbl.\n      FILTER (str(?dataset_lbl) = \"Walker, walk (DMControl100k)\")\n      ?benchmark      orkgp:HAS_DATASET       ?dataset;\n                      orkgp:HAS_EVALUATION    ?eval.\n      ?eval           orkgp:HAS_VALUE         ?value.\n      OPTIONAL {?eval           orkgp:HAS_METRIC         ?metric.\n               ?metric          rdfs:label               ?metric_lbl.}\n      ?cont         orkgp:HAS_BENCHMARK      ?benchmark.\n      OPTIONAL {?cont      orkgp:HAS_MODEL          ?model.\n                ?model      rdfs:label               ?model_lbl.}\n    }\n    ORDER BY DESC(?value)\n  }\n}\nGROUP BY ?metric ?metric_lbl"
+  },
+  "T03": {
+    "id": "AQ0891",
+    "question": "List the metrics that are used to evaluate models on the Habitat 2020 Point Nav test-std benchmark dataset?",
+    "sparql": "SELECT DISTINCT ?metric ?metric_lbl\nWHERE {\n  ?dataset       a                orkgc:Dataset;\n                  rdfs:label       ?dataset_lbl.\n  FILTER (str(?dataset_lbl) = \"Habitat 2020 Point Nav test-std\")\n  ?benchmark      orkgp:HAS_DATASET       ?dataset;\n                  orkgp:HAS_EVALUATION    ?eval.\n  OPTIONAL {?eval           orkgp:HAS_METRIC         ?metric.\n           ?metric          rdfs:label               ?metric_lbl.}\n}"
+  },
+  "T09": {
+    "id": "HQ0040",
+    "question": "Which countries are considered in the papers about geopolitics?",
+    "sparql": "SELECT DISTINCT ?location\nWHERE {\n  ?_ orkgp:compareContribution [\n    orkgp:P32 [\n      rdfs:label ?label\n    ];\n    orkgp:P5049 ?location\n  ]\n  FILTER(REGEX(STR(?label), \"geopoli?tics\"))\n}"
+  },
+  "T010": {
+    "id": "HQ0013",
+    "question": "What was the most common type of approach for summarization before 2002?",
+    "sparql": "SELECT ?approach ?approach_label\nWHERE {\n  orkgr:R6948 orkgp:compareContribution ?cont.\n  ?cont orkgp:P15 ?implementation.\n  ?implementation orkgp:P5043 ?approach.\n  ?approach rdfs:label ?approach_label.\n}\nORDER BY DESC(COUNT(?approach_label))\nLIMIT 1"
+  },
+  "T011": {
+    "id": "HQ0061",
+    "question": "Which vegetables are utilized for betanin extraction?",
+    "sparql": "SELECT ?vegetables, ?vegetables_labels\nWHERE {\n  orkgr:R75363 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P35147 ?compounds.\n  ?compounds rdfs:label ?compounds_labels.\n  FILTER(REGEX(?compounds_labels, \"etanin\"))\n  ?contrib orkgp:P35148 ?vegetables.\n  ?vegetables rdfs:label ?vegetables_labels.\n}"
+  },
+  "T012": {
+    "id": "HQ0086",
+    "question": "What are the research problems Vernier Effect is related to?",
+    "sparql": "SELECT DISTINCT ?problems, ?problems_labels\nWHERE {\n  ?papers rdf:type orkgc:Paper.\n  ?papers rdfs:label ?papers_labels.\n  FILTER(REGEX(?papers_labels, \"Vernier Effect\", \"i\"))\n  ?papers orkgp:P31 ?contrib.\n  ?contrib orkgp:P32 ?problems.\n  ?problems rdfs:label ?problems_labels.\n}"
+  },
+  "T08": {
+    "id": "AQ2460",
+    "question": "Are there any research problems with benchmark datasets in the realm of Natural Language Processing research?",
+    "sparql": "SELECT DISTINCT ?problem ?problem_lbl\nWHERE {\n  ?rf       a            orkgc:ResearchField;\n            rdfs:label   ?rf_label.\n  FILTER (str(?rf_label) = \"Natural Language Processing\")\n  ?paper    orkgp:P30    ?rf;\n            orkgp:P31    ?cont.\n  ?cont         orkgp:HAS_BENCHMARK      ?benchmark;\n                orkgp:P32                ?problem.\n  ?problem      rdfs:label               ?problem_lbl.\n}"
+  },
+  "T013": {
+    "id": "HQ0049",
+    "question": "What is the average energy generation of all energy sources considered?",
+    "sparql": "SELECT (AVG(?elec_gen_value) AS ?average_elec_gen_value)\nWHERE {\n  orkgr:R153801 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P43135 ?energy_sources.\n  ?energy_sources rdfs:label ?energy_sources_labels;\n                  orkgp:P43134 ?electricity_generation.\n  FILTER(REGEX(?energy_sources_labels, \"all sources\"))\n  ?electricity_generation orkgp:HAS_VALUE ?value.\n  BIND(xsd:float(?value) AS ?elec_gen_value)\n}"
+  },
+  "T014": {
+    "id": "HQ0002",
+    "question": "What is the scope of \"Decentralised Authoring, Annotations and Notifications for a Read-Write Web with Dokieli\"?",
+    "sparql": "SELECT ?scope \nWHERE {\n  orkgr:R8364 orkgp:compareContribution ?cont.\n  ?paper orkgp:P31 ?cont;\n         rdfs:label ?title.\n  ?cont orkgp:P7046 ?sys.\n  ?sys orkgp:P7047 ?scope.\n  FILTER(REGEX(STR(?title), \"Decentralised Authoring, Annotations and Notifications for a Read-Write Web with dokieli\"))\n}"
+  },
+  "T015": {
+    "id": "HQ0072",
+    "question": "What is the most common drug in the studies?",
+    "sparql": "SELECT ?drug, ?drug_labels\nWHERE {\n  orkgr:R155621 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P37578 ?drug.\n  ?drug rdfs:label ?drug_labels.\n}\nORDER BY DESC(COUNT(?drug))\nLIMIT 1"
+  },
+  "T016": {
+    "id": "HQ0093",
+    "question": "What are the research problems of the cultural history field?",
+    "sparql": "SELECT DISTINCT ?research_problems, ?research_problems_labels\nWHERE {\n  ?papers rdf:type orkgc:Paper.\n  ?papers orkgp:P30 ?research_fields.\n  ?research_fields rdfs:label ?research_fields_labels. \n  FILTER(REGEX(?research_fields_labels, \"cultural history\", \"i\"))\n  ?papers orkgp:P31 ?contrib.\n  ?contrib orkgp:P32 ?research_problems.\n  ?research_problems rdfs:label ?research_problems_labels.\n}"
+  },
+  "T017": {
+    "id": "HQ0094",
+    "question": "Who are the co-authors of Kurt Thomas?",
+    "sparql": "SELECT ?co_authors\nWHERE {\n  ?papers rdf:type orkgc:Paper.\n  ?papers orkgp:P27 ?authors.\n  FILTER(REGEX(?authors, \"Kurt Thomas\"))\n  ?papers orkgp:P27 ?co_authors.\n  FILTER(?co_authors != \"Kurt Thomas\"^^xsd:string)\n}"
+  },
+  "T018": {
+    "id": "HQ0025",
+    "question": "Which scholarly knowledge graphs support RDF?",
+    "sparql": "SELECT ?title\nWHERE {\n  orkgr:R78023 orkgp:compareContribution ?cont.\n  ?cont orkgp:P7009 ?has_rdf.\n  FILTER(REGEX(?has_rdf, \"T\"))\n  ?cont rdfs:label ?title\n}"
+  },
+  "T019": {
+    "id": "HQ0029",
+    "question": "How many studies are published after 2019?",
+    "sparql": "SELECT (COUNT(?date) AS ?number_of_studies)\nWHERE {\n  orkgr:R110393 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P9040 ?date.\n  filter(?date > \"2019\"^^xsd:string)\n}"
+  },
+  "T020": {
+    "id": "HQ0014",
+    "question": "What are the metrics used by paper \"Using NMF-based text summarization to improve supervised and unsupervised classification?",
+    "sparql": "SELECT ?metrics, ?metrics_labels\nWHERE {\n  ?papers rdfs:label ?title.\n  FILTER(REGEX(?title, \"NMF-based text summarization\"))\n  ?papers orkgp:P31 ?cont.\n  ?cont orkgp:P34 ?eval.\n  ?eval orkgp:P2006 ?metrics.\n  ?metrics rdfs:label ?metrics_labels.\n}"
+  },
+  "T021": {
+    "id": "HQ0059",
+    "question": "Which are five the most common research fields for papers?",
+    "sparql": "SELECT ?research_field, ?research_field_labels\nWHERE {\n  ?papers orkgp:P30 ?research_field.\n  ?research_field rdfs:label ?research_field_labels.\n}\nORDER BY DESC(COUNT(?research_field_labels))\nLIMIT 5"
+  },
+  "T022": {
+    "id": "HQ0044",
+    "question": "What is the total number of species examined in the studies?",
+    "sparql": "SELECT (SUM(?number) AS ?total)\nWHERE {\n  orkgr:R58002 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P31024 ?number_of_species.\n  BIND(xsd:integer(?number_of_species) AS ?number)\n}"
+  },
+  "T023": {
+    "id": "HQ0036",
+    "question": "What is the full name of the EXPO ontology?",
+    "sparql": "SELECT ?full_name\nWHERE {\n  orkgr:R8342 orkgp:compareContribution ?cont.\n  ?cont orkgp:P7034 ?ontology.\n  ?ontology rdfs:label ?ont_lbl;\n            orkgp:P7035 ?full_name. \n  FILTER(REGEX(STR(?ont_lbl), \"expo\", \"i\"))\n}"
+  },
+  "T024": {
+    "id": "HQ0073",
+    "question": "Do all studies include open ocean sampling?",
+    "sparql": "ASK {\n  {\n    SELECT (COUNT(?ocean_sampling) AS ?counter)\n    WHERE {\n      orkgr:R155561 orkgp:compareContribution ?contrib.\n      ?contrib orkgp:P41379 ?ocean_sampling.\n      FILTER(?ocean_sampling = \"F\"^^xsd:string)\n    }\n  }\n  FILTER(?counter = 0)\n}"
+  },
+  "T025": {
+    "id": "HQ0004",
+    "question": "Who is responsible for acquisition in the RASH system?",
+    "sparql": "SELECT ?acq\nWHERE {\n  orkgr:R8364 orkgp:compareContribution ?cont.\n  ?cont orkgp:P7046 orkgr:R8350.\n  orkgr:R8350 orkgp:P7049 ?acq.\n}"
+  },
+  "T026": {
+    "id": "HQ0010",
+    "question": "What metric will be used to evaluate question answering systems?",
+    "sparql": "SELECT DISTINCT ?name\nWHERE {\n  [\n    orkgp:P34 [\n      rdfs:label ?name \n    ]\n  ].\n  FILTER(STRLEN(?name) > 0)\n}\nORDER BY ?name"
+  },
+  "T027": {
+    "id": "HQ0015",
+    "question": "What is the maximum sample size?",
+    "sparql": "SELECT ?sample_size\nWHERE {\n  orkgr:R135371 orkgp:compareContribution ?cont.\n  ?cont orkgp:P15687 ?sample_size\n}\nORDER BY DESC(?sample_size)\nLIMIT 1"
+  },
+  "T028": {
+    "id": "HQ0030",
+    "question": "Which toxins do pseudomonas species produce?",
+    "sparql": "SELECT DISTINCT ?toxins, ?toxins_labels\nWHERE {\n  orkgr:R69027 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P34037 ?toxins.\n  ?toxins rdfs:label ?toxins_labels.\n}"
+  },
+  "T029": {
+    "id": "HQ0035",
+    "question": "Which scenario factsheets from the Open Energy Platform are used in studies with public funding?",
+    "sparql": "SELECT ?paper\nWHERE {\n  orkgr:R113171 orkgp:compareContribution ?cont.\n  ?paper orkgp:P31 ?cont.\n  ?cont orkgp:P37586 ?hasFacts.\n  ?hasFacts orkgp:P37675 ?study.\n  ?study orkgp:P37663 ?sourceOfFunding.\n  FILTER(REGEX(?sourceOfFunding, \"public\"))\n}"
+  },
+  "T030": {
+    "id": "HQ0054",
+    "question": "What is the minimum and maximum installed capacity for each energy source considered?",
+    "sparql": "SELECT ?energy_sources_labels (MIN(?installed_cap_value) AS ?min_installed_cap_value) (MAX(?installed_cap_value) AS ?max_installed_cap_value)\nWHERE {\n  orkgr:R153801 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P43135 ?energy_sources.\n  ?energy_sources rdfs:label ?energy_sources_labels;\n                  orkgp:P43133 ?installed_capacity.\n  ?installed_capacity orkgp:HAS_VALUE ?value.\n  BIND(xsd:float(?value) AS ?installed_cap_value)\n}"
+  },
+  "T031": {
+    "id": "HQ0056",
+    "question": "What is the average installed capacity for each energy source considered in 5 year intervals?",
+    "sparql": "SELECT ?rangeId ?energy_sources_labels (AVG(?installed_cap_value AS ?avg_installed_cap_value))\nWHERE {\n  orkgr:R153801 orkgp:compareContribution ?contrib.\n  ?paper orkgp:P31 ?contrib;\n         orkgp:P29 ?year.\n  BIND(xsd:int(?year) AS ?y).\n  VALUES(?rangeId ?min ?max) {\n    (\"2001-2005\" 2001 2005)\n    (\"2006-2010\" 2006 2010)\n    (\"2011-2015\" 2011 2015)\n    (\"2016-2020\" 2016 2020)\n  }\n  FILTER(?min <= ?y && ?y <= ?max).\n  ?contrib orkgp:P43135 ?energy_sources.\n  ?energy_sources rdfs:label ?energy_sources_labels;\n                  orkgp:P43133 ?installed_capacity.\n  ?installed_capacity orkgp:HAS_VALUE ?value.\n  BIND(xsd:float(?value) AS ?installed_cap_value).\n}\nORDER BY ASC(?rangeId)"
+  },
+  "T032": {
+    "id": "HQ0042",
+    "question": "Who is the author of the most recent paper about insects?",
+    "sparql": "SELECT ?author_name\nWHERE {\n  {\n    SELECT ?publication_date_ AS ?date_of_the_latest_paper {\n      ?paper_ a orkgc:Paper;\n              rdfs:label ?title_;\n              orkgp:P28 ?publication_month_;\n              orkgp:P29 ?publication_year_.\n      OPTIONAL {\n        ?publication_month_ rdfs:label ?publication_month_label_\n      }\n      OPTIONAL {\n        ?publication_year_ rdfs:label ?publication_year_label_\n      }\n      BIND(\n        xsd:integer(\n          IF(\n            BOUND(?publication_month_label_),\n            ?publication_month_label_,\n            ?publication_month_\n          )\n        ) AS ?publication_month_as_number_\n      )\n      BIND(\n        xsd:integer(\n          IF(\n            BOUND(?publication_year_label_),\n            ?publication_year_label_,\n            ?publication_year_\n          )\n        ) AS ?publication_year_as_number_\n      )\n      BIND(\n        xsd:dateTime(\n          CONCAT(\n            ?publication_year_as_number_,\n            \"-\",\n            ?publication_month_as_number_,\n            \"-01T00:00:00.000-00:00\"\n          )\n        )\n        AS ?publication_date_\n      )\n      FILTER(\n        ?publication_month_as_number_ > 0 && ?publication_month_as_number_ < 13 && ?publication_year_as_number_ > 0 && ?publication_year_as_number_ < 2023\n      )\n      FILTER(REGEX(STR(?title_), \"insect\"))\n    }\n    ORDER BY DESC(?publication_date_)\n    LIMIT 1\n  }\n  ?paper a orkgc:Paper;\n           rdfs:label ?title;\n           orkgp:P27 ?author;\n           orkgp:P28 ?publication_month;\n           orkgp:P29 ?publication_year.\n  OPTIONAL {\n     ?publication_month rdfs:label ?publication_month_label\n  }\n  OPTIONAL {\n    ?publication_year rdfs:label ?publication_year_label\n  }\n  OPTIONAL {\n    ?author rdfs:label ?author_label\n  }\n  BIND(\n    IF(\n      BOUND(?author_label),\n      ?author_label,\n      ?author\n    ) AS ?author_name\n  )\n  BIND(\n    xsd:integer(\n      IF(\n        BOUND(?publication_month_label),\n        ?publication_month_label,\n        ?publication_month\n      )\n    ) AS ?publication_month_as_number\n  )\n  BIND(\n    xsd:integer(\n      IF(\n        BOUND(?publication_year_label),\n        ?publication_year_label,\n        ?publication_year\n      )\n    ) AS ?publication_year_as_number\n  )\n  BIND(\n    xsd:dateTime(\n      CONCAT(\n        ?publication_year_as_number,\n        \"-\",\n        ?publication_month_as_number,\n        \"-01T00:00:00.000-00:00\"\n      )\n    )\n    AS ?publication_date\n  )\n  FILTER(\n    ?publication_month_as_number > 0 && ?publication_month_as_number < 13 && ?publication_year_as_number > 0 && ?publication_year_as_number < 2023\n  )\n  FILTER(\n    REGEX(\n      STR(?title),\n      \"insect\"\n    ) && ?publication_date = ?date_of_the_latest_paper\n  )\n}"
+  },
+  "T033": {
+    "id": "HQ0019",
+    "question": "Does \"PRISMA hyperspectral mission\" use ENVI software?",
+    "sparql": "SELECT ?uses_ENVI\nWHERE {\n  ?papers rdfs:label ?titles.\n  FILTER(REGEX(?titles, \"PRISMA\"))\n  ?papers orkgp:P31 ?cont.\n  ?cont orkgp:P23031 ?software.\n  ?software rdfs:label ?software_labels.\n  BIND(\n    IF(?software_labels = \"ENVI\"^^<http://www.w3.org/2001/XMLSchema#string>, \"Yes\", \"No\") \n    AS ?uses_ENVI\n  )\n}\nORDER BY DESC(?uses_ENVI)\nLIMIT 1"
+  },
+  "T034": {
+    "id": "HQ0087",
+    "question": "When the earliest paper related to X-rays was published? ",
+    "sparql": "SELECT ?publication_years\nWHERE {\n  ?papers rdf:type orkgc:Paper.\n  ?papers rdfs:label ?papers_labels.\n  FILTER(REGEX(?papers_labels, \"X-ray\", \"i\"))\n  ?papers orkgp:P29 ?publication_years. \n}\nORDER BY ASC(?publication_years)\nLIMIT 1"
+  },
+  "T035": {
+    "id": "HQ0041",
+    "question": "What can one use instead of wheat flour?",
+    "sparql": "SELECT DISTINCT ?flour\nWHERE {\n  ?_ orkgp:P37571 ?flour.\n}"
+  },
+  "T036": {
+    "id": "HQ0034",
+    "question": "How many studies do use Chloride as major anion?",
+    "sparql": "SELECT COUNT(?anions_labels) AS ?chloride_count\nWHERE {\n  orkgr:R110597 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P37458 ?anions.\n  ?anions rdfs:label ?anions_labels.\n  FILTER(REGEX(?anions_labels, \"Chloride\"^^xsd:string))\n}"
+  },
+  "T037": {
+    "id": "HQ0033",
+    "question": "What risk factors for OSA are discovered in the paper with 100% OSA frequency?  ",
+    "sparql": "SELECT ?risk_factors, ?risk_factors_labels\nWHERE {\n  orkgr:R110932 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P37530 ?osa_frequency.\n  ?osa_frequency rdfs:label ?osa_frequency_values.\n  ?contrib orkgp:P37528 ?risk_factors.\n  ?risk_factors rdfs:label ?risk_factors_labels.\n  FILTER(REGEX(?osa_frequency_values, \"100\"^^xsd:string))\n}"
+  },
+  "T038": {
+    "id": "HQ0060",
+    "question": "What are economics subfields?",
+    "sparql": "SELECT DISTINCT ?subfields, ?subfields_labels\nWHERE {\n  ?papers orkgp:P30 ?research_fields.\n  ?research_fields rdfs:label \"Economics\"^^xsd:string.\n  ?research_fields orkgp:P36 ?subfields.\n  ?subfields rdfs:label ?subfields_labels. \n}"
+  },
+  "T039": {
+    "id": "HQ0048",
+    "question": "What is the maximum female percentage?",
+    "sparql": "SELECT ?female_percantage\nWHERE {\n  orkgr:R44978 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P23154 ?female_percantage.\n}\nORDER BY DESC(?female_percantage)\nLIMIT 1"
+  },
+  "T040": {
+    "id": "HQ0020",
+    "question": "Which ontology has the most classes?",
+    "sparql": "SELECT ?ont ?ont_label\nWHERE {\n  orkgr:R8342 orkgp:compareContribution ?cont.\n  ?cont orkgp:P7034 ?ont.\n  ?ont orkgp:P7038 ?cls_cnt;\n       rdfs:label ?ont_label.\n}\nORDER BY DESC(MAX(xsd:int(?cls_cnt)))\nLIMIT 1"
+  },
+  "T041": {
+    "id": "HQ0062",
+    "question": "What are the objectives for Sepsis prediction?",
+    "sparql": "SELECT DISTINCT ?objectives\nWHERE {\n  orkgr:R70642 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P15051 ?objectives.\n}"
+  },
+  "T042": {
+    "id": "HQ0024",
+    "question": "What is the research problem addressed by paper \"LIMSI participant at QADL-5@CLEF\"?",
+    "sparql": "SELECT ?problem ?problem_lbl\nWHERE {\n  ?paper orkgp:P31 ?cont;\n         rdfs:label ?paper_title.\n  ?cont orkgp:P32 ?problem.\n  ?problem rdfs:label ?problem_lbl.\n  FILTER(REGEX(STR(?paper_title), \"LIMSI participation at QALD-5@CLEF\", \"i\"))\n}"
+  },
+  "T043": {
+    "id": "HQ0005",
+    "question": "What research problem is addressed in the paper titled \"6th Open Challenge on Question Answering over Linked Data (QALD-6)\"?\n",
+    "sparql": "SELECT DISTINCT ?concept ?rlabel \nWHERE {\n  orkgr:R6386 orkgp:P31 ?x .\n  ?x orkgp:P32 ?concept.\n  ?concept rdfs:label ?rlabel.\n}\nLIMIT 1"
+  },
+  "T044": {
+    "id": "HQ0051",
+    "question": "What is the average energy generation for each energy source considered?",
+    "sparql": "SELECT ?energy_sources_labels (AVG(?elec_gen_value) AS ?average_elec_gen_value)\nWHERE {\n  orkgr:R153801 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P43135 ?energy_sources.\n  ?energy_sources rdfs:label ?energy_sources_labels;\n                  orkgp:P43134 ?elec_gen.\n  ?elec_gen orkgp:HAS_VALUE ?value.\n  BIND(xsd:float(?value) AS ?elec_gen_value)\n}"
+  },
+  "T045": {
+    "id": "HQ0075",
+    "question": "What is the average efficency for experiments?",
+    "sparql": "SELECT AVG(?efficency_values)\nWHERE {\n  orkgr:R155266 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P43156 ?efficency.\n  ?efficency rdfs:label ?efficency_labels.\n  BIND(xsd:float(?efficency_labels) AS ?efficency_values)\n}"
+  },
+  "T046": {
+    "id": "HQ0082",
+    "question": "What is another name for Bisphenol A?",
+    "sparql": "SELECT ?same_name_label\nWHERE {\n  ?resources rdfs:label ?resources_labels.\n  FILTER(REGEX(?resources_labels, \"Bisphenol A\", \"i\"))\n  ?resources orkgp:SAME_AS ?same_name.\n  ?same_name rdfs:label ?same_name_label.\n}"
+  },
+  "T047": {
+    "id": "HQ0012",
+    "question": "Does \"ZoomRDF\" uses filters?",
+    "sparql": "SELECT ?uses_filter\nWHERE {\n  ?paper orkgp:P5025 ?filter;\n         rdfs:label ?title.\n  FILTER(REGEX(?title, \"ZoomRDF\"))\n  BIND(\n    IF(?filter = \"T\"^^xsd:string, \"Yes\", \"No\")\n    AS ?uses_filter\n  )\n}"
+  },
+  "T048": {
+    "id": "HQ0028",
+    "question": "Which indicators for well-being are used in the studies on the effect of COVID-19?",
+    "sparql": "SELECT DISTINCT ?indicators, ?indicators_labels\nWHERE {\n  orkgr:R78492 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P36089 ?indicators.\n  ?indicators rdfs:label ?indicators_labels.\n}"
+  },
+  "T049": {
+    "id": "HQ0083",
+    "question": "What is the amount of questions for LC-QuAD 2.0 dataset?",
+    "sparql": "SELECT ?number_of_questions\nWHERE {\n  orkgr:R154290 orkgp:P31 ?contrib.\n  ?contrib orkgp:P41923 ?number_of_questions.\n}"
+  },
+  "T050": {
+    "id": "HQ0065",
+    "question": "What is the maximum egg mass in studies?",
+    "sparql": "SELECT MAX(?egg_masses_float)\nWHERE {\n  orkgr:R34845 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P15692 ?egg_masses.\n  BIND(xsd:float(?egg_masses) AS ?egg_masses_float)\n}"
+  },
+  "T051": {
+    "id": "HQ0074",
+    "question": "For what product minimum conversion was obtained?",
+    "sparql": "SELECT ?product, ?product_label\nWHERE {\n  orkgr:R155272 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P43149 ?product;\n           orkgp:P43148 ?conversion.\n  ?product rdfs:label ?product_label.\n  ?conversion rdfs:label ?conversion_label.\n}\nORDER BY ASC(xsd:float(?conversion_label))\nLIMIT 1"
+  },
+  "T052": {
+    "id": "HQ0067",
+    "question": "In which papers are energy system scenarios used that consider the 2050 time frame?",
+    "sparql": "SELECT ?paper\nWHERE {\n  {\n    orkgr:R150337 orkgp:compareContribution ?contrib.\n  } UNION {\n    orkgr:R153801 orkgp:compareContribution ?contrib.\n  }\n  ?paper orkgp:P31 ?contrib.\n  {\n     ?contrib orkgp:P37586 ?scenarios.\n     ?scenarios orkgp:P37675 ?studies.\n     ?studies orkgp:P35205 ?timeframes.\n  } UNION {\n     ?contrib orkgp:P37581 ?scenario.\n     ?scenario orkgp:P43138 ?goal.\n     ?goal orkgp:P43139 ?timeframes.\n  }\n  FILTER(xsd:int(?timeframes) = 2050)\n}"
+  },
+  "T053": {
+    "id": "HQ0018",
+    "question": "Which methods are used?",
+    "sparql": "SELECT DISTINCT ?methods, ?methods_labels\nWHERE {\n  orkgr:R110361 orkgp:compareContribution ?cont.\n  ?cont orkgp:HAS_METHOD ?methods.\n  ?methods rdfs:label ?methods_labels.\n}"
+  },
+  "T054": {
+    "id": "HQ0089",
+    "question": "Does FEEM Sustainability Index consider air quality?",
+    "sparql": "ASK {\n  ?papers rdf:type orkgc:Paper.\n  ?papers rdfs:label ?papers_labels.\n  FILTER(REGEX(?papers_labels, \"FEEM Sustainability Index\"))\n  ?papers orkgp:P31 ?contrib.\n  ?contrib ?properties ?properties_values.\n  ?properties rdfs:label ?properties_labels.\n  FILTER(REGEX(?properties_labels, \"air quality\", \"i\"))\n  FILTER(?properties_values = \"yes\")\n}"
+  },
+  "T055": {
+    "id": "HQ0079",
+    "question": "Which energy system modeling papers indicate where to find their simulation software and whether there are associated simulation scenarios mentioned in ORKG?",
+    "sparql": "SELECT ?repo ?scenario ?simulation_parameters\nWHERE {\n  ?paper orkgp:P31 ?contrib.\n  ?contrib orkgp:P37586 ?model.\n  ?model orkgp:P39010 ?code.\n  ?code orkgp:P4077 ?repo.\n  OPTIONAL {\n    ?model orkgp:P43146 ?scenario.\n    {\n      SELECT ?scenario ?simulation_parameters\n      WHERE {\n        ?scenario orkgp:P31 ?contrib2.\n        ?contrib2 orkgp:P37586 ?model2.\n        ?model2 orkgp:P37583 ?data.\n        ?data orkgp:HAS_DATASET ?dataset.\n        ?dataset orkgp:P37343 ?type;\n                 orkgp:P4059 ?simulation_parameters.\n        ?type rdfs:label ?label.\n        FILTER(REGEX(?label, \"Technical\"))\n      }\n    }\n  }\n}"
+  },
+  "T056": {
+    "id": "HQ0092",
+    "question": "Does ViCoMap support aggregation?",
+    "sparql": "SELECT ?has_aggregation_support\nWHERE {\n  ?application rdfs:label \"ViCoMap\"^^xsd:string;\n               orkgp:P5038 ?has_aggregation_support_.\n  BIND(\n    IF(?has_aggregation_support_ = \"T\"^^xsd:string, \"yes\", \"no\")\n    AS ?has_aggregation_support\n  )\n}"
+  },
+  "T057": {
+    "id": "HQ0050",
+    "question": "What is the average installed capacity of all energy sources considered?",
+    "sparql": "SELECT (AVG(?installed_cap_value) AS ?average_installed_cap_value)\nWHERE {\n  orkgr:R153801 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P43135 ?energy_sources.\n  ?energy_sources rdfs:label ?energy_sources_labels;\n                  orkgp:P43133 ?installed_capacity.\n  FILTER(REGEX(?energy_sources_labels, \"all sources\"))\n  ?installed_capacity orkgp:HAS_VALUE ?value.\n  BIND(xsd:float(?value) AS ?installed_cap_value)\n}"
+  },
+  "T058": {
+    "id": "HQ0066",
+    "question": "What is the most common substrate for catalysts?",
+    "sparql": "SELECT ?substrate\nWHERE {\n  orkgr:R25900 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P15090 ?substrate.\n}\nORDER BY DESC(COUNT(?substrate))\nLIMIT 1"
+  },
+  "T059": {
+    "id": "HQ0047",
+    "question": "What is the average reproductive number for studies?",
+    "sparql": "SELECT (AVG(?reproductive_number) AS ?average_reproductive_number)\nWHERE {\n  orkgr:R44930 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P23140 ?basic_reproductive_number.\n  ?basic_reproductive_number orkgp:HAS_VALUE ?value\n  BIND(xsd:float(?value) AS ?reproductive_number)\n}"
+  },
+  "T060": {
+    "id": "HQ0071",
+    "question": "What are areas of study?",
+    "sparql": "SELECT DISTINCT ?areas, ?areas_labels\nWHERE {\n  orkgr:R155445 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P37041 ?areas.\n  ?areas rdfs:label ?areas_labels.\n}"
+  },
+  "T061": {
+    "id": "HQ0016",
+    "question": "What is major reactant for \"Microwave-Assisted Cobinamide Synthesis\"?",
+    "sparql": "SELECT ?reactant\nWHERE {\n  ?papers rdfs:label ?titles.\n  FILTER(REGEX(?titles, \"Microwave-Assisted Cobinamide Synthesis\"))\n  ?papers orkgp:P31 ?cont.\n  ?cont orkgp:P37557 ?reactant.\n}"
+  },
+  "T062": {
+    "id": "HQ0053",
+    "question": "What is the minimum and maximum energy generation for each energy source considered?",
+    "sparql": "SELECT ?energy_sources_labels (MIN(?elec_gen_value) AS ?min_elec_gen_value) (MAX(?elec_gen_value) AS ?max_elec_gen_value)\nWHERE {\n  orkgr:R153801 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P43135 ?energy_sources.\n  ?energy_sources rdfs:label ?energy_sources_labels;\n                  orkgp:P43134 ?elec_gen.\n  ?elec_gen orkgp:HAS_VALUE ?value.\n  BIND(xsd:float(?value) AS ?elec_gen_value)\n}"
+  },
+  "T063": {
+    "id": "HQ0096",
+    "question": "Who is the author with the largest number of papers about semantic representation in music research problem? ",
+    "sparql": "SELECT ?author\nWHERE {\n  ?papers rdf:type orkgc:Paper.\n  ?papers orkgp:P31 ?contrib.\n  ?contrib orkgp:P32 ?research_problems.\n  ?research_problems rdfs:label ?research_problems_labels.\n  FILTER(REGEX(?research_problems_labels, \"semantic representation in music\", \"i\"))\n  ?papers orkgp:P27 ?authors.\n  OPTIONAL {\n    ?authors rdfs:label ?authors_labels\n  }\n  BIND(IF(BOUND(?authors_labels), ?authors_labels, ?authors) AS ?author)\n}\nORDER BY DESC(COUNT(?author))\nLIMIT 1"
+  },
+  "T064": {
+    "id": "HQ0098",
+    "question": "Does OWLMAP imply integrity constraints?",
+    "sparql": "ASK {\n  ?approach rdfs:label \"OWLMAP\"^^xsd:string.\n  ?contrib ?predicate ?approach.\n  ?contrib orkgp:P41333 ?integrity_constraints.\n  FILTER(?integrity_constraints = \"t\"^^xsd:string)\n}"
+  },
+  "T065": {
+    "id": "HQ0076",
+    "question": "What preprocessing methods are used?",
+    "sparql": "SELECT DISTINCT ?prep_methods, ?prep_methods_labels\nWHERE {\n  orkgr:R155154 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P41006 ?prep_methods.\n  ?prep_methods rdfs:label ?prep_methods_labels.\n}"
+  },
+  "T066": {
+    "id": "HQ0045",
+    "question": "In what country was conducted research with the largest number of participants?",
+    "sparql": "SELECT ?country\nWHERE {\n  orkgr:R44980 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P15249 ?country;\n           orkgp:P23169 ?number_of_participants.\n}\nORDER BY DESC(?number_of_participants)\nLIMIT 1"
+  },
+  "T067": {
+    "id": "HQ0023",
+    "question": "what are the evidence and limitations of paper \"Evaluating the Use of Social Networks in Author Name Disambiguation in Digital Libraries\"?",
+    "sparql": "SELECT ?evidence ?evidence_title ?limitation\nWHERE {\n  orkgr:R6751 orkgp:compareContribution ?cont.\n  ?paper orkgp:P31 ?cont;\n         rdfs:label ?paper_title.\n  ?cont orkgp:P5004 ?evidence;\n        orkgp:P5006 ?limitation.\n  ?evidence rdfs:label ?evidence_title.\n  FILTER(REGEX(STR(?paper_title), \"Evaluating the Use of Social Networks in Author Name Disambiguation in Digital Libraries\", \"i\"))\n}"
+  },
+  "T068": {
+    "id": "HQ0021",
+    "question": "What is the base URL of \"The Document Components Ontology\"?",
+    "sparql": "SELECT ?iri\nWHERE {\n  orkgr:R8342 orkgp:compareContribution ?cont.\n  ?cont orkgp:P7034 ?ont.\n  ?ont orkgp:P7042 ?iri;\n       orkgp:P7035 ?full_name.\n  FILTER(REGEX(STR(?full_name), \"Document Components Ontology\", \"i\"))\n}"
+  },
+  "T069": {
+    "id": "HQ0088",
+    "question": "Who are the authors of the SOSA ontology?",
+    "sparql": "SELECT ?authors\nWHERE {\n  ?papers rdf:type orkgc:Paper.\n  ?papers rdfs:label ?papers_labels.\n  FILTER(REGEX(?papers_labels, \"^SOSA\"))\n  ?papers orkgp:P27 ?authors.\n}"
+  },
+  "T070": {
+    "id": "HQ0009",
+    "question": "What is the precision and recall of SemGraphQA?",
+    "sparql": "SELECT ?precision ?recall\nWHERE {\n  orkgr:R6898 orkgp:compareContribution ?cont. \n  ?cont orkgp:P34 ?eval.\n  ?eval rdfs:label ?eval_labels.\n  FILTER(REGEX(?eval_labels, \"SemGraphQA\"))\n  ?eval orkgp:P3004 ?precision;\n        orkgp:P5015 ?recall.\n}"
+  },
+  "T071": {
+    "id": "HQ0007",
+    "question": "Which papers use the dataset DBLP?",
+    "sparql": "SELECT DISTINCT ?title\nWHERE {\n ?paper a orkgc:Paper;\n orkgp:P31 [\n   orkgp:P2005 [\n     rdfs:label \"DBLP\"^^xsd:string\n   ]\n ];\n rdfs:label ?title.\n}\nORDER BY ?title"
+  },
+  "T072": {
+    "id": "HQ0039",
+    "question": "How many comparisons are there which don't have a class link?",
+    "sparql": "SELECT ?ratio\nWHERE {\n  {\n    SELECT (COUNT(?comparison) AS ?n_valid_comparisons)\n    WHERE {\n      ?comparison a orkgc:Comparison.\n    }\n  }\n  {\n    SELECT (COUNT(DISTINCT ?comparison_) AS ?n_comparisons_with_missing_class) {\n      ?comparison_ orkgp:compareContribution ?contribution.\n      FILTER(\n        NOT EXISTS {\n            ?comparison_ a orkgc:Comparison\n          }\n       )\n     }\n   }\n   BIND(\n     CONCAT(\n       ROUND(\n         xsd:double(?n_comparisons_with_missing_class) / xsd:double(?n_valid_comparisons + ?n_comparisons_with_missing_class) * 100\n       ),\n       \" %\"\n     ) AS ?ratio\n   )\n}"
+  },
+  "T073": {
+    "id": "HQ0064",
+    "question": "What is the total number of patients in the studies?",
+    "sparql": "SELECT SUM(?number_of_patients)\nWHERE {\n  orkgr:R33008 orkgp:compareContribution ?contrib.\n  ?contrib orkgp:P15585 ?patients.\n  BIND(xsd:integer(?patients) AS ?number_of_patients)\n}"
+  },
+  "T074": {
+    "id": "HQ0006",
+    "question": "What kind of graph does ADANA use?",
+    "sparql": "SELECT ?graph ?graph_label\nWHERE {\n  ?paper orkgp:P31 ?cont;\n         rdfs:label ?title.\n  FILTER(REGEX(?title, \"ADANA\"))\n  ?cont orkgp:P5008 ?graph. \n  ?graph rdfs:label ?graph_label.\n}"
+  }
+}
