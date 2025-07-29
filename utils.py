@@ -5,6 +5,8 @@ import os
 import re
 import codecs
 import spacy
+from rdflib.plugins.sparql.parser import parseQuery
+
 
 load_dotenv()
 nlp = spacy.load("en_core_web_lg")
@@ -13,10 +15,6 @@ api_key = os.getenv("UNI_API_KEY")
 HEADERS = {
     "User-Agent": "Mozilla/5.0"
 }
-
-
-# with open('template_representatives.json', 'r') as f:
-#     q_templates = json.load(f)
 
 
 
@@ -44,6 +42,7 @@ def question_template(path: str, output_path: str):
         json.dump(template_representatives, f, indent=2, ensure_ascii=False)
 
 
+
 def preprocess_text(text):
     # Decode unicode escape sequences like \\u00F3 → ó
     try:
@@ -55,7 +54,6 @@ def preprocess_text(text):
     # Reverse name order"
     text = re.sub(r'\b([\w\-\'"]+),\s*([\w\-\'"]+\.?)', r'\2 \1', text)
     return text
-
 
 
     
@@ -80,12 +78,15 @@ def extract_paper_titles(text):
             return [g for g in match.groups() if g is not None]
     return None
 
+ 
     
       
 def title_to_filename(title: str) -> str:
     title = title.lower()
     title = re.sub(r'[^a-z0-9]+', '_', title)
     return title.strip('_')
+
+
 
 
 def download_pdf(url, output_path):
@@ -102,3 +103,19 @@ def download_pdf(url, output_path):
     except Exception as e:
         return f"error: {e}"
 
+
+
+def check_sparql(query):
+    try:
+        parseQuery(query)
+        print("Valid query!")
+        return True
+    except Exception as e:
+        print("Invalid query:", e)
+        return False
+
+
+
+def postprocess_sparql(query):
+    query = re.sub(r'```sparql|```', '', query, flags=re.IGNORECASE)
+    return query.strip()

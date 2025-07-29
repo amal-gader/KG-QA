@@ -52,7 +52,9 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.openai_like import OpenAILike
 
 
-
+from nl2sparql import nl2sparql
+import json
+import re
 
 from dotenv import load_dotenv
 import os
@@ -63,6 +65,8 @@ from utils import title_to_filename
 load_dotenv()
 api_key = os.getenv("UNI_API_KEY")
 
+with open('DBLP-QuAD/DBLP-QuAD/template_representatives.json', 'r') as f:
+    q_templates = json.load(f)
 
 
 
@@ -92,8 +96,6 @@ def setup_models(config: dict[str, Any]):
     model="llama3.1")
     Settings.llm = llm
 
-   
-
     Settings.transformations = [
         SentenceSplitter(
             chunk_size=config["chunk_size"],
@@ -102,11 +104,13 @@ def setup_models(config: dict[str, Any]):
     ]
 
 
+
 def setup_vector_store(db_path: str) -> MilvusVectorStore:
     """Initialize vector store"""
     sample_emb = Settings.embed_model.get_text_embedding("test")
     print(f"Embedding dimension: {len(sample_emb)}")
     return MilvusVectorStore(uri=db_path, dim=len(sample_emb), overwrite=True)
+
 
 
 def create_index(documents: list, vector_store: MilvusVectorStore):
@@ -118,6 +122,7 @@ def create_index(documents: list, vector_store: MilvusVectorStore):
     )
 
 
+
 def query_document(index: VectorStoreIndex, question: str, top_k: int):
     """Query document with given question"""
     query_engine = index.as_query_engine(similarity_top_k=top_k)
@@ -126,11 +131,11 @@ def query_document(index: VectorStoreIndex, question: str, top_k: int):
     return response
 
 
+
 def get_parser() -> argparse.ArgumentParser:
     """Parse command line arguments"""
     parser = argparse.ArgumentParser(description="RAG with vLLM and LlamaIndex")
 
-   
     parser.add_argument(
         "--db-path", default="./milvus_demo.db", help="Path to Milvus database"
     )
@@ -154,26 +159,18 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-k", "--top-k", type=int, default=1, help="Number of top results to retrieve"
     )
-    parser.add_argument(
-        "-title", "--paper", type=int, default=1, help="The title of the paper to be queried"
-    )
-    parser.add_argument(
-        "-q", "--query", type=int, default=1, help="The query to answer about the paper"
-    )
-
     return parser
 
 
-def pipeline_for_one_document():
-   
+
+def pipeline_for_one_document(query:str, title: str):
+    
     args = get_parser().parse_args()
     
     config = init_config(args)
     setup_models(config)
     # Setup vector store
     vector_store = setup_vector_store(config["db_path"])
-    title = args.paper
-    query = args.query
     filename = title_to_filename(title)
     pdf_path = f"pdfs/{filename}.pdf"
     
@@ -187,6 +184,7 @@ def pipeline_for_one_document():
         print(f"Querying failed for {title}: {e}")
             
     
+
 
 def main():
     # Load dataset
@@ -246,5 +244,25 @@ def main():
 
 
 
+
+
+
+def route_question(question):
+    pattern = r'(?:from|according to|in the context of)\s+(?:the\s+)?paper\s+(?:"|“)?([A-Z][^"?]*)'
+    match = re.search(pattern, question, re.IGNORECASE)
+    if match:
+        title = match.group(1).strip()
+        print("Extracted Title:", title)
+        return pipeline_for_one_document(question, title)
+    
+    else:
+        print(nl2sparql(question, q_templates))
+        return nl2sparql(question, q_templates)
+
+
+
+
+
 if __name__ == "__main__":
-    main()
+    route_question("What is the Wikidata identifier of the author Robert S.?")
+    #main()

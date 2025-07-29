@@ -128,7 +128,7 @@ def run():
             "isOpenAccess": isOpenAccess
         })
 
-    # Save results
+    # Save 
     results_df = pd.DataFrame(results)
     results_df.to_csv("paper_metadata.csv", index=False)
     print("Done. Results saved to: paper_metadata.csv")

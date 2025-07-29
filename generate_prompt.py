@@ -4,7 +4,8 @@ import torch
 import time
 import spacy
 import requests
-
+import os
+from tqdm import tqdm
 from utils import ( preprocess_text, build_regex_pattern, extract_paper_titles)
 from transformers import BertTokenizer, BertModel
 import torch
@@ -19,10 +20,6 @@ nlp = spacy.load("en_core_web_lg")
 
 
 
-with open('DBLP-QuAD/DBLP-QuAD/template_representatives.json', 'r') as f:
-    q_templates = json.load(f)
-
-
 
 def get_paper_id(paper_title):
     response = requests.get('https://dblp.org/search/publ/api', params={'q': paper_title, 'format': 'json'})
@@ -32,6 +29,8 @@ def get_paper_id(paper_title):
     else:
         print("Request failed with status:", response.status_code)
         
+ 
+ 
         
 def get_author_id(author_name, max_retries=5, delay=1.0):
     retries = 0
@@ -68,6 +67,7 @@ def get_author_id(author_name, max_retries=5, delay=1.0):
     print(f"Max retries reached for author: {author_name}")
     return "", 0
         
+
 
 
 def extract_author_dblp_ids(text):
@@ -107,66 +107,105 @@ def encode_bert(text):
 
 
 
-def get_similar_questions_bert(question, q_templates):
-    questions_text = [q['question']['string'] for q in q_templates]
-    template_embeddings = torch.stack([encode_bert(q) for q in questions_text])
 
-    input_embedding = encode_bert(question)
+def compute_template_embeddings(q_templates):
+    questions_text = [q['question']['string'] for q in q_templates['questions']]
+    embeddings = torch.stack([encode_bert(q) for q in questions_text])
+    return embeddings, questions_text
+
+
+
+def find_top_similar_questions(input_embedding, template_embeddings, q_templates, top_k=2):
     similarities = F.cosine_similarity(input_embedding.unsqueeze(0), template_embeddings)
-    top_indices = torch.topk(similarities, k=2).indices.tolist()
+    top_indices = torch.topk(similarities, k=top_k).indices.tolist()
 
     results = []
     for idx in top_indices:
-        q = q_templates[idx]
-        results.append((q['question']['string'], q['query']['sparql']))
-        
-    first_question, first_sparql, second_question, second_sparql = results[0][0], results[0][1], results[1][0], results[1][1]
-    
-    sim_questions = [
-        f"Question: {question}",
+        q = q_templates['questions'][idx]
+        results.append({
+            "text": q['question']['string'],
+            "sparql": q['query']['sparql']
+        })
+    return results
+
+
+
+
+def generate_similarity_json(all_questions, q_templates, save_path="similar_questions.json"):
+    template_embeddings, _ = compute_template_embeddings(q_templates)
+    result_dict = {}
+
+    for q in tqdm(all_questions):
+        question_id = q['id']
+        question_text = q['question']['string']
+        input_embedding = encode_bert(question_text)
+
+        similar_qs = find_top_similar_questions(
+            input_embedding,
+            template_embeddings,
+            q_templates
+        )
+        result_dict[question_id] = {
+            "question": question_text,
+            "similar_questions": similar_qs
+        }
+    with open(save_path, 'w') as f:
+        json.dump(result_dict, f, indent=2)
+
+
+
+
+
+def get_similar_questions(question, similar_questions: str):
+   
+    question_id = question['id']
+    sim_questions = similar_questions[question_id]["similar_questions"]
+    nl_query = similar_questions[question_id]["question"]
+    first_question, first_sparql = sim_questions[0]['text'], sim_questions[0]['sparql']
+    second_question, second_sparql = sim_questions[1]['text'], sim_questions[1]['sparql']
+    return [
+        f"Question: {nl_query}",
         f"Similar Question 1: {first_question}",
         first_sparql,
         f"Similar Question 2: {second_question}",
         second_sparql
         ]
-
-    return sim_questions
   
 
 
+# def get_similar_questions(question, q_templates):
+#     model = SentenceTransformer('all-MiniLM-L6-v2')
 
-def get_similar_questions(question, q_templates):
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+#     questions_text = [q['question'] for q in list(q_templates.values())]
+#     embeddings = model.encode(questions_text, convert_to_tensor=True)
+#     new_embedding = model.encode(question, convert_to_tensor=True)
 
-    questions_text = [q['question'] for q in list(q_templates.values())]
-    embeddings = model.encode(questions_text, convert_to_tensor=True)
-    new_embedding = model.encode(question, convert_to_tensor=True)
+#     similarities = util.pytorch_cos_sim(new_embedding, embeddings)[0]
 
-    similarities = util.pytorch_cos_sim(new_embedding, embeddings)[0]
+#     top_indices = torch.topk(similarities, k=2).indices.tolist()
 
-    top_indices = torch.topk(similarities, k=2).indices.tolist()
-
-    results = []
-    for idx in top_indices:
-        q = list(q_templates.values())[idx]
-        results.append((q['question'], q['sparql']))
+#     results = []
+#     for idx in top_indices:
+#         q = list(q_templates.values())[idx]
+#         results.append((q['question'], q['sparql']))
     
-    first_question, first_sparql, second_question, second_sparql = results[0][0], results[0][1], results[1][0], results[1][1]
+#     first_question, first_sparql, second_question, second_sparql = results[0][0], results[0][1], results[1][0], results[1][1]
     
-    sim_questions = [
-        f"Question: {question}",
-        f"Similar Question 1: {first_question}",
-        first_sparql,
-        f"Similar Question 2: {second_question}",
-        second_sparql
-        ]
+#     sim_questions = [
+#         f"Question: {question}",
+#         f"Similar Question 1: {first_question}",
+#         first_sparql,
+#         f"Similar Question 2: {second_question}",
+#         second_sparql
+#         ]
 
-    return sim_questions
+#     return sim_questions
  
 
    
 
-def prompt_with_predefined_entity_ids(question, q_templates, entity_ids):     
+def prompt_with_predefined_entity_ids(question, q_templates):     
+    entity_ids = question["entities"]
     promt_parts= get_similar_questions(question, q_templates)
     if entity_ids:
          promt_parts.append(f"Entity ids: {entity_ids}")
@@ -175,11 +214,13 @@ def prompt_with_predefined_entity_ids(question, q_templates, entity_ids):
     
 
 
+
 def prompt_with_entity_linking(question, q_templates):
+    nl_query = question["question"]["string"]
     
     prompt_parts= get_similar_questions(question, q_templates)
     
-    pre_processed_question = preprocess_text(question)
+    pre_processed_question = preprocess_text(nl_query)
 
     author_ids = extract_author_dblp_ids(pre_processed_question)
     paper_ids = extract_paper_ids(pre_processed_question)
