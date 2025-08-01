@@ -61,7 +61,7 @@ def nl2sparql_orkg(question, templates, model="qwen2.5", max_retries=5):
 
 
 
-def nl2sparql(question, templates, ent_link=False, model="qwen2.5", max_retries=5):
+def nl2sparql(question, templates, ent_link=False, model="gemma2", max_retries=5):
     if ent_link:
         prompt_text = prompt_with_entity_linking(question, templates)
     else:
@@ -181,7 +181,7 @@ def main(args):
         
         
         #generated_query = nl2sparql(question,sim_questions,ent_link=ent_link)
-        generated_query = nl2sparql_orkg(question,sim_questions)
+        generated_query = nl2sparql(question,sim_questions)
         
         sparql_query = question["query"]["sparql"] 
         nl_query = question["question"]["string"]
