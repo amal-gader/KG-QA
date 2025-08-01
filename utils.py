@@ -119,3 +119,16 @@ def check_sparql(query):
 def postprocess_sparql(query):
     query = re.sub(r'```sparql|```', '', query, flags=re.IGNORECASE)
     return query.strip()
+
+
+
+def extract_value_tuples(bindings):
+    """Convert bindings to a multiset of value tuples. """
+    tuples = []
+    if bindings:
+        for binding in bindings:
+            values = tuple(v["value"] for k, v in sorted(binding.items()))
+            tuples.append(values)
+        return tuples
+    else:
+        return None

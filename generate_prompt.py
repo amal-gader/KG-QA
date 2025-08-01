@@ -172,36 +172,6 @@ def get_similar_questions(question, similar_questions: str):
         ]
   
 
-
-# def get_similar_questions(question, q_templates):
-#     model = SentenceTransformer('all-MiniLM-L6-v2')
-
-#     questions_text = [q['question'] for q in list(q_templates.values())]
-#     embeddings = model.encode(questions_text, convert_to_tensor=True)
-#     new_embedding = model.encode(question, convert_to_tensor=True)
-
-#     similarities = util.pytorch_cos_sim(new_embedding, embeddings)[0]
-
-#     top_indices = torch.topk(similarities, k=2).indices.tolist()
-
-#     results = []
-#     for idx in top_indices:
-#         q = list(q_templates.values())[idx]
-#         results.append((q['question'], q['sparql']))
-    
-#     first_question, first_sparql, second_question, second_sparql = results[0][0], results[0][1], results[1][0], results[1][1]
-    
-#     sim_questions = [
-#         f"Question: {question}",
-#         f"Similar Question 1: {first_question}",
-#         first_sparql,
-#         f"Similar Question 2: {second_question}",
-#         second_sparql
-#         ]
-
-#     return sim_questions
- 
-
    
 
 def prompt_with_predefined_entity_ids(question, q_templates):     

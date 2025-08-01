@@ -52,14 +52,14 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.openai_like import OpenAILike
 
 
-from nl2sparql import nl2sparql
+from nl2sparql import execute_query, nl2sparql
 import json
 import re
 
 from dotenv import load_dotenv
 import os
 
-from utils import title_to_filename
+from utils import postprocess_sparql, title_to_filename
 
 
 load_dotenv()
@@ -256,8 +256,9 @@ def route_question(question):
         return pipeline_for_one_document(question, title)
     
     else:
-        print(nl2sparql(question, q_templates))
-        return nl2sparql(question, q_templates)
+        query = nl2sparql(question, q_templates)
+        query = postprocess_sparql(query)
+        return execute_query(query)
 
 
 
