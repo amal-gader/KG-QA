@@ -126,37 +126,36 @@ def execute_query(query):
 
 
 
+
+
+
 def execute_query_orkg(query):
-    
-    if check_sparql(query):
-        prefix = """
-        PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-        PREFIX orkgc: <http://orkg.org/orkg/class/>
-        PREFIX orkgp: <http://orkg.org/orkg/predicate/>
-        PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> """
+    prefix = """
+    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+    PREFIX orkgc: <http://orkg.org/orkg/class/>
+    PREFIX orkgr: <http://orkg.org/orkg/resource/>
+    PREFIX orkgp: <http://orkg.org/orkg/predicate/>
+    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> """
         
-        full_query = prefix + '\n' + query
-        url =  "http://localhost:7200/repositories/dblp_kg"
+    full_query = prefix + '\n' + query
+    url =  "http://localhost:7200/repositories/orkg_kg"
         
-        headers = {
-        "Accept": "application/sparql-results+json"}
+    headers = {
+    "Accept": "application/sparql-results+json"}
         
-        response = requests.get(url, params={'query': full_query}, headers=headers)
+    response = requests.get(url, params={'query': full_query}, headers=headers)
 
-        if response.status_code == 200:
-            try:
-                data = response.json()
-                for binding in data["results"]["bindings"]:
-                    print(binding)
-                return [binding['answer']['value'] for binding in data["results"]["bindings"]]
-            except Exception as e:
-                print("Failed to parse JSON:", e)
-        else:
-            print(f"Error {response.status_code}: {response.text}")
+    if response.status_code == 200:
+        try:
+            data = response.json()
+            bindings = data["results"]["bindings"]
+            return bindings
+        except Exception as e:
+            print("Failed to parse JSON:", e)
     else:
-        print("Invalid SPARQL query:", query)
-        return None
-
+        print(f"Error {response.status_code}: {response.text}")
+  
+  
 
 
 def main(args):
@@ -190,7 +189,7 @@ def main(args):
         bleu = compute_bleu(sparql_query, generated_query)
         jaccard = jaccard_similarity(sparql_query, generated_query)
         bert = bert_score_metrics(sparql_query, generated_query)
-        #sentence_sim = calculate_semantic_similarity(sparql_query, generated_query)
+
 
         results.append({
             "Question": nl_query,
@@ -199,7 +198,6 @@ def main(args):
             "BLEU": bleu,
             "Jaccard": jaccard,
             "BERTScore": bert,
-            #"SentenceSimilarity": sentence_sim
         })
         
     df = pd.DataFrame(results)
