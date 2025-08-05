@@ -1,10 +1,8 @@
-from sentence_transformers import util, SentenceTransformer
 import json
 import torch
 import time
 import spacy
 import requests
-import os
 from tqdm import tqdm
 from utils import ( preprocess_text, build_regex_pattern, extract_paper_titles)
 from transformers import BertTokenizer, BertModel

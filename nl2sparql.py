@@ -11,7 +11,8 @@ from openai import RateLimitError, APIError
 
 from generate_prompt import prompt_with_entity_linking, prompt_with_predefined_entity_ids, get_similar_questions
 from evaluate import bert_score_metrics, compute_bleu, jaccard_similarity
-from utils import check_sparql
+from utils import postprocess_sparql
+
 
 load_dotenv()
 api_key = os.getenv("UNI_API_KEY")
@@ -23,143 +24,113 @@ client = openai.OpenAI(
 
 
 
-def nl2sparql_orkg(question, templates, model="qwen2.5", max_retries=5):
-    prompt = get_similar_questions(question, templates)
+class SPARQLGenerator:
     
-    instruction = """You are an expert in sparql query generation. Given a question, a similar question template, 
-    its sparql query, generate a sparql query that answers the question. If you can't generate the query
-    return Nan. Provide only the sparql query without any explanation or additional text."""
-    
-    retries = 0
-    backoff = 5  
-    
-    while retries < max_retries:
-        try:
-            response = client.chat.completions.create(
-                temperature=0.6,
-                model=model,
-                messages=[
-                    {"role": "system", "content": instruction},
-                    {"role": "user", "content": prompt}
-                ]
+    def __init__(self, model="gemma2", max_retries=5):
+        self.model = model
+        self.max_retries = max_retries
+
+
+    def generate(self, question, templates, db="orkg", ent_link=False,link_dblp=False):
+        if db == "orkg":
+            prompt = self.get_orkg_prompt(question, templates)
+            instruction = (
+                "You are an expert in sparql query generation. Given a question, "
+                "a similar question template, its sparql query, generate a sparql query "
+                "that answers the question. If you can't generate the query, return Nan. "
+                "Provide only the sparql query without any explanation or additional text."
+            )    
+        elif db == "dblp":
+            prompt = self.get_dblp_prompt(question, templates, ent_link, link_dblp)
+            instruction = (
+                "You are an expert in sparql query generation. Given a question, "
+                "a similar question template, its sparql query and DBLP entity ids if available, "
+                "generate a sparql query that answers the question. If you can't generate the query, "
+                "return Nan. Provide only the sparql query without any explanation or additional text."
             )
-            return response.choices[0].message.content
+        else:
+            raise ValueError("Unknown DB")
 
-        except (RateLimitError, APIError) as e:
-            print(f"[Retry {retries+1}/{max_retries}] Rate/API error: {e}. Retrying in {backoff} seconds...")
-            time.sleep(backoff)
-            retries += 1
-            backoff *= 2  # Exponential backoff
+        return self.inference(instruction, prompt)
 
-        except Exception as e:
-            print(f"Unexpected error during LLM call: {e}")
-            raise
 
-    raise RuntimeError("Maximum retries exceeded while calling LLM API.")
+    def execute(self, query, db="orkg"):
+        if db == "orkg":
+            prefix = """
+            PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+            PREFIX orkgc: <http://orkg.org/orkg/class/>
+            PREFIX orkgr: <http://orkg.org/orkg/resource/>
+            PREFIX orkgp: <http://orkg.org/orkg/predicate/>
+            PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            """
+            query = prefix + '\n' + query
+            url = "http://localhost:7200/repositories/orkg_kg"
+        else:
+            url = "http://localhost:9999/blazegraph/namespace/kb/sparql"
+
+        headers = {"Accept": "application/sparql-results+json"}
+        response = requests.get(url, params={"query": query}, headers=headers)
+
+        if response.status_code == 200:
+            try:
+                return response.json()["results"]["bindings"]
+            except Exception as e:
+                print("Failed to parse JSON:", e)
+        else:
+            print(f"Error {response.status_code}: {response.text}")
+            return []
+
+
+
+    def get_orkg_prompt(self, question, templates):
+        return get_similar_questions(question, templates)
+
+
+
+    def get_dblp_prompt(self, question, templates, ent_link, link_dblp):
+        if ent_link:
+            return prompt_with_entity_linking(question, templates, link_dblp)
+        return prompt_with_predefined_entity_ids(question, templates)
     
     
-
-
-
-def nl2sparql(question, templates, ent_link=False,linkdblp=False, model="qwen2.5", max_retries=5):
-    if ent_link:
-        prompt_text = prompt_with_entity_linking(question, templates, linkdblp)
-    else:
-        prompt_text = prompt_with_predefined_entity_ids(question, templates)
-
-    instruction = """You are an expert in sparql query generation. Given a question, a similar question template, 
-    its sparql query and DBLP entity ids if available, generate a sparql query that answers the question. If you can't generate the query,
-    return Nan. Provide only the sparql query without any explanation or additional text."""
-
-    retries = 0
-    backoff = 5  
-
-    while retries < max_retries:
-        try:
-            response = client.chat.completions.create(
-                temperature=0.6,
-                model=model,
-                messages=[
-                    {"role": "system", "content": instruction},
-                    {"role": "user", "content": prompt_text}
-                ]
-            )
-            return response.choices[0].message.content
-
-        except (RateLimitError, APIError) as e:
-            print(f"[Retry {retries+1}/{max_retries}] Rate/API error: {e}. Retrying in {backoff} seconds...")
-            time.sleep(backoff)
-            retries += 1
-            backoff *= 2  # Exponential backoff
-
-        except Exception as e:
-            print(f"Unexpected error during LLM call: {e}")
-            raise
-
-    raise RuntimeError("Maximum retries exceeded while calling LLM API.")
-
-
-
-
-def execute_query(query):
     
-    if check_sparql(query):
-        url = "localhost:9999/blazegraph/namespace/kb/sparql"
-        response = requests.get(
-            url, params={'query': query},
-            headers={"Accept": "application/sparql-results+json"},
-            verify=False
-            )
-        try:
-            data = response.json()
-            for answer in data['results']['bindings']:
-                print(answer['answer']['value']) 
-            return [answer['answer']['value'] for answer in data['results']['bindings']]
-        except Exception as e:
-            print("Failed to parse JSON:", e)
-    else:
-        print("Invalid SPARQL query:", query)
-        return None
+    def inference(self,instruction, prompt):
+        retries=0
+        while retries < self.max_retries:
+            try:
+                response = client.chat.completions.create(
+                    temperature=0.6,
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": instruction},
+                        {"role": "user", "content": prompt}
+                    ]
+                )
+                return response.choices[0].message.content
+
+            except (RateLimitError, APIError) as e:
+                print(f"[Retry {retries+1}/{self.max_retries}] Rate/API error: {e}. Retrying in {backoff} seconds...")
+                time.sleep(backoff)
+                retries += 1
+                backoff *= 2  # Exponential backoff
+
+            except Exception as e:
+                print(f"Unexpected error during LLM call: {e}")
+                raise
+
+        raise RuntimeError("Maximum retries exceeded while calling LLM API.")
 
 
-
-
-
-
-
-
-def execute_query_orkg(query):
-    prefix = """
-    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-    PREFIX orkgc: <http://orkg.org/orkg/class/>
-    PREFIX orkgr: <http://orkg.org/orkg/resource/>
-    PREFIX orkgp: <http://orkg.org/orkg/predicate/>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#> """
-        
-    full_query = prefix + '\n' + query
-    url =  "http://localhost:7200/repositories/orkg_kg"
-        
-    headers = {
-    "Accept": "application/sparql-results+json"}
-        
-    response = requests.get(url, params={'query': full_query}, headers=headers)
-
-    if response.status_code == 200:
-        try:
-            data = response.json()
-            bindings = data["results"]["bindings"]
-            return bindings
-        except Exception as e:
-            print("Failed to parse JSON:", e)
-    else:
-        print(f"Error {response.status_code}: {response.text}")
-  
-  
 
 
 def main(args):
     bench = args.bench
     ent_link = args.ent_link
+    link_dblp = args.linkdblp
+    model = args.model
+    
+    generator = SPARQLGenerator(model)
+
     
     if bench=="orkg":
         with open("SciQA-dataset/SciQA-dataset/similar_questions.json", 'r') as f:
@@ -167,39 +138,50 @@ def main(args):
     
         with open("SciQA-dataset/SciQA-dataset/test/questions.json", "r") as file:
             questions = json.load(file)
+        
     else:  
         with open("DBLP-QuAD/DBLP-QuAD/similar_questions.json", 'r') as f:
             sim_questions = json.load(f)
             
         with open("DBLP-QuAD/DBLP-QuAD/test/questions.json", "r") as file:
             questions = json.load(file)
-     
+            
+    
+ 
     results = []
-    for question in tqdm(questions["questions"][:500], desc="Evaluating"):
+    for question in tqdm(questions["questions"], desc="Evaluating"):
         
-        #generated_query = nl2sparql(question,sim_questions,ent_link=ent_link)
-        generated_query = nl2sparql_orkg(question,sim_questions)
+        generated_query = generator.generate(
+        question=question,
+        templates=sim_questions,
+        db=bench,
+        ent_link=ent_link, 
+        dblp_link=link_dblp
+        )
+        
+        processed_query=postprocess_sparql(generated_query)
+        
         
         sparql_query = question["query"]["sparql"] 
         nl_query = question["question"]["string"]
         
         
-        bleu = compute_bleu(sparql_query, generated_query)
-        jaccard = jaccard_similarity(sparql_query, generated_query)
-        bert = bert_score_metrics(sparql_query, generated_query)
+        bleu = compute_bleu(sparql_query, processed_query)
+        jaccard = jaccard_similarity(sparql_query, processed_query)
+        bert = bert_score_metrics(sparql_query, processed_query)
 
 
         results.append({
             "Question": nl_query,
-            "GT SPARQL": sparql_query,
-            "Generated SPARQL": generated_query,
+            "gt_sparql": sparql_query,
+            "generated_sparql": generated_query,
             "BLEU": bleu,
             "Jaccard": jaccard,
             "BERTScore": bert,
         })
         
     df = pd.DataFrame(results)
-    df.to_csv(f"{bench}_nl2sparql_results.csv", index=False)
+    df.to_csv(f"{bench}_{model}_nl2sparql_results.csv", index=False)
   
   
 
@@ -208,5 +190,7 @@ if __name__=='__main__' :
     parser = argparse.ArgumentParser()
     parser.add_argument("--bench", default="dblp", help="The benchmark to test on")
     parser.add_argument("--ent_link", action="store_true", help="Enable entity linking")
+    parser.add_argument("--model", default="gemma2", help="The model to generate the query")    
+    parser.add_argument("--linkdblp", action="store_true", help="Enable entity linking with LinkDBLP")
     args = parser.parse_args()
     main(args)   
