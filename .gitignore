@@ -5,3 +5,5 @@ __pycache__
 milvus_demo.db
 /pdfs
 /misc
+/intersection
+/dblp

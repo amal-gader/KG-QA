@@ -7,33 +7,13 @@ RAG (Retrieval Augmented Generation) Implementation with LlamaIndex
 This script demonstrates a RAG system using:
 - LlamaIndex: For document indexing and retrieval
 - Milvus: As vector store backend
-- vLLM: For embedding and text generation
 
 Features:
 1. Document Loading & Processing
 2. Embedding & Storage
 3. Query Processing
 
-Requirements:
-1. Install dependencies:
-pip install llama-index llama-index-readers-web \
-            llama-index-llms-openai-like    \
-            llama-index-embeddings-openai-like \
-            llama-index-vector-stores-milvus \
-
-2. Start services:
-    # Start embedding service (port 8000)
-    vllm serve ssmits/Qwen2-7B-Instruct-embed-base
-
-    # Start chat service (port 8001)
-    vllm serve qwen/Qwen1.5-0.5B-Chat --port 8001
-
-Usage:
-    python retrieval_augmented_generation_with_llamaindex.py
-
 Notes:
-    - Ensure both vLLM services are running before executing
-    - Default ports: 8000 (embedding), 8001 (chat)
     - First run may take time to download models
 """
 
@@ -52,7 +32,7 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.openai_like import OpenAILike
 
 
-from nl2sparql import execute_query, nl2sparql
+from nl2sparql import execute_query, nl2sparql_dblp
 import json
 import re
 
@@ -172,14 +152,14 @@ def pipeline_for_one_document(query:str, title: str):
     # Setup vector store
     vector_store = setup_vector_store(config["db_path"])
     filename = title_to_filename(title)
-    pdf_path = f"pdfs/{filename}.pdf"
+    pdf_path = f"dblp/{filename}.pdf"
     
     documents = SimpleDirectoryReader(input_files=[pdf_path]).load_data()
        
     try:
         index = create_index(documents, vector_store)
         response = query_document(index, query, config["top_k"])
-        print(response)
+        return(response)
     except Exception as e:
         print(f"Querying failed for {title}: {e}")
             
@@ -188,8 +168,14 @@ def pipeline_for_one_document(query:str, title: str):
 
 def main():
     # Load dataset
-    dataset = load_dataset("allenai/qasper")
-    df = dataset["train"].to_pandas()
+    #dataset = load_dataset("allenai/qasper")
+    #df = dataset["train"].to_pandas()
+    
+    with open("qasper_dblp_merged.json", "r") as file:
+        dataset =json.load(file)
+        df = pd.DataFrame(dataset)
+   
+        
 
     # Parse command line arguments
     args = get_parser().parse_args()
@@ -208,7 +194,7 @@ def main():
     for i, row in df.iterrows():
         title = row["title"]
         filename = title_to_filename(title)
-        pdf_path = f"pdfs/{filename}.pdf"
+        pdf_path = f"dblp/{filename}.pdf"
         
         if not os.path.exists(pdf_path):
             print(f"PDF not found: {pdf_path}")
@@ -216,7 +202,7 @@ def main():
         
         # Get the first question
         try:
-            question = row["qas"]["question"][0]
+            question = row['qas'][0]['question']
         except (IndexError, KeyError, TypeError):
             print(f" No valid question found for: {title}")
             continue
@@ -256,7 +242,7 @@ def route_question(question):
         return pipeline_for_one_document(question, title)
     
     else:
-        query = nl2sparql(question, q_templates)
+        query = nl2sparql_dblp(question, q_templates)
         query = postprocess_sparql(query)
         return execute_query(query)
 
@@ -265,5 +251,5 @@ def route_question(question):
 
 
 if __name__ == "__main__":
-    route_question("What is the Wikidata identifier of the author Robert S.?")
-    #main()
+    #route_question("What is the Wikidata identifier of the author Robert S.?")
+    main()

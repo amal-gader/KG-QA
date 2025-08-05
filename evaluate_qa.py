@@ -1,6 +1,7 @@
+import argparse
 import pandas as pd
-from utils import extract_value_tuples, postprocess_sparql
-from nl2sparql import execute_query_orkg
+from utils import extract_value_tuples
+from nl2sparql import SPARQLGenerator
 
 from tqdm import tqdm
 from collections import Counter
@@ -42,18 +43,30 @@ def evaluate_multiset_results(bindings1, bindings2):
 
 
 
-df = pd.read_csv("orkg_nl2sparql_gemma_results.csv")
+if __name__=='__main__':
+    
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--model", default='gemma2')
+    parser.add_argument("--bench", default="dblp")
+    args=parser.parse_args()
+    
+    model=args.model
+    bench=args.bench
 
-df["Generated SPARQL"] = df["Generated SPARQL"].apply(postprocess_sparql)
+   
+    generator = SPARQLGenerator(model)
 
-df["answer"] = df["Generated SPARQL"].progress_apply(execute_query_orkg)
-df["gt_answer"] = df["GT SPARQL"].progress_apply(execute_query_orkg)
-df["metrics"] = df.progress_apply(lambda x: evaluate_multiset_results(x["answer"], x["gt_answer"]), axis=1)
+    df = pd.read_csv(f"{bench}_{model}_nl2sparql_results.csv")
+
+    df.assign(
+        **{
+            "answer": lambda df: df["generated_sparql"].progress_apply(lambda x: generator.execute(x, db=bench)),
+            "gt_answer": lambda df: df["gt_sparql"].progress_apply(lambda x: generator.execute(x, db=bench)),
+            "metrics": lambda df: df.progress_apply(lambda x: evaluate_multiset_results(x["answer"], x["gt_answer"]), axis=1)   
+        })
 
 
-
-
-df.to_csv("qa_results.csv")
+    df.to_csv(f"{bench}{model}qa_results.csv")
 
 
 
