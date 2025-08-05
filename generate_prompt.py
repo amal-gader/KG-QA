@@ -181,28 +181,45 @@ def prompt_with_predefined_entity_ids(question, q_templates):
          promt_parts.append(f"Entity ids: {entity_ids}")
     prompt = "\n".join(promt_parts)   
     return prompt
+   
+
+
+def dblp_entity_linker(question: str):
+    url = "https://ltdemos.informatik.uni-hamburg.de/dblplinkapi/api/entitylinker/t5-small/distmult"
+    headers = { "Content-Type": "application/json" }
+    payload = {  "question": question }
+    response = requests.post(url, json=payload, headers=headers)
+    if response.status_code == 200:
+        return [res['result'][0][1][0] for res in response.json()["entitylinkingresults"]]
+    else:
+        print(f"Request failed with status {response.status_code}: {response.text}")
+        return None
+    
     
 
 
 
-def prompt_with_entity_linking(question, q_templates):
+def prompt_with_entity_linking(question, q_templates, linkdblp=False):
+    
     nl_query = question["question"]["string"]
-    
     prompt_parts= get_similar_questions(question, q_templates)
-    
     pre_processed_question = preprocess_text(nl_query)
+    
+    if linkdblp:
+        ids = dblp_entity_linker(question)
+        prompt_parts.append(f"Entity ids: {ids}")
+        prompt = "\n".join(prompt_parts)   
+        return prompt
 
     author_ids = extract_author_dblp_ids(pre_processed_question)
     paper_ids = extract_paper_ids(pre_processed_question)
     
-
     if paper_ids:
         prompt_parts.append(f"Paper ids: {paper_ids}")
     if author_ids:
         prompt_parts.append(f"Author ids: {author_ids}")
 
-    prompt = "\n".join(prompt_parts)
-        
+    prompt = "\n".join(prompt_parts)   
     return prompt
 
 

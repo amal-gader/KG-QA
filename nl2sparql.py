@@ -61,9 +61,9 @@ def nl2sparql_orkg(question, templates, model="qwen2.5", max_retries=5):
 
 
 
-def nl2sparql(question, templates, ent_link=False, model="qwen2.5", max_retries=5):
+def nl2sparql(question, templates, ent_link=False,linkdblp=False, model="qwen2.5", max_retries=5):
     if ent_link:
-        prompt_text = prompt_with_entity_linking(question, templates)
+        prompt_text = prompt_with_entity_linking(question, templates, linkdblp)
     else:
         prompt_text = prompt_with_predefined_entity_ids(question, templates)
 
@@ -110,7 +110,6 @@ def execute_query(query):
             headers={"Accept": "application/sparql-results+json"},
             verify=False
             )
-        
         try:
             data = response.json()
             for answer in data['results']['bindings']:
@@ -177,7 +176,6 @@ def main(args):
      
     results = []
     for question in tqdm(questions["questions"][:500], desc="Evaluating"):
-        
         
         #generated_query = nl2sparql(question,sim_questions,ent_link=ent_link)
         generated_query = nl2sparql_orkg(question,sim_questions)
