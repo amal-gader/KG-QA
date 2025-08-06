@@ -83,6 +83,7 @@ class SPARQLGenerator:
             return []
 
 
+
     def get_orkg_prompt(self, question, templates):
         return get_similar_questions(question, templates)
 
@@ -119,7 +120,6 @@ class SPARQLGenerator:
                 raise
 
         raise RuntimeError("Maximum retries exceeded while calling LLM API.")
-    
 
 
 

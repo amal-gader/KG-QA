@@ -214,14 +214,12 @@ def prompt_with_entity_linking(question, q_templates, link_dblp):
 
     author_ids = extract_author_dblp_ids(pre_processed_question)
     paper_ids = extract_paper_ids(pre_processed_question)
-
     if paper_ids:
         prompt_parts.append(f"Paper ids: {paper_ids}")
     if author_ids:
         prompt_parts.append(f"Author ids: {author_ids}")
 
-    prompt = "\n".join(prompt_parts)
-        
+    prompt = "\n".join(prompt_parts)   
     return prompt
 
 
