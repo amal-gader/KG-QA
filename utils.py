@@ -132,3 +132,14 @@ def extract_value_tuples(bindings):
         return tuples
     else:
         return None
+       
+       
+    
+def add_answer(row):
+    answer = row[0]['answers'][0]["free_form_answer"]
+    if answer=="" and len(row[0]['answers'][0]["extractive_spans"])>0:
+        answer=="" and row[0]['answers'][0]["extractive_spans"][0]
+    if answer=="" and len(row[0]['answers'][0]["highlighted_evidence"])>0:
+        answer = row[0]['answers'][0]["highlighted_evidence"][0]
+    return answer 
+        

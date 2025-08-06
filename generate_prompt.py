@@ -4,10 +4,14 @@ import time
 import spacy
 import requests
 from tqdm import tqdm
-from utils import ( preprocess_text, build_regex_pattern, extract_paper_titles)
 from transformers import BertTokenizer, BertModel
 import torch
 import torch.nn.functional as F
+
+
+from utils import preprocess_text, build_regex_pattern, extract_paper_titles
+
+
 
 tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
 model = BertModel.from_pretrained("bert-base-uncased")
@@ -22,8 +26,12 @@ nlp = spacy.load("en_core_web_lg")
 def get_paper_id(paper_title):
     response = requests.get('https://dblp.org/search/publ/api', params={'q': paper_title, 'format': 'json'})
     if response.status_code == 200:
-        data = response.json()
-        return(data['result']['hits']['hit'][0]['info']['url'])
+        try:
+            data = response.json()
+            return(data['result']['hits']['hit'][0]['info']['url'])
+        except:
+            print("No hits for paper:", paper_title, data)
+            return ""
     else:
         print("Request failed with status:", response.status_code)
         
@@ -74,7 +82,6 @@ def extract_author_dblp_ids(text):
     nbr_ent = len(doc.ents)
     for ent in doc.ents:
         if ent.label_=='PERSON':
-            print(ent.text)
             match, nbr_matches = get_author_id(ent.text)
             if nbr_matches>1 and nbr_ent>1:
                 authors[ent.text]=build_regex_pattern(ent.text)
@@ -169,7 +176,6 @@ def get_similar_questions(question, similar_questions: str):
         second_sparql
         ]
   
-
    
 
 def prompt_with_predefined_entity_ids(question, q_templates):     
@@ -179,20 +185,35 @@ def prompt_with_predefined_entity_ids(question, q_templates):
          promt_parts.append(f"Entity ids: {entity_ids}")
     prompt = "\n".join(promt_parts)   
     return prompt
+   
+   
     
+def dblp_entity_linker(question: str):
+    url = "https://ltdemos.informatik.uni-hamburg.de/dblplinkapi/api/entitylinker/t5-small/distmult"
+    headers = { "Content-Type": "application/json" }
+    payload = {  "question": question }
+    response = requests.post(url, json=payload, headers=headers)
+    if response.status_code == 200:
+        return [res['result'][0][1][0] for res in response.json()["entitylinkingresults"]]
+    else:
+        print(f"Request failed with status {response.status_code}: {response.text}")
+        return None
 
 
 
-def prompt_with_entity_linking(question, q_templates):
+def prompt_with_entity_linking(question, q_templates, link_dblp):
     nl_query = question["question"]["string"]
-    
     prompt_parts= get_similar_questions(question, q_templates)
-    
     pre_processed_question = preprocess_text(nl_query)
+    
+    if link_dblp:
+        ids = dblp_entity_linker(pre_processed_question)
+        prompt_parts.append(f"Entity ids: {ids}")
+        prompt = "\n".join(prompt_parts)   
+        return prompt
 
     author_ids = extract_author_dblp_ids(pre_processed_question)
     paper_ids = extract_paper_ids(pre_processed_question)
-    
 
     if paper_ids:
         prompt_parts.append(f"Paper ids: {paper_ids}")

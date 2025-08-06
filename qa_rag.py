@@ -32,21 +32,24 @@ from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.openai_like import OpenAILike
 
 
-from nl2sparql import execute_query, nl2sparql_dblp
+
 import json
 import re
 
 from dotenv import load_dotenv
 import os
 
-from utils import postprocess_sparql, title_to_filename
+from tqdm import tqdm
+
+import nl2sparql
+from utils import postprocess_sparql, title_to_filename, add_answer
 
 
 load_dotenv()
 api_key = os.getenv("UNI_API_KEY")
 
-with open('DBLP-QuAD/DBLP-QuAD/template_representatives.json', 'r') as f:
-    q_templates = json.load(f)
+with open('DBLP-QuAD/DBLP-QuAD/similar_questions.json', 'r') as f:
+    sim_questions = json.load(f)
 
 
 
@@ -73,7 +76,7 @@ def setup_models(config: dict[str, Any]):
     llm = OpenAILike(
     api_base="https://llms-inference.innkube.fim.uni-passau.de",
     api_key=api_key,
-    model="llama3.1")
+    model="deepseekr1")
     Settings.llm = llm
 
     Settings.transformations = [
@@ -175,8 +178,6 @@ def main():
         dataset =json.load(file)
         df = pd.DataFrame(dataset)
    
-        
-
     # Parse command line arguments
     args = get_parser().parse_args()
 
@@ -191,7 +192,7 @@ def main():
 
     results = []
 
-    for i, row in df.iterrows():
+    for i, row in tqdm(df.iterrows(), desc="Generating Answers from Docs"):
         title = row["title"]
         filename = title_to_filename(title)
         pdf_path = f"dblp/{filename}.pdf"
@@ -210,7 +211,7 @@ def main():
         # Load document
         documents = SimpleDirectoryReader(input_files=[pdf_path]).load_data()
         
-
+        ground_truth = add_answer(row["qas"])
         # Build index and query
         try:
             index = create_index(documents, vector_store)
@@ -218,22 +219,23 @@ def main():
             results.append({
                 "title": title,
                 "question": question,
-                "response": response
+                "response": response,
+                "ground_truth": ground_truth
             })
             print(f"Done: {title}")
         except Exception as e:
             print(f"Querying failed for {title}: {e}")
             
     #save results
-    pd.DataFrame(results).to_csv("rag_responses.csv", index=False)
-    print("Results saved to rag_responses.csv.")
+    pd.DataFrame(results).to_csv("deepseek_dblp_qasper_rag_responses.csv", index=False)
+    print("Results saved to deepseek_dblp_qasper_rag_responses.csv.")
 
 
 
 
 
 
-def route_question(question):
+def route_question(question, bench):
     pattern = r'(?:from|according to|in the context of)\s+(?:the\s+)?paper\s+(?:"|“)?([A-Z][^"?]*)'
     match = re.search(pattern, question, re.IGNORECASE)
     if match:
@@ -242,9 +244,14 @@ def route_question(question):
         return pipeline_for_one_document(question, title)
     
     else:
-        query = nl2sparql_dblp(question, q_templates)
-        query = postprocess_sparql(query)
-        return execute_query(query)
+        generator = nl2sparql.SPARQLGenerator("gemma2")
+        generated_query = generator.generate(
+            question=question,
+            templates=sim_questions,
+            db=bench
+            )
+        query = postprocess_sparql(generated_query)
+        return generator.execute(query, db=bench)
 
 
 

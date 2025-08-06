@@ -31,7 +31,7 @@ class SPARQLGenerator:
         self.max_retries = max_retries
 
 
-    def generate(self, question, templates, db="orkg", ent_link=False):
+    def generate(self, question, templates, db="orkg", ent_link=False, link_dblp=False):
         if db == "orkg":
             prompt = self.get_orkg_prompt(question, templates)
             instruction = (
@@ -41,7 +41,7 @@ class SPARQLGenerator:
                 "Provide only the sparql query without any explanation or additional text."
             )    
         elif db == "dblp":
-            prompt = self.get_dblp_prompt(question, templates, ent_link)
+            prompt = self.get_dblp_prompt(question, templates, ent_link, link_dblp)
             instruction = (
                 "You are an expert in sparql query generation. Given a question, "
                 "a similar question template, its sparql query and DBLP entity ids if available, "
@@ -66,10 +66,12 @@ class SPARQLGenerator:
             query = prefix + '\n' + query
             url = "http://localhost:7200/repositories/orkg_kg"
         else:
-            url = "http://localhost:9999/blazegraph/namespace/kb/sparql"
+            url = "http://localhost:9999/blazegraph/namespace/kb/sparql" 
 
         headers = {"Accept": "application/sparql-results+json"}
+        print(query)
         response = requests.get(url, params={"query": query}, headers=headers)
+        print(response)
 
         if response.status_code == 200:
             try:
@@ -85,14 +87,14 @@ class SPARQLGenerator:
         return get_similar_questions(question, templates)
 
 
-    def get_dblp_prompt(self, question, templates, ent_link):
+    def get_dblp_prompt(self, question, templates, ent_link, link_dblp):
         if ent_link:
-            return prompt_with_entity_linking(question, templates)
+            return prompt_with_entity_linking(question, templates, link_dblp)
         return prompt_with_predefined_entity_ids(question, templates)
     
     
     
-    def inference(self,instruction, prompt):
+    def inference(self,instruction, prompt, backoff=5):
         retries=0
         while retries < self.max_retries:
             try:
@@ -121,34 +123,30 @@ class SPARQLGenerator:
 
 
 
-    
-
-
-
 def main(args):
     bench = args.bench
     ent_link = args.ent_link
+    link_dblp = args.link_dblp
     model = args.model
     
     generator = SPARQLGenerator(model)
-
     
     if bench=="orkg":
+        
         with open("SciQA-dataset/SciQA-dataset/similar_questions.json", 'r') as f:
             sim_questions = json.load(f)
     
         with open("SciQA-dataset/SciQA-dataset/test/questions.json", "r") as file:
-            questions = json.load(file)
-        
-    else:  
+            questions = json.load(file)    
+    else: 
+         
         with open("DBLP-QuAD/DBLP-QuAD/similar_questions.json", 'r') as f:
             sim_questions = json.load(f)
-            
+    
         with open("DBLP-QuAD/DBLP-QuAD/test/questions.json", "r") as file:
             questions = json.load(file)
             
-    
- 
+
     results = []
     for question in tqdm(questions["questions"], desc="Evaluating"):
         
@@ -156,20 +154,18 @@ def main(args):
         question=question,
         templates=sim_questions,
         db=bench,
-        ent_link=ent_link
+        ent_link=ent_link,
+        link_dblp=link_dblp
         )
         
         processed_query=postprocess_sparql(generated_query)
         
-        
         sparql_query = question["query"]["sparql"] 
         nl_query = question["question"]["string"]
-        
         
         bleu = compute_bleu(sparql_query, processed_query)
         jaccard = jaccard_similarity(sparql_query, processed_query)
         bert = bert_score_metrics(sparql_query, processed_query)
-
 
         results.append({
             "Question": nl_query,
@@ -181,7 +177,7 @@ def main(args):
         })
         
     df = pd.DataFrame(results)
-    df.to_csv(f"{bench}_{model}_nl2sparql_results.csv", index=False)
+    df.to_csv(f"{bench}_{ent_link}_{link_dblp}_{model}_nl2sparql_results.csv", index=False)
   
   
 
@@ -191,5 +187,6 @@ if __name__=='__main__' :
     parser.add_argument("--bench", default="dblp", help="The benchmark to test on")
     parser.add_argument("--ent_link", action="store_true", help="Enable entity linking")
     parser.add_argument("--model", default="gemma2", help="The model to generate the query")
+    parser.add_argument("--link_dblp", action="store_true", help="Entity linking with LinkDBLP")
     args = parser.parse_args()
     main(args)   
