@@ -29,6 +29,7 @@ class SPARQLGenerator:
     def __init__(self, model="gemma2", max_retries=5):
         self.model = model
         self.max_retries = max_retries
+        self.delay=0,5
 
 
     def generate(self, question, templates, db="orkg", ent_link=False, link_dblp=False):
@@ -66,26 +67,36 @@ class SPARQLGenerator:
             query = prefix + '\n' + query
             url = "http://localhost:7200/repositories/orkg_kg"
         else:
-            url = "http://localhost:9999/blazegraph/namespace/kb/sparql" 
+            url = "http://localhost:9999/blazegraph/namespace/kb/sparql"
 
         headers = {"Accept": "application/sparql-results+json"}
-        print(query)
-        response = requests.get(url, params={"query": query}, headers=headers)
-        print(response)
 
-        if response.status_code == 200:
+        for attempt in range(1, self.max_retries + 1):
             try:
-                return response.json()["results"]["bindings"]
-            except Exception as e:
-                print("Failed to parse JSON:", e)
-        else:
-            print(f"Error {response.status_code}: {response.text}")
-            return []
+                response = requests.get(url, params={"query": query}, headers=headers, timeout=10)
+                response.raise_for_status()  # Raise HTTPError for bad responses
+                return response.json().get("results", {}).get("bindings", [])
+
+            except requests.exceptions.RequestException as e:
+                print(f"[Attempt {attempt}] Request failed: {e}")
+                if attempt < self.max_retries:
+                    time.sleep(self.delay * attempt)  # exponential-ish backoff
+                else:
+                    print(f"[ERROR] Failed after {self.max_retries} attempts.")
+                    return []
+
+            except ValueError as e:
+                print(f"[ERROR] JSON decoding failed: {e}")
+                return []
+        return []
+
 
 
 
     def get_orkg_prompt(self, question, templates):
         return get_similar_questions(question, templates)
+
+
 
 
     def get_dblp_prompt(self, question, templates, ent_link, link_dblp):

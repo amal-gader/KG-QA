@@ -56,18 +56,20 @@ if __name__=='__main__':
    
     generator = SPARQLGenerator(model)
 
-    df = pd.read_csv(f"results/{bench}_{model}_nl2sparql_results.csv")
+    #df = pd.read_csv(f"results/{bench}_{model}_nl2sparql_results.csv")
+    #df = df.iloc[1000:]
+    df= pd.read_csv("queries.csv")
 
-    df.assign(
+    df = df.assign(
         **{
-            "generated_sparql": lambda df: df["generated_sparql"].progress_apply(postprocess_sparql),
+            #"generated_sparql": lambda df: df["generated_sparql"].progress_apply(postprocess_sparql),
             "answer": lambda df: df["generated_sparql"].progress_apply(lambda x: generator.execute(x, db=bench)),
             "gt_answer": lambda df: df["gt_sparql"].progress_apply(lambda x: generator.execute(x, db=bench)),
             "metrics": lambda df: df.progress_apply(lambda x: evaluate_multiset_results(x["answer"], x["gt_answer"]), axis=1)   
         })
 
 
-    df.to_csv(f"{bench}_{model}_qa_results.csv")
+    df.to_csv(f"{bench}_{model}_qa_results_queries.csv")
 
 
 
