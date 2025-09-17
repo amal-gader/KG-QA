@@ -12,6 +12,14 @@ from openai import RateLimitError, APIError
 from generate_prompt import prompt_with_entity_linking, prompt_with_predefined_entity_ids, get_similar_questions
 from evaluate import bert_score_metrics, compute_bleu, jaccard_similarity
 from utils import postprocess_sparql
+from transformers import pipeline
+
+from langchain.chat_models import ChatOpenAI
+from langchain.schema import HumanMessage, SystemMessage
+
+
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
 
 
 load_dotenv()
@@ -26,7 +34,7 @@ client = openai.OpenAI(
 
 class SPARQLGenerator:
     
-    def __init__(self, model="gemma2", max_retries=5):
+    def __init__(self, model="llama3.1", max_retries=2):
         self.model = model
         self.max_retries = max_retries
         self.delay=0,5
@@ -36,10 +44,10 @@ class SPARQLGenerator:
         if db == "orkg":
             prompt = self.get_orkg_prompt(question, templates)
             instruction = (
-                "You are an expert in sparql query generation. Given a question, "
-                "a similar question template, its sparql query, generate a sparql query "
-                "that answers the question. If you can't generate the query, return Nan. "
-                "Provide only the sparql query without any explanation or additional text."
+                " You are an expert in SPARQL query generation."
+                " Given a natural language question, a similar question template, and its corresponding SPARQL query."
+                " generate a valid SPARQL query that answers the given question."
+                " If you cannot generate the query, output only: NaN. Don't include any explanation or additional text."
             )    
         elif db == "dblp":
             prompt = self.get_dblp_prompt(question, templates, ent_link, link_dblp)
@@ -51,6 +59,7 @@ class SPARQLGenerator:
             )
         else:
             raise ValueError("Unknown DB")
+        
 
         return self.inference(instruction, prompt)
 
@@ -94,7 +103,7 @@ class SPARQLGenerator:
 
 
     def get_orkg_prompt(self, question, templates):
-        return get_similar_questions(question, templates)
+        return "\n".join(get_similar_questions(question, templates))
 
 
 
@@ -108,17 +117,73 @@ class SPARQLGenerator:
     
     def inference(self,instruction, prompt, backoff=5):
         retries=0
-        while retries < self.max_retries:
-            try:
-                response = client.chat.completions.create(
-                    temperature=0.6,
-                    model=self.model,
-                    messages=[
-                        {"role": "system", "content": instruction},
-                        {"role": "user", "content": prompt}
-                    ]
+        model_name = "meta-llama/Meta-Llama-3-8B-Instruct"
+
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        model = AutoModelForCausalLM.from_pretrained(
+                    model_name,
+                    torch_dtype=torch.float16,
+                    device_map="auto"
                 )
-                return response.choices[0].message.content
+        while retries < self.max_retries:
+            try: 
+                
+                
+                # response = client.chat.completions.create(
+                #     temperature=0.6,
+                #     model=self.model,
+                #     messages=[
+                #         {"role": "system", "content": instruction },
+                #         {"role": "user", "content":  prompt}
+                #     ]
+                # )
+                # return response.choices[0].message.content
+                
+                
+                
+                # chat = ChatOpenAI(
+                #             openai_api_base="https://llms-inference.innkube.fim.uni-passau.de",
+                #             api_key=api_key,
+                #             model = self.model,
+                #             temperature=0.6
+                #         )
+
+                # messages = [
+                #     SystemMessage(
+                #         content=instruction
+                #     ),
+                #     HumanMessage(
+                #         content=prompt
+                #     ),
+                # ]
+                # response = chat(messages)
+                # return response.content
+                
+                
+
+                messages = [
+                    {"role": "system", "content": instruction},
+                    {"role": "user", "content": prompt}
+                ]
+
+                inputs = tokenizer.apply_chat_template(
+                    messages,
+                    return_tensors="pt",
+                    add_generation_prompt=True  # important! tells the model it's time to answer
+                ).to(model.device)
+
+                outputs = model.generate(
+                    inputs,
+                    max_new_tokens=256,
+                    temperature=0.7,
+                    do_sample=True
+                )
+
+                # Slice off the prompt tokens
+                generated_tokens = outputs[0][inputs.shape[1]:]
+
+                response = tokenizer.decode(generated_tokens, skip_special_tokens=True)
+                return response
 
             except (RateLimitError, APIError) as e:
                 print(f"[Retry {retries+1}/{self.max_retries}] Rate/API error: {e}. Retrying in {backoff} seconds...")
@@ -130,7 +195,8 @@ class SPARQLGenerator:
                 print(f"Unexpected error during LLM call: {e}")
                 raise
 
-        raise RuntimeError("Maximum retries exceeded while calling LLM API.")
+        print("Maximum retries exceeded. Skipping this item.")
+        return None
 
 
 

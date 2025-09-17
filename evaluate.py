@@ -4,7 +4,7 @@ from bert_score import score
 from rdflib.plugins.sparql.parser import parseQuery
 from nltk.translate.bleu_score import sentence_bleu
 
-
+import re
 
 
 def calculate_semantic_similarity(answer1, answer2):
@@ -39,3 +39,34 @@ def compute_bleu(reference: str, candidate: str):
 
     bleu_score = sentence_bleu(reference_tokens, candidate_tokens)
     return bleu_score
+
+
+
+
+
+
+def normalize_text(s):
+    """Lower text and remove punctuation, articles and extra whitespace."""
+    s = s.lower()
+    #s = re.sub(r'\b(a|an|the)\b', ' ', s)  # remove articles
+    #s = re.sub(r'[^a-z0-9\s]', '', s)      # remove punctuation
+    #s = re.sub(r'\s+', ' ', s).strip()     # remove extra whitespace
+    return s
+
+def f1_score(prediction: str, ground_truth: str) -> float:
+    """Compute token-level F1 score between prediction and ground truth."""
+    pred_tokens = normalize_text(prediction).split()
+    gt_tokens = normalize_text(ground_truth).split()
+    
+    common = set(pred_tokens) & set(gt_tokens)
+    num_same = sum(min(pred_tokens.count(w), gt_tokens.count(w)) for w in common)
+    
+    if num_same == 0:
+        return 0.0
+    
+    precision = num_same / len(pred_tokens)
+    recall = num_same / len(gt_tokens)
+    f1 = 2 * precision * recall / (precision + recall)
+    
+    return f1
+

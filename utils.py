@@ -41,7 +41,7 @@ def question_template(path: str, output_path: str):
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(template_representatives, f, indent=2, ensure_ascii=False)
 
-
+ 
 
 def preprocess_text(text):
     # Decode unicode escape sequences like \\u00F3 → ó
@@ -117,8 +117,10 @@ def check_sparql(query):
 
 
 def postprocess_sparql(query):
-    query = re.sub(r'```sparql|```', '', query, flags=re.IGNORECASE)
-    return query.strip()
+    if isinstance(query, str):
+        query = re.sub(r'```sparql|```', '', query, flags=re.IGNORECASE)
+        return query.strip()
+    return query
 
 
 

@@ -1,0 +1,1755 @@
+[
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R12209",
+  "title_query": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+  "doi": "10.18653/v1/n19-1423",
+  "open_access_paper": {
+    "id": "R12208",
+    "title": "BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding",
+    "doi": "10.18653/v1/n19-1423",
+    "open_access_url": "https://doi.org/10.18653/v1/n19-1423",
+    "license": "cc-by",
+    "abstract": "We introduce a new language representation model called BERT, which stands for Bidirectional Encoder Representations from Transformers. Unlike recent language representation models (Peters et al., 2018a; Radford et al., 2018), BERT is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers. As a result, the pre-trained BERT model can be fine-tuned with just one additional output layer to create state-of-the-art models for a wide range of tasks, such as question answering and language inference, without substantial task-specific architecture modifications. BERT is conceptually simple and empirically powerful. It obtains new state-of-the-art results on eleven natural language processing tasks, including pushing the GLUE score to 80.5 (7.7 point absolute improvement), MultiNLI accuracy to 86.7% (4.6% absolute improvement), SQuAD v1.1 question answering Test F1 to 93.2 (1.5 point absolute improvement) and SQuAD v2.0 Test F1 to 83.1 (5.1 point absolute improvement)."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the primary purpose of BERT?",
+      "answer": "BERT's primary purpose is to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context in all layers, enabling fine-tuning without substantial task-specific architecture modifications."
+    },
+    {
+      "question": "What are the two unsupervised pre-training tasks used in BERT?",
+      "answer": "The two unsupervised pre-training tasks used in BERT are:\n\nMasked Language Model (MLM): Randomly masks some tokens from the input and predicts the original vocabulary id of the masked word based only on its context.\n\nNext Sentence Prediction (NSP): Task that jointly pretrains text-pair representations."
+    },
+    { 
+     "question": "What is the purpose of the next sentence prediction (NSP) task in BERT?" , 
+      "answer":  "In order to train a model that understands sentence relationships, a binarized next sentence prediction task that can be trivially generated from any monolingual corpus is used."
+    }, 
+    {
+      "question": "How does BERT's architecture differ from OpenAI GPT and ELMo?",
+      "answer": "BERT uses a bidirectional Transformer. OpenAI GPT uses a left-to-right Transformer. ELMo uses the concatenation of independently trained left-to-right and right-to-left LSTMs to generate features for downstream tasks."
+    },
+    {
+      "question": "How is BERT input structured for sentence pairs?",
+      "answer": "Sentence pairs are packed together into a single sequence, separated with a special token ([SEP]), and a learned embedding is added to every token indicating whether it belongs to sentence A or sentence B."
+    }
+  ]
+  },
+   {
+  "paper_uri": "http://orkg.org/orkg/resource/R36001",
+  "title_query": "SemEval-2018 Task 7: Semantic Relation Extraction and Classification in Scientific Papers",
+  "doi": "10.18653/v1/s18-1111",
+  "open_access_paper": {
+    "id": "R145757",
+    "title": "SemEval-2018 Task 7: Semantic Relation Extraction and Classification in Scientific Papers",
+    "doi": "10.18653/v1/s18-1111",
+    "open_access_url": "https://www.aclweb.org/anthology/S18-1111.pdf",
+    "license": "cc-by",
+    "abstract": "This paper describes the first task on semantic relation extraction and classification in scientific paper abstracts at SemEval 2018. The challenge focuses on domain-specific semantic relations and includes three different subtasks. The subtasks were designed so as to compare and quantify the effect of different pre-processing steps on the relation classification results. We expect the task to be relevant for a broad range of researchers working on extracting specialized knowledge from domain corpora, for example but not limited to scientific or bio-medical information extraction. The task attracted a total of 32 participants, with 158 submissions across different scenarios."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is SemEval 2018 Task 7 about?",
+      "answer": "This paper describes the first task on semantic relation extraction and classification in scientific paper abstracts at SemEval 2018."
+    },
+    {
+      "question": "What are the three subtasks included in SemEval-2018 Task 7?",
+      "answer": "The three subtasks are:\n\n- Relation classification on clean data (Subtask 1.1).\n- Relation classification on noisy data (Subtask 1.2).\n- Relation extraction and classification scenario (Subtask 2)."
+    },
+    {
+      "question": "What does relation classification on clean data subtask involve?",
+      "answer": "The subtask involves in entity occurrences which are manually annotated in both the training and the test data."
+    },
+    {
+      "question": "What does relation extraction and classification scenario involve?",
+      "answer": "The subtask consists in identifying instances of semantic relations between entities in the same sentence, and assigning class labels."
+    },
+    {
+      "question": "How was the data prepared for the task?",
+      "answer": "The data consisted of abstracts from published research papers in computational linguistics. Two corpora, ACL RD-TEC 2.0 and ACL-RelAcS, were used for entity annotation. Manual annotations were used for clean data while automatic annotations were used for noisy data."
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R36010",
+  "title_query": "Multi-Task Identification of Entities, Relations, and Coreference for Scientific Knowledge Graph Construction",
+  "doi": "10.18653/v1/d18-1360",
+  "open_access_paper": {
+    "id": "R69288",
+    "title": "Multi-Task Identification of Entities, Relations, and Coreference for Scientific Knowledge Graph Construction",
+    "doi": "10.18653/v1/D18-1360",
+    "open_access_url": "https://www.aclweb.org/anthology/D18-1360.pdf",
+    "license": "cc-by",
+    "abstract": "We introduce a multi-task setup of identifying entities, relations, and coreference clusters in scientific articles. We create SciERC, a dataset that includes annotations for all three tasks and develop a unified framework called SciIE with shared span representations. The multi-task setup reduces cascading errors between tasks and leverages cross-sentence relations through coreference links. Experiments show that our multi-task model outperforms previous models in scientific information extraction without using any domain-specific features. We further show that the framework supports construction of a scientific knowledge graph, which we use to analyze information in scientific literature."
+  },
+  "qa_pairs": [
+    {
+      "question": "Wwhat does SCIERC include?",
+      "answer": "SCIERC is a dataset created for scientific information extraction, including annotations annotations for scientific entities, their relations, and coreference clusters for 500 scientific abstracts."
+    },
+    {
+      "question": "What is the SCIIE ?",
+      "answer": "SCIIE (Scientific Information Extractor)is a unified framework with shared span representations."
+    },
+    {
+      "question": "What are the types of scientific entities annotated in SCIERC?",
+      "answer": "There are six types for annotating scientific entities (Task, Method, Metric, Material, Other-ScientificTerm and Generic)."
+    },
+    {
+      "question": "What tasks does SCIIE model include?",
+      "answer": "SCIIE includes three tasks of entity recognition, relation extraction, and coreference resolution. These tasks are treated as multinomial classification problems with shared span representations."
+    },
+    {
+      "question": " What does the SCIIE-based knowledge graph represent?",
+      "answer": "Nodes in the knowledge graph correspond to scientific entities. Edges correspond to scientific relations between pairs of entities."
+    }
+  ]
+  },
+{
+  "paper_uri": "http://orkg.org/orkg/resource/R38180",
+  "title_query": "End-to-End Relation Extraction using LSTMs on Sequences and Tree Structures",
+  "doi": "10.18653/v1/p16-1105",
+  "open_access_paper": {
+    "id": "R145798",
+    "title": "End-to-End Relation Extraction using LSTMs on Sequences and Tree Structures",
+    "doi": "10.18653/v1/p16-1105",
+    "open_access_url": "https://www.aclweb.org/anthology/P16-1105.pdf",
+    "license": "cc-by",
+    "abstract": "We present a novel end-to-end neural model to extract entities and relations between them. Our recurrent neural network based model captures both word sequence and dependency tree substructure information by stacking bidirectional tree-structured LSTM-RNNs on bidirectional sequential LSTM-RNNs. This allows our model to jointly represent both entities and relations with shared parameters in a single model. We further encourage detection of entities during training and use of entity information in relation extraction via entity pretraining and scheduled sampling. Our model improves over the state-of-the-art feature-based model on end-to-end relation extraction, achieving 12.1% and 5.7% relative error reductions in F1-score on ACE2005 and ACE2004, respectively. We also show that our LSTM-RNN based model compares favorably to the state-of-the-art CNN based model (in F1-score) on nominal relation classification (SemEval-2010 Task 8). Finally, we present an extensive ablation analysis of several model components."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the proposed model in the paper?",
+      "answer": "The study presents a novel end-to-end neural model for extracting entities and relations between them. "
+    },
+    {
+      "question": "What are the key components of the proposed architecture?",
+      "answer": "The proposed architecture consists of three main layers: Embedding Layer,Sequence Layer and Dependency Layer."
+    },
+    {
+      "question": "What is the key architecture design of the proposed model?",
+      "answer": "The model allows joint modeling of entities and relations in a single model by using both bidirectional sequential (left-to-right and right-to-left) and bidirectional tree-structured (bottom-up and top-down) LSTM-RNNs. "
+    },
+    {
+      "question": "What enhancements are introduced during training to improve performance?",
+      "answer": "Two key enhancements are introduced: (1) Entity Pretraining: involves pretraining the entity model and (2) Scheduled Sampling: replaces (unreliable) predicted labels with gold labels in a certain probability."
+    },
+    {
+      "question": "What datasets were used for evaluation?",
+      "answer": "The model was evaluated on ACE05, ACE04 for end-to-end relation extraction and SemEval-2010 Task 8 for relation classification. "
+    }
+  ]
+  },
+   {
+  "paper_uri": "http://orkg.org/orkg/resource/R69282",
+  "title_query": "SemEval 2017 Task 10: ScienceIE - Extracting Keyphrases and Relations from Scientific Publications",
+  "doi": "10.18653/v1/s17-2091",
+  "open_access_paper": {
+    "id": "R69282",
+    "title": "SemEval 2017 Task 10: ScienceIE - Extracting Keyphrases and Relations from Scientific Publications",
+    "doi": "10.18653/v1/S17-2091",
+    "open_access_url": "https://www.aclweb.org/anthology/S17-2091.pdf",
+    "license": "cc-by",
+    "abstract": "We describe the SemEval task of extracting keyphrases and relations between them from scientific documents, which is crucial for understanding which publications describe which processes, tasks and materials. Although this was a new task, we had a total of 26 submissions across 3 evaluation scenarios. We expect the task and the findings reported in this paper to be relevant for researchers working on understanding scientific content, as well as the broader knowledge base population and information extraction communities."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the SemEval 2017 Task 10?",
+      "answer": "The SemEval 2017 Task 10 involves extracting keyphrases and relations between them from scientific documents. "
+    },
+    {
+      "question": "What are the three subtasks defined in SemEval 2017 Task 10?",
+      "answer": "The three subtasks are: (1) Subtask A: Mention-level keyphrase identification, (2) Subtask B: Mention-level keyphrase classification, and (3) Subtask C: Mention-level semantic relation extraction between keyphrases with the same keyphrase types."
+    },
+    {
+      "question": "What is the SemEval 2010 pilot task?",
+      "answer": ". The pilot task involves extracting a list of keyphrases representing key topics from scientific documents."
+    },
+    {
+      "question": "What is the evaluation metric used for keyphrase identification?",
+      "answer": " Keyphrase identification Subtask has traditionally been evaluated by calculating the exact matches with the gold standard."
+    },
+    {
+      "question": "What kind of corpus was built for the task?",
+      "answer": "A corpus for the task was built from ScienceDirect open access publications and was available freely for participants, without the need to sign a copyright agreement."
+    }
+  ]
+  },
+   {
+  "paper_uri": "http://orkg.org/orkg/resource/R166335",
+  "title_query": "Overview of BioCreAtIvE task 1B: normalized gene lists",
+  "doi": "10.1186/1471-2105-6-s1-s11",
+  "open_access_paper": {
+    "id": "R166335",
+    "title": "Overview of BioCreAtIvE task 1B: normalized gene lists",
+    "doi": "10.1186/1471-2105-6-s1-s11",
+    "open_access_url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-6-S1-S11",
+    "license": "cc-by",
+    "abstract": "BackgroundOur goal in BioCreAtIve has been to assess the state of the art in text mining, with emphasis on applications that reflect real biological applications, e.g., the curation process for model organism databases. This paper summarizes the BioCreAtIvE task 1B, the \"Normalized Gene List\" task, which was inspired by the gene list supplied for each curated paper in a model organism database. The task was to produce the correct list of unique gene identifiers for the genes and gene products mentioned in sets of abstracts from three model organisms (Yeast, Fly, and Mouse).ResultsEight groups fielded systems for three data sets (Yeast, Fly, and Mouse). For Yeast, the top scoring system (out of 15) achieved 0.92 F-measure (harmonic mean of precision and recall); for Mouse and Fly, the task was more difficult, due to larger numbers of genes, more ambiguity in the gene naming conventions (particularly for Fly), and complex gene names (for Mouse). For Fly, the top F-measure was 0.82 out of 11 systems and for Mouse, it was 0.79 out of 16 systems.ConclusionThis assessment demonstrates that multiple groups were able to perform a real biological task across a range of organisms. The performance was dependent on the organism, and specifically on the naming conventions associated with each organism. These results hold out promise that the technology can provide partial automation of the curation process in the near future."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the goal of the BioCreAtIvE task 1B?",
+      "answer": "The goal of BioCreAtIvE task 1B is the 'Normalized Gene List' task which aim to produce the correct list of unique gene identifiers for the genes and gene products mentioned in sets of abstracts from three model organisms."
+    },
+      {
+      "question": "What are the key steps involved in task 1B for generating normalized gene lists?",
+      "answer": "The key steps include identifying gene mentions in the abstract, linking them to unique gene identifiers, resolving ambiguity among potential matches and compiling a final list of gene identifiers for each document."
+    },
+    {
+      "question": "What defines the Gold Standard used in evaluation?",
+      "answer": "The Gold Standard consisted of verifing gene lists associated with each abstract, based on gene mentions actually found in the abstract."
+    },
+    {
+      "question": "What does task 1B reflect in the biological curation process?",
+      "answer": "Task 1B reflects a step in the curation process where curators list genes discussed in an article that have sufficient experimental evidence to merit curation."
+    },
+    {
+      "question": "What are the requirements for task 1B?",
+      "answer": "The four requirements in Task 1B are identifying gene mentions, associating them to one or more unique gene identifiers, selecting the correct gene identifier in cases of ambiguity, and assembling the final gene list for each abstract."
+    },
+    {
+      "question": "How did annotators create the test set gene lists?",
+      "answer": "Annotators added all genes mentioned in the abstract by hand, regardless of whether they met the curation criteria."
+    }
+  ]
+  },
+    {
+  "paper_uri": "http://orkg.org/orkg/resource/R164624",
+  "title_query": "Coreference annotation and resolution in the Colorado Richly Annotated Full Text (CRAFT) corpus of biomedical journal articles",
+  "doi": "10.1186/s12859-017-1775-9",
+  "open_access_paper": {
+    "id": "R164624",
+    "title": "Coreference annotation and resolution in the Colorado Richly Annotated Full Text (CRAFT) corpus of biomedical journal articles",
+    "doi": "10.1186/s12859-017-1775-9",
+    "open_access_url": "https://bmcbioinformatics.biomedcentral.com/track/pdf/10.1186/s12859-017-1775-9",
+    "license": "cc-by",
+    "abstract": "Coreference resolution is the task of finding strings in text that have the same referent as other strings. Failures of coreference resolution are a common cause of false negatives in information extraction from the scientific literature. In order to better understand the nature of the phenomenon of coreference in biomedical publications and to increase performance on the task, we annotated the Colorado Richly Annotated Full Text (CRAFT) corpus with coreference relations. The corpus was manually annotated with coreference relations, including identity and appositives for all coreferring base noun phrases. The OntoNotes annotation guidelines, with minor adaptations, were used. Interannotator agreement ranges from 0.480 (entity-based CEAF) to 0.858 (Class-B3), depending on the metric that is used to assess it. The resulting corpus adds nearly 30,000 annotations to the previous release of the CRAFT corpus. Differences from related projects include a much broader definition of markables, connection to extensive annotation of several domain-relevant semantic classes, and connection to complete syntactic annotation. Tool performance was benchmarked on the data. A publicly available out-of-the-box, general-domain coreference resolution system achieved an F-measure of 0.14 (B3), while a simple domain-adapted rule-based system achieved an F-measure of 0.42. An ensemble of the two reached F of 0.46. Following the IDENTITY chains in the data would add 106,263 additional named entities in the full 97-paper corpus, for an increase of 76% percent in the semantic classes of the eight ontologies that have been annotated in earlier versions of the CRAFT corpus. The project produced a large data set for further investigation of coreference and coreference resolution in the scientific literature. The work raised issues in the phenomenon of reference in this domain and genre, and the paper proposes that many mentions that would be considered generic in the general domain are not generic in the biomedical domain due to their referents to specific classes in domain-specific ontologies. The comparison of the performance of a publicly available and well-understood coreference resolution system with a domain-adapted system produced results that are consistent with the notion that the requirements for successful coreference resolution in this genre are quite different from those of the general domain, and also suggest that the baseline performance difference is quite large."
+  },
+  "qa_pairs": [
+    
+    {
+      "question": "What does the term 'coreference' include in this paper?",
+      "answer": "the term coreference to refer to a broad range of phenomena, including identity, pronominal anaphora, and apposition."
+    },
+    {
+      "question": "What are the coreference relations annotated in the CRAFT corpus?",
+      "answer": "The two relations that are annotated in the corpus are the IDENTITY relation and the APPOSITIVE relation."
+    },
+    {
+      "question": "What is the IDENTITY relation?",
+      "answer": "The identity relation holds when two units of annotation refer to the same thing in the world."
+    },
+    {
+      "question": "What is the APPOSITIVE relation?",
+      "answer": "The appositive annotation holds when two noun phrases are adjacent and not linked by a copula or some other linking word."
+    },
+    {
+      "question": "What are the key challenges identified in applying coreference resolution systems to the CRAFT biomedical corpus?",
+      "answer": "Challenges include the difficulty of automated coreference resolution in biomedical journal articles than in newswire text, systems tuned for newswire text need significant alteration to perform well, and the much greater length of the documents leads to much longer coreference chains."
+     }
+  ]
+  },
+   {
+  "paper_uri": "http://orkg.org/orkg/resource/R164317",
+  "title_query": "Named Entity Recognition for Bacterial Type IV Secretion Systems",
+  "doi": "10.1371/journal.pone.0014780",
+  "open_access_paper": {
+    "id": "R164317",
+    "title": "Named Entity Recognition for Bacterial Type IV Secretion Systems",
+    "doi": "10.1371/journal.pone.0014780",
+    "open_access_url": "https://journals.plos.org/plosone/article/file?id=10.1371/journal.pone.0014780&type=printable",
+    "license": "cc-by",
+    "abstract": "Research on specialized biological systems is often hampered by a lack of consistent terminology, especially across species. In bacterial Type IV secretion systems genes within one set of orthologs may have over a dozen different names. Classifying research publications based on biological processes, cellular components, molecular functions, and microorganism species should improve the precision and recall of literature searches allowing researchers to keep up with the exponentially growing literature, through resources such as the Pathosystems Resource Integration Center (PATRIC, patricbrc.org). We developed named entity recognition (NER) tools for four entities related to Type IV secretion systems: 1) bacteria names, 2) biological processes, 3) molecular functions, and 4) cellular components. These four entities are important to pathogenesis and virulence research but have received less attention than other entities, e.g., genes and proteins. Based on an annotated corpus, large domain terminological resources, and machine learning techniques, we developed recognizers for these entities. High accuracy rates (>80%) are achieved for bacteria, biological processes, and molecular function. Contrastive experiments highlighted the effectiveness of alternate recognition strategies; results of term extraction on contrasting document sets demonstrated the utility of these classes for identifying T4SS-related documents."
+  },
+  "qa_pairs": [
+    {
+      "question": "What does the NER system focus on in relation to Type IV secretion systems?",
+      "answer": " NER system focuses on four entities related to Type IV secretion systems: 1) bacteria names, 2) biological processes, 3) molecular functions, and 4) cellular components."
+    },
+    {
+      "question": "What is the main function of T4SSs?",
+      "answer": "T4SSs function predominantly in conjugation, naked DNA uptake and release, and the propagation of genomic islands"
+    },
+    {
+      "question": "What are T4SSs?",
+      "answer": "T4SSs are the only group of translocation machines that span the broad distribution of Prokaryota, being encoded within many genomes of both Gram negative and Gram positive species, as well as within some wall-less bacteria and Archaea."
+    },
+    {
+      "question": "What is the output of the NER task? ",
+      "answer": "The output of the NER task is a tagged span of text identifying bacteria name or a concept that is a member of the set of concepts constituting the intersection of T4SS concepts and one of biological process, cellular component, or molecular function."
+    },
+    {
+      "question": "Which recognition techniques were evaluated in the study?",
+      "answer": "Three recognition techniques were evaluated:a pure dictionary approach, a dictionary plus corpus enrichment, and a machine learning approach."
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R163702",
+  "title_query": "Bacteria Biotope at BioNLP Open Shared Tasks 2019",
+  "doi": "10.18653/v1/d19-5719",
+  "open_access_paper": {
+    "id": "R163702",
+    "title": "Bacteria Biotope at BioNLP Open Shared Tasks 2019",
+    "doi": "10.18653/v1/d19-5719",
+    "open_access_url": "https://www.aclweb.org/anthology/D19-5719.pdf",
+    "license": "cc-by",
+    "abstract": "This paper presents the fourth edition of the Bacteria Biotope task at BioNLP Open Shared Tasks 2019. The task focuses on the extraction of the locations and phenotypes of microorganisms from PubMed abstracts and full-text excerpts, and the characterization of these entities with respect to reference knowledge sources (NCBI taxonomy, OntoBiotope ontology). The task is motivated by the importance of the knowledge on biodiversity for fundamental research and applications in microbiology. The paper describes the different proposed subtasks, the corpus characteristics, and the challenge organization. We also provide an analysis of the results obtained by participants, and inspect the evolution of the results since the last edition in 2016."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the Bacteria Biotope task?",
+      "answer": "The task focuses on the extraction of the locations and phenotypes of microorganisms from PubMed abstracts and fulltext excerpts, and the characterization of these entities with respect to reference knowledge sources."
+    },
+    {
+      "question": "What are the four entity types defined in the Bacteria Biotope task?",
+      "answer": "The four entity types are:\n\n- Microorganism\n- Habitat\n- Geographical\n- Phenotype"
+    },
+    {
+      "question": "What are the two relation types defined in the task?",
+      "answer": "The two relation types are:\n\n- Lives in: Links a microorganism entity to its location (either a habitat or a geographical entity, or in few rare cases a microorganism entity).\n- Exhibits: Links a microorganism entity to a phenotype entity."
+    },
+    {
+      "question": "What are phenotypes in the context of the BB task?",
+      "answer": "Phenotypes are observable characteristics such as morphology, or environment requirement."
+    },
+    {
+      "question": "What is an Exhibits relation?",
+      "answer": "Exhibits relations which link a microorganism entity to a phenotype entity."
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R163725",
+  "title_query": "RDoC Task at BioNLP-OST 2019",
+  "doi": "10.18653/v1/d19-5729",
+  "open_access_paper": {
+    "id": "R163725",
+    "title": "RDoC Task at BioNLP-OST 2019",
+    "doi": "10.18653/v1/d19-5729",
+    "open_access_url": "https://www.aclweb.org/anthology/D19-5729.pdf",
+    "license": "cc-by",
+    "abstract": "BioNLP Open Shared Tasks (BioNLP-OST) is an international competition organized to facilitate development and sharing of computational tasks of biomedical text mining and solutions to them. For BioNLP-OST 2019, we introduced a new mental health informatics task called “RDoC Task”, which is composed of two subtasks: information retrieval and sentence extraction through National Institutes of Mental Health’s Research Domain Criteria framework. Five and four teams around the world participated in the two tasks, respectively. According to the performance on the two tasks, we observe that there is room for improvement for text mining on brain research and mental illness."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the RDoC initiative?",
+      "answer": "The RDoC initiative intends ‘to foster integration not only of psychological and biological measures but also of the psychological and biological constructs those measures measure."
+    },
+    {
+      "question": "What are the two subtasks of the RDoC Task introduced at BioNLP-OST 2019?",
+      "answer": "The RDoC Task consists of two subtasks: (1) RDoC-IR, which involves retrieving PubMed Abstracts related to RDoC constructs, and (2) RDoC-SE, which focuses on extracting the most relevant sentence for a given RDoC construct from a known relevant abstract."
+    },
+    {
+      "question": "What includes the RDoC construct-level annotations?",
+      "answer": "the RDoC construct-level annotations includes a) whether a given abstract is relevant to a given construct and b) which sentence in the abstract is the most relevant for the construct."
+    },
+    {
+      "question": "What is the structure of the RDoC corpus?",
+      "answer": "Each instance in the corpus is made up of an abstract and a construct, and it is labeled with: 1) binary label for relevance, 2) index of most relevant sentence , and 3) metadata."
+    },
+    {
+      "question": "What is the RDoC framework?",
+      "answer": "RDoC framework is made up six major domains of human functioning, which is further broken down to multiple constructs that comprise different aspects of the overall range of functions."
+     }
+  ]
+  },
+ {
+  "paper_uri": "http://orkg.org/orkg/resource/R163542",
+  "title_query": "Overview of the Regulatory Network of Plant Seed Development (SeeDev) Task at the BioNLP Shared Task 2016.",
+  "doi": "10.18653/v1/w16-3001",
+  "open_access_paper": {
+    "id": "R163542",
+    "title": "Overview of the Regulatory Network of Plant Seed Development (SeeDev) Task at the BioNLP Shared Task 2016.",
+    "doi": "10.18653/v1/w16-3001",
+    "open_access_url": "https://www.aclweb.org/anthology/W16-3001.pdf",
+    "license": "cc-by",
+    "abstract": "This paper presents the SeeDev Task of the BioNLP Shared Task 2016. The purpose of the SeeDev Task is the extraction from scientific articles of the descriptions of genetic and molecular mechanisms involved in seed development of the model plant, Arabidopsis thaliana. The SeeDev task consists in the extraction of many different event types that involve a wide range of entity types so that they accurately reflect the complexity of the biological mechanisms. The corpus is composed of paragraphs selected from the full-texts of relevant scientific articles. In this paper, we describe the organization of the SeeDev task, the corpus characteristics, and the metrics used for the evaluation of participant systems. We analyze and discuss the final results of the seven participant systems to the test. The best F-score is 0.432, which is similar to the scores achieved in similar tasks on molecular biology."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the purpose of the SeeDev Task introduced in the BioNLP Shared Task 2016?",
+      "answer": "The purpose of the SeeDev Task is the extraction from scientific articles of the descriptions of genetic and molecular mechanisms involved in seed development of the model plant, Arabidopsis thaliana."
+    },
+    {
+      "question": "What is the Gene Regulatory Network for Arabidopsis (GRNA) model?",
+      "answer": "The GRNA model is a knowledge representation framework used in the SeeDev Task. It defines 16 entity types and 21 event types."
+    },
+    {
+      "question": "What are the two subtasks of the SeeDev Task?",
+      "answer": "The two subtasks are SeeDev-binary and SeeDev-full."
+    },
+    {
+      "question": "What are SeeDev's characteristics?",
+      "answer": "The SeeDev corpus consists of 86 paragraphs from 20 full-text articles selected by plant biology experts. It includes 44,857 words, 7,082 entities, 2,583 events, and 3,575 relations."
+    },
+    {
+      "question": "What is the goal of SeeDev-binary?",
+      "answer": "The goal of SeeDev-binary is the extraction of binary relations of 22 different types without modality ."
+    }
+   
+  ]
+  },
+ {
+  "paper_uri": "http://orkg.org/orkg/resource/R163595",
+  "title_query": "Overview of the Bacteria Biotope Task at BioNLP Shared Task 2016",
+  "doi": "10.18653/v1/w16-3002",
+  "open_access_paper": {
+    "id": "R163595",
+    "title": "Overview of the Bacteria Biotope Task at BioNLP Shared Task 2016",
+    "doi": "10.18653/v1/w16-3002",
+    "open_access_url": "https://www.aclweb.org/anthology/W16-3002.pdf",
+    "license": "cc-by",
+    "abstract": "This paper presents the Bacteria Biotope task of the BioNLP Shared Task 2016, which follows the previous 2013 and 2011 editions. The task focuses on the extraction of the locations (biotopes and geographical places) of bacteria from PubMe abstracts and the characterization of bacteria and their associated habitats with respect to reference knowledge sources (NCBI taxonomy, OntoBiotope ontology). The task is motivated by the importance of the knowledge on bacteria habitats for fundamental research and applications in microbiology. The paper describes the different proposed subtasks, the corpus characteristics, the challenge organization, and the evaluation metrics. We also provide an analysis of the results obtained by participants."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the objective of the Bacteria Biotope (BB) task?",
+      "answer": "The Bacteria Biotope (BB) task aim to contribute to progress by drawing general lessons from the individual contributions and assessment of the participants.."
+    },
+    {
+      "question": "What are the three types of entities involved in the BB task?",
+      "answer": "The BB task involves three types of entities, Bacteria, Habitats and Geographical places."
+    },
+    {
+      "question": "What is the goal of the knowledge base extraction subtask?",
+      "answer": "The goal is to build a knowledge base composed of all distinct pairs of Bacteria and Habitat categories linked through the Lives in relation that can be extracted from the corpus."
+    },
+    {
+      "question": "What does the BB corpus consist of?",
+      "answer": "The BB corpus consists of titles and abstracts of PubMed entries. "
+    },
+    {
+      "question": "How was the representativeness of corpus samples evaluated?",
+      "answer": "The representativeness was evaluated by the mean squared error (MSE) between the sample and the original collection. "
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R163616",
+  "title_query": "CRAFT Shared Tasks 2019 Overview – Integrated Structure, Semantics, and Coreference",
+  "doi": "10.18653/v1/d19-5725",
+  "open_access_paper": {
+    "id": "R163616",
+    "title": "CRAFT Shared Tasks 2019 Overview – Integrated Structure, Semantics, and Coreference",
+    "doi": "10.18653/v1/d19-5725",
+    "open_access_url": "https://www.aclweb.org/anthology/D19-5725.pdf",
+    "license": "cc-by",
+    "abstract": "As part of the BioNLP Open Shared Tasks 2019, the CRAFT Shared Tasks 2019 provides a platform to gauge the state of the art for three fundamental language processing tasks — dependency parse construction, coreference resolution, and ontology concept identification — over full-text biomedical articles. The structural annotation task requires the automatic generation of dependency parses for each sentence of an article given only the article text. The coreference resolution task focuses on linking coreferring base noun phrase mentions into chains using the symmetrical and transitive identity relation. The ontology concept annotation task involves the identification of concept mentions within text using the classes of ten distinct ontologies in the biomedical domain, both unmodified and augmented with extension classes. This paper provides an overview of each task, including descriptions of the data provided to participants and the evaluation metrics used, and discusses participant results relative to baseline performances for each of the three tasks."
+  },
+  "qa_pairs": [
+    {
+      "question": "What are the three key biomedical NLP tasks addressed in the 2019 BioNLP Open Shared Tasks focusing on the CRAFT corpus?",
+      "answer": "The three key biomedical NLP tasks are dependency parse construction, coreference resolution, and ontology concept identification."
+    },
+    {
+      "question": "What is the CRAFT Shared Tasks 2019?",
+      "answer": "the CRAFT Shared Tasks 2019 provides a platform to gauge the state of the art for three fundamental language processing tasks."
+    },
+    {
+      "question": "What is the coreference resolution task?",
+      "answer": "The coreference resolution task focuses on linking coreferring base noun phrase mentions into chains using the symmetrical and transitive identity relation. "
+    },
+    {
+      "question": "What is the ontology concept annotation task?",
+      "answer": "The ontology concept annotation task involves the identification of concept mentions within text using the classes of ten distinct ontologies in the biomedical domain, both unmodified and augmented with extension classes."
+    },
+    {
+      "question": "What is the Labeled Attachment Score (LAS) metric?",
+      "answer": "The Labeled Attachment Score (LAS) metric is the de facto standard metric for evaluating dependency parsing performance, and is commonly defined simply as the fraction of tokens for which the predicted head and dependency relation type (label) match the gold standard."}
+  ]
+  },
+    {
+  "paper_uri": "http://orkg.org/orkg/resource/R163656",
+  "title_query": "PharmaCoNER: Pharmacological Substances, Compounds and proteins Named Entity Recognition track",
+  "doi": "10.18653/v1/d19-5701",
+  "open_access_paper": {
+    "id": "R163656",
+    "title": "PharmaCoNER: Pharmacological Substances, Compounds and proteins Named Entity Recognition track",
+    "doi": "10.18653/v1/d19-5701",
+    "open_access_url": "https://www.aclweb.org/anthology/D19-5701.pdf",
+    "license": "cc-by",
+    "abstract": "One of the biomedical entity types of relevance for medicine or biosciences are chemical compounds and drugs. The correct detection these entities is critical for other text mining applications building on them, such as adverse drug-reaction detection, medication-related fake news or drug-target extraction. Although a significant effort was made to detect mentions of drugs/chemicals in English texts, so far only very limited attempts were made to recognize them in medical documents in other languages. Taking into account the growing amount of medical publications and clinical records written in Spanish, we have organized the first shared task on detecting drug and chemical entities in Spanish medical documents. Additionally, we included a clinical concept-indexing sub-track asking teams to return SNOMED-CT identifiers related to drugs/chemicals for a collection of documents. For this task, named PharmaCoNER, we generated annotation guidelines together with a corpus of 1,000 manually annotated clinical case studies. A total of 22 teams participated in the sub-track 1, (77 system runs), and 7 teams in the sub-track 2 (19 system runs). Top scoring teams used sophisticated deep learning approaches yielding very competitive results with F-measures above 0.91. These results indicate that there is a real interest in promoting biomedical text mining efforts beyond English. We foresee that the PharmaCoNER annotation guidelines, corpus and participant systems will foster the development of new resources for clinical and biomedical text mining systems of Spanish medical data."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the primary focus of the PharmaCoNER task?",
+      "answer": "The PharmaCoNER shared task focuses on recognizing pharmaceutical drugs and chemical entities in medical texts in Spanish."
+    },
+    {
+      "question": "What was the first sub-track of PharmaCoNER?",
+      "answer": "NER offset and entity classification. The first sub-track focused on the recognition and classification of entities."
+    },
+    {
+      "question": "What was the second sub-track of PharmaCoNER?",
+      "answer": "The second sub-track consisted of concept indexing, where, for each document, the participating teams had to generate the list of the unique SNOMED-CT concept identifiers, which were compared to the manually annotated concept IDs corresponding to the pharmaceutical drugs and chemical entities."
+    },
+    {
+      "question": "What is the Spanish Clinical Case Corpus (SPACCC)?",
+      "answer": "SPACCC is a manually classified collection of clinical case report sections derived from open access Spanish medical publications."
+    },
+    {
+      "question": "What are the two sub-tracks involved in the PharmaCoNER challenge?",
+      "answer": "(1) NER offset and entity classification and (2) Concept indexing. "
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R163666",
+  "title_query": "An Overview of the Active Gene Annotation Corpus and the BioNLP OST 2019 AGAC Track Tasks",
+  "doi": "10.18653/v1/d19-5710",
+  "open_access_paper": {
+    "id": "R163666",
+    "title": "An Overview of the Active Gene Annotation Corpus and the BioNLP OST 2019 AGAC Track Tasks",
+    "doi": "10.18653/v1/d19-5710",
+    "open_access_url": "https://www.aclweb.org/anthology/D19-5710.pdf",
+    "license": "cc-by",
+    "abstract": "The active gene annotation corpus (AGAC) was developed to support knowledge discovery for drug repurposing. Based on the corpus, the AGAC track of the BioNLP Open Shared Tasks 2019 was organized, to facilitate cross-disciplinary collaboration across BioNLP and Pharmacoinformatics communities, for drug repurposing. The AGAC track consists of three subtasks: 1) named entity recognition, 2) thematic relation extraction, and 3) loss of function (LOF) / gain of function (GOF) topic classification. The AGAC track was participated by five teams, of which the performance are compared and analyzed. The the results revealed a substantial room for improvement in the design of the task, which we analyzed in terms of “imbalanced data”, “selective annotation” and “latent topic annotation”."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the Active Gene Annotation Corpus (AGAC) ?",
+      "answer": "The Active Gene Annotation Corpus (AGAC) is a human-annotated biomedical corpus developed to support knowledge discovery for drug repurposing "
+    },
+    {
+      "question": "What are the three main tasks involved in the AGAC BioNLP shared task?",
+      "answer": "The three main tasks are: 1) Named Entity Recognition (NER); 2) Thematic relation extraction; and 3) loss of function (LOF) / gain of function (GOF) topic classification."
+    },
+    {
+      "question": "What is drug repurposing?",
+      "answer": "Drug repurposing (AKA drug repositioning) is to find new indications of approved drugs, which is an important mean for investigating novel drug efficiency in the pharmaceutical industry."
+    },
+    {
+      "question": "What type of models were used in the AGAC shared task?",
+      "answer": "Participants used BERT-based joint learning models. These models were effective because they can understand full semantic context and integrate sequence labeling with relation extraction."
+    },
+    {
+      "question": "What characterize the AGAC corpus?",
+      "answer": "The AGAC corpus is characterized in three terms: imbalanced data, selective annotation, and latent topic annotation."
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R163186",
+  "title_query": "WikiNEuRal: Combined Neural and Knowledge-based Silver Data Creation for Multilingual NER",
+  "doi": "10.18653/v1/2021.findings-emnlp.215",
+  "open_access_paper": {
+    "id": "R163186",
+    "title": "WikiNEuRal: Combined Neural and Knowledge-based Silver Data Creation for Multilingual NER",
+    "doi": "10.18653/v1/2021.findings-emnlp.215",
+    "open_access_url": "https://aclanthology.org/2021.findings-emnlp.215.pdf",
+    "license": "cc-by",
+    "abstract": "Multilingual Named Entity Recognition (NER) is a key intermediate task which is needed in many areas of NLP. In this paper, we address the well-known issue of data scarcity in NER, especially relevant when moving to a multilingual scenario, and go beyond current approaches to the creation of multilingual silver data for the task. We exploit the texts of Wikipedia and introduce a new methodology based on the effective combination of knowledge-based approaches and neural models, together with a novel domain adaptation technique, to produce high-quality training corpora for NER. We evaluate our datasets extensively on standard benchmarks for NER, yielding substantial improvements of up to 6 span-based F1-score points over previous state-of-the-art systems for data creation."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is WikiNEuRal?",
+      "answer": "WikiNEuRal is an automatic, language-independent approach for generating labeled datasets for Named Entity Recognition (NER). It combines knowledge-based techniques using Wikipedia and BabelNet with neural models like multilingual BERT to improve the quality and coverage of NER annotations across languages."
+    },
+    {
+      "question": "What is the proposed architecture in the NER data creation process?",
+      "answer": "The architecture uses a BERT-based classifier to determine whether Wikipedia articles represent named entities or concepts, helping enrich and verify NER labels."
+    },
+    {
+      "question": "What is Named Entity Recognition (NER)?",
+      "answer": "Named Entity Recognition (NER) is the task of identifying specific words as belonging to predefined semantic types, such as Person, Location, Organization, etc."
+    },
+    {
+      "question": "What role does domain adaptation play in the proposed NER data creation method?",
+      "answer": "Domain adaptation enables the creation of domain-adapted training data for NER systems when given domain-specific texts."
+    },
+    {
+      "question": "How does the paper evaluate the effectiveness of the WikiNEuRal dataset in improving NER performance?",
+      "answer": "The authors evaluated WikiNEuRal using benchmarks like CoNLL and WikiGold across multiple languages. The models trained on this data showed significant performance gains, particularly in domain generalization and low-resource scenarios, with improvements of up to 6 span-based F1-score points on common benchmarks for NER against state-of-the-art alternative data production methods."
+    }
+  ]
+  },
+
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R164174",
+  "title_query": "Corpus annotation for mining biomedical events from literature",
+  "doi": "10.1186/1471-2105-9-10",
+  "open_access_paper": {
+    "id": "R164174",
+    "title": "Corpus annotation for mining biomedical events from literature",
+    "doi": "10.1186/1471-2105-9-10",
+    "open_access_url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-9-10",
+    "license": "cc-by",
+    "abstract": "BackgroundAdvanced Text Mining (TM) such as semantic enrichment of papers, event or relation extraction, and intelligent Question Answering have increasingly attracted attention in the bio-medical domain. For such attempts to succeed, text annotation from the biological point of view is indispensable. However, due to the complexity of the task, semantic annotation has never been tried on a large scale, apart from relatively simple term annotation.ResultsWe have completed a new type of semantic annotation, event annotation, which is an addition to the existing annotations in the GENIA corpus. The corpus has already been annotated with POS (Parts of Speech), syntactic trees, terms, etc. The new annotation was made on half of the GENIA corpus, consisting of 1,000 Medline abstracts. It contains 9,372 sentences in which 36,114 events are identified. The major challenges during event annotation were (1) to design a scheme of annotation which meets specific requirements of text annotation, (2) to achieve biology-oriented annotation which reflect biologists' interpretation of text, and (3) to ensure the homogeneity of annotation quality across annotators. To meet these challenges, we introduced new concepts such as Single-facet Annotation and Semantic Typing, which have collectively contributed to successful completion of a large scale annotation.ConclusionThe resulting event-annotated corpus is the largest and one of the best in quality among similar annotation efforts. We expect it to become a valuable resource for NLP (Natural Language Processing)-based TM in the bio-medical domain."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the primary focus of the annotation principles discussed in the paper ?",
+      "answer": "The focus is on a new type of semantic annotation, event annotation, achieving biology-oriented annotation that reflects biologists’ interpretation of text, and ensuring homogeneity of annotation quality"
+    },
+    {
+      "question": "What is a pathway?",
+      "answer": "A pathway is a detailed graphical representation of a biological system, which comprises a set of mutually related events."
+    },
+    {
+      "question": "What is the GENIA event ontology?",
+      "answer": "The GENIA event ontology defines and classifies events (or occurrents in the terminology of philosophical ontology ) which are of interest in the GENIA domain."
+    },
+    {
+      "question": "How does the paper differentiate between pathway representations and natural language event annotations?",
+      "answer": "Pathway representations, such as SBML, are entity-centered and explicitly encode causality through sequences of state changes, whereas natural language event annotations are predicate-centered, often lack explicit causality, and require nuanced annotation strategies to capture complex biological phenomena."
+    },
+    {
+      "question": "What is Artificial_process?",
+      "answer": "Artificial_process describes experimental processes which are performed by human researchers."
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R163190",
+  "title_query": "Cross-lingual Name Tagging and Linking for 282 Languages",
+  "doi": "10.18653/v1/p17-1178",
+  "open_access_paper": {
+    "id": "R163190",
+    "title": "Cross-lingual Name Tagging and Linking for 282 Languages",
+    "doi": "10.18653/v1/p17-1178",
+    "open_access_url": "https://www.aclweb.org/anthology/P17-1178.pdf",
+    "license": "cc-by",
+    "abstract": "The ambitious goal of this work is to develop a cross-lingual name tagging and linking framework for 282 languages that exist in Wikipedia. Given a document in any of these languages, our framework is able to identify name mentions, assign a coarse-grained or fine-grained type to each mention, and link it to an English Knowledge Base (KB) if it is linkable. We achieve this goal by performing a series of new KB mining methods: generating “silver-standard” annotations by transferring annotations from English to other languages through cross-lingual links and KB properties, refining annotations through self-training and topic selection, deriving language-specific morphology features from anchor links, and mining word translation pairs from cross-lingual links. Both name tagging and linking results for 282 languages are promising on Wikipedia data and non-Wikipedia data."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the main goal of the framework proposed in this paper?",
+      "answer": "The main goal of the framework is to is to develop a cross-lingual name tagging and linking framework for 282 languages that exist in Wikipedia, which can identify name mentions, assign entity types, and link them to an English Knowledge Base if possible."
+    },
+    {
+      "question": "How does the framework generate initial entity annotations for name tagging across languages?",
+      "answer": "It classifies English Wikipedia entries into certain entity types and then propagate these labels to other languages using cross-lingual Wikipedia links, creating 'silver-standard' training annotations."
+    },
+    {
+      "question": "What machine learning architecture does the system use for the name tagging task?",
+      "answer": "The system uses a Bi-directional Long Short-Term Memory (Bi-LSTM) combined with a Conditional Random Fields (CRF) network, trained with features derived from Wikipedia markups such as stems, affixes, and gazetteers."
+    },
+    {
+      "question": "How do the authors refine annotations?",
+      "answer": "The authors apply self-training to label other mentions without links in Wikipedia articles even if they have different surface forms from the linked mentions."
+    },
+    {
+      "question": "What is the solution proposed by the authors",
+      "answer": "The authors propose to break language barriers by extracting information (e.g., entities) from a massive variety of languages and ground the information into an existing knowledge base which is accessible to a user in his/her own language."
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R163028",
+  "title_query": "Results of the WNUT2017 Shared Task on Novel and Emerging Entity Recognition",
+  "doi": "10.18653/v1/w17-4418",
+  "open_access_paper": {
+    "id": "R163028",
+    "title": "Results of the WNUT2017 Shared Task on Novel and Emerging Entity Recognition",
+    "doi": "10.18653/v1/w17-4418",
+    "open_access_url": "https://www.aclweb.org/anthology/W17-4418.pdf",
+    "license": "cc-by",
+    "abstract": "This shared task focuses on identifying unusual, previously-unseen entities in the context of emerging discussions. Named entities form the basis of many modern approaches to other tasks (like event clustering and summarization), but recall on them is a real problem in noisy text - even among annotators. This drop tends to be due to novel entities and surface forms. Take for example the tweet “so.. kktny in 30 mins?!” – even human experts find the entity ‘kktny’ hard to detect and resolve. The goal of this task is to provide a definition of emerging and of rare entities, and based on that, also datasets for detecting these entities. The task as described in this paper evaluated the ability of participating entries to detect and classify novel and emerging named entities in noisy text."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the main objective of the WNUT2017 Shared Task discussed in the paper?",
+      "answer": "The main objective of the WNUT2017 Shared Task is to provide a definition of emerging and of rare entities and provide datasets for detecting these entities."
+    },
+    {
+      "question": "What is the dataset used in this paper?",
+      "answer": "To focus the task on emerging and rare entities,they used a dataset where very few surface forms occur in regular training data and very few surface forms occur more than once"
+    },
+    {
+      "question": "Why is recognizing emerging entities challenging??",
+      "answer": " Recognizing emerging entities in noisy text is more difficult than on high frequent entities, and systems often fail to generalize successfully."
+    },
+    {
+      "question": "What types of entities are mostly contained in the dataset?",
+      "answer": "The dataset contained mostly rare and novel entities of the types person, location, corporation, product, creative-work, and group"
+    },
+    {
+      "question": "What methodS do the authors propose to tackle the issue of entity recognition in their research?",
+      "answer": "The authors propose a combination of supervised and unsupervised learning techniques, leveraging existing corpuses and incorporating techniques for zero-shot learning to enhance the detection of entities that have not been previously encountered."
+    }
+  ]
+  },
+{
+  "paper_uri": "http://orkg.org/orkg/resource/R162349",
+  "title_query": "BioCreAtIvE Task 1A: gene mention finding evaluation",
+  "doi": "10.1186/1471-2105-6-s1-s2",
+  "open_access_paper": {
+    "id": "R162349",
+    "title": "BioCreAtIvE Task 1A: gene mention finding evaluation",
+    "doi": "10.1186/1471-2105-6-s1-s2",
+    "open_access_url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-6-S1-S2",
+    "license": "cc-by",
+    "abstract": "BackgroundThe biological research literature is a major repository of knowledge. As the amount of literature increases, it will get harder to find the information of interest on a particular topic. There has been an increasing amount of work on text mining this literature, but comparing this work is hard because of a lack of standards for making comparisons. To address this, we worked with colleagues at the Protein Design Group, CNB-CSIC, Madrid to develop BioCreAtIvE (Critical Assessment for Information Extraction in Biology), an open common evaluation of systems on a number of biological text mining tasks. We report here on task 1A, which deals with finding mentions of genes and related entities in text. \"Finding mentions\" is a basic task, which can be used as a building block for other text mining tasks. The task makes use of data and evaluation software provided by the (US) National Center for Biotechnology Information (NCBI).Results15 teams took part in task 1A. A number of teams achieved scores over 80% F-measure (balanced precision and recall). The teams that tried to use their task 1A systems to help on other BioCreAtIvE tasks reported mixed results.ConclusionThe 80% plus F-measure results are good, but still somewhat lag the best scores achieved in some other domains such as newswire, due in part to the complexity and length of gene names, compared to person or organization names in newswire."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the primary focus of the BioCreAtIvE Task 1A as discussed in the paper?",
+      "answer": "The primary focus of the BioCreAtIvE Task 1A  deals with finding mentions of genes and related entities in text. ."
+    },
+    {
+      "question": "How do the authors define 'gene mention' in the context of their study?",
+      "answer": "In the context of their study, a 'gene mention' refers to any text segment that specifically denotes or references a gene or genetic element within biological literature."
+    },
+    {
+      "question": "What methodological approach does the paper utilize for the evaluation of gene mention identification systems?",
+      "answer": "The paper utilizes a comparative evaluation approach, where various systems are tested against a benchmark dataset to assess their performance in accurately identifying gene mentions."
+    },
+    {
+      "question": "What is a key difficulty in boundary detection for gene mentions?",
+      "answer": "Determining the starting and ending boundaries of gene or protein mentions is difficult because tokens cannot be split between marked and unmarked parts."
+    },
+    {
+      "question": "What are the evaluation metrics used in the study to assess the performance of the gene mention identification systems?",
+      "answer": "The study employs evaluation metrics such as precision, recall, and F-score."
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R162356",
+  "title_query": "Overview of BioCreative II gene mention recognition",
+  "doi": "10.1186/gb-2008-9-s2-s2",
+  "open_access_paper": {
+    "id": "R162356",
+    "title": "Overview of BioCreative II gene mention recognition",
+    "doi": "10.1186/gb-2008-9-s2-s2",
+    "open_access_url": "https://genomebiology.biomedcentral.com/counter/pdf/10.1186/gb-2008-9-s2-s2",
+    "license": "cc-by",
+    "abstract": "Nineteen teams presented results for the Gene Mention Task at the BioCreative II Workshop. In this task participants designed systems to identify substrings in sentences corresponding to gene name mentions. A variety of different methods were used and the results varied with a highest achieved F1 score of 0.8721. Here we present brief descriptions of all the methods used and a statistical analysis of the results. We also demonstrate that, by combining the results from all submissions, an F score of 0.9066 is feasible, and furthermore that the best result makes use of the lowest scoring submissions."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the Gene Mention Task ?",
+      "answer": "The Gene Mention Task is a challenge where teams develop systems to identify substrings in sentences that mention genes within scientific texts, aiming to improve gene recognition in written material."
+    },
+    {
+      "question": "What was the highest F1-Score achieved by the participating teams in the Gene Mention Task?",
+      "answer": "The highest F1-Score achieved by the participating teams in the Gene Mention Task was 0.8721."
+    },
+    {
+      "question": "What is the gene normalization task?",
+      "answer": "The gene normalization task is an alternative approach to finding gene names in text is to decide upon the actual gene database identifiers that are referenced in a sentence."
+    },
+    {
+      "question": "What includes the training corpus for the BioCreative II GM task?",
+      "answer": "The training corpus consists of the training and testing corpora (text collections) from the previous task, and the testing corpus consists of an additional 5,000 sentences that were held 'in reserve' from the previous task."
+    },
+    {
+      "question": "What criteria were established for evaluating the performances of the systems in the Gene Mention Task?",
+      "answer": "The evaluation criteria included metrics such as precision, recall, and F1-Score."
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R162369",
+  "title_query": "The Protein-Protein Interaction tasks of BioCreative III: classification, ranking of articles and linking bio-ontology concepts to full text",
+  "doi": "10.1186/1471-2105-12-s8-s3",
+  "open_access_paper": {
+    "id": "R162369",
+    "title": "The Protein-Protein Interaction tasks of BioCreative III: classification/ranking of articles and linking bio-ontology concepts to full text",
+    "doi": "10.1186/1471-2105-12-s8-s3",
+    "open_access_url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-12-S8-S3",
+    "license": "cc-by",
+    "abstract": "BackgroundDetermining usefulness of biomedical text mining systems requires realistic task definition and data selection criteria without artificial constraints, measuring performance aspects that go beyond traditional metrics. The BioCreative III Protein-Protein Interaction (PPI) tasks were motivated by such considerations, trying to address aspects including how the end user would oversee the generated output, for instance by providing ranked results, textual evidence for human interpretation or measuring time savings by using automated systems. Detecting articles describing complex biological events like PPIs was addressed in the Article Classification Task (ACT), where participants were asked to implement tools for detecting PPI-describing abstracts. Therefore the BCIII-ACT corpus was provided, which includes a training, development and test set of over 12,000 PPI relevant and non-relevant PubMed abstracts labeled manually by domain experts and recording also the human classification times. The Interaction Method Task (IMT) went beyond abstracts and required mining for associations between more than 3,500 full text articles and interaction detection method ontology concepts that had been applied to detect the PPIs reported in them.ResultsA total of 11 teams participated in at least one of the two PPI tasks (10 in ACT and 8 in the IMT) and a total of 62 persons were involved either as participants or in preparing data sets/evaluating these tasks. Per task, each team was allowed to submit five runs offline and another five online via the BioCreative Meta-Server. From the 52 runs submitted for the ACT, the highest Matthew's Correlation Coefficient (MCC) score measured was 0.55 at an accuracy of 89% and the best AUC iP/R was 68%. Most ACT teams explored machine learning methods, some of them also used lexical resources like MeSH terms, PSI-MI concepts or particular lists of verbs and nouns, some integrated NER approaches. For the IMT, a total of 42 runs were evaluated by comparing systems against manually generated annotations done by curators from the BioGRID and MINT databases. The highest AUC iP/R achieved by any run was 53%, the best MCC score 0.55. In case of competitive systems with an acceptable recall (above 35%) the macro-averaged precision ranged between 50% and 80%, with a maximum F-Score of 55%.ConclusionsThe results of the ACT task of BioCreative III indicate that classification of large unbalanced article collections reflecting the real class imbalance is still challenging. Nevertheless, text-mining tools that report ranked lists of relevant articles for manual selection can potentially reduce the time needed to identify half of the relevant articles to less than 1/4 of the time when compared to unranked results. Detecting associations between full text articles and interaction detection method PSI-MI terms (IMT) is more difficult than might be anticipated. This is due to the variability of method term mentions, errors resulting from pre-processing of articles provided as PDF files, and the heterogeneity and different granularity of method term concepts encountered in the ontology. However, combining the sophisticated techniques developed by the participants with supporting evidence strings derived from the articles for human interpretation could result in practical modules for biological annotation workflows."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the goal of the BioCreative III PPI tasks?",
+      "answer": "The PPI tasks of BioCreative III tried to address relevant aspects for both database curators as well as general biologists interested in improving the retrieval of interaction relevant articles and association of ontology terms and experimental techniques to full text papers."
+    },
+    {
+      "question": "What are the two main tasks introduced in the BioCreative III PPI challenge?",
+      "answer": "The two main tasks are the Article Classification Task (ACT) and the Interaction Method Task (IMT)."
+    },
+    {
+      "question": "What type of dataset was provided for the Article Classification Task (ACT)?",
+      "answer": "For the ACT, the BCIII-ACT corpus was provided."
+    },
+    {
+      "question": "What are the high-frequency terms in IMT data?",
+      "answer": "These 4 high-frequency terms are (from most to least frequent): ‘anti bait coimmunoprecipitation’, ‘anti tag coimmunoprecipitation’ (these two represent 1/3 of all annotations), ‘pull down’, and ‘two hybrid’."
+    },
+    {
+      "question": "What were the main challenges identified in the IMT?",
+      "answer": "The main difficulties for the Interaction Method Task arise from the many different ways of describing a given experimental method, handling PDF articles, and the heterogeneous journal composition."
+    }
+  ]
+  },
+  {
+  "paper_uri": "http://orkg.org/orkg/resource/R162540",
+  "title_query": "The extraction of complex relationships and their conversion to biological expression language (BEL) overview of the BioCreative VI (2017) BEL track",
+  "doi": "10.1093/database/baz084",
+  "open_access_paper": {
+    "id": "R162540",
+    "title": "The extraction of complex relationships and their conversion to biological expression language (BEL) overview of the BioCreative VI (2017) BEL track",
+    "doi": "10.1093/database/baz084",
+    "open_access_url": "https://academic.oup.com/database/article-pdf/doi/10.1093/database/baz084/30131322/baz084.pdf",
+    "license": "cc-by",
+    "abstract": "Abstract Knowledge of the molecular interactions of biological and chemical entities and their involvement in biological processes or clinical phenotypes is important for data interpretation. Unfortunately, this knowledge is mostly embedded in the literature in such a way that it is unavailable for automated data analysis procedures. Biological expression language (BEL) is a syntax representation allowing for the structured representation of a broad range of biological relationships. It is used in various situations to extract such knowledge and transform it into BEL networks. To support the tedious and time-intensive extraction work of curators with automated methods, we developed the BEL track within the framework of BioCreative Challenges. Within the BEL track, we provide training data and an evaluation environment to encourage the text mining community to tackle the automatic extraction of complex BEL relationships. In 2017 BioCreative VI, the 2015 BEL track was repeated with new test data. Although only minor improvements in text snippet retrieval for given statements were achieved during this second BEL task iteration, a significant increase of BEL statement extraction performance from provided sentences could be seen. The best performing system reached a 32% F-score for the extraction of complete BEL statements and with the given named entities this increased to 49%. This time, besides rule-based systems, new methods involving hierarchical sequence labeling and neural networks were applied for BEL statement extraction."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is Biological Expression Language (BEL)",
+      "answer": "Biological expression language (BEL) is a syntax representation allowing for the structured representation of a broad range of biological relationships."
+    },
+    {
+      "question": "What is BELIEF?",
+      "answer": "BEL information extraction workflow (BELIEF) supports such semi-automatic curation. BELIEF is a public web service with underlying text mining workflows and a curation interface that enables the semi-automatic extraction of complex relationships, and their coding, in BEL."
+    },
+    {
+      "question": "What is the main challenge in extracting BEL statements?",
+      "answer": "The extraction of relationships and their coding in BEL is a complex task as a multitude of entity, relationship and function types can be involved in a single relationship."
+    },
+    {
+      "question": "What is the proposed architecture in the study ?",
+      "answer": "The study combines rule-based systems with new methods involving hierarchical sequence labeling and neural networks were applied for BEL statement extraction."
+    },
+    {
+      "question": "What was the effect of the second round of the BEL track?",
+      "answer": "Through the second round of the BEL track and the provision of training data, the performance of participating systems increased drastically."
+    }
+  ]
+  }, 
+    {
+  "paper_uri": "http://orkg.org/orkg/resource/R162526",
+  "title_query": "Overview of the BioCreative VI text-mining services for Kinome Curation Track",
+  "doi": "10.1093/database/bay104",
+  "open_access_paper": {
+    "id": "R162526",
+    "title": "Overview of the BioCreative VI text-mining services for Kinome Curation Track",
+    "doi": "10.1093/database/bay104",
+    "open_access_url": "https://academic.oup.com/database/article-pdf/doi/10.1093/database/bay104/27329183/bay104.pdf",
+    "license": "cc-by",
+    "abstract": "Abstract The text-mining services for kinome curation track, part of BioCreative VI, proposed a competition to assess the effectiveness of text mining to perform literature triage. The track has exploited an unpublished curated data set from the neXtProt database. This data set contained comprehensive annotations for 300 human protein kinases. For a given protein and a given curation axis [diseases or gene ontology (GO) biological processes], participants’ systems had to identify and rank relevant articles in a collection of 5.2 M MEDLINE citations (task 1) or 530 000 full-text articles (task 2). Explored strategies comprised named-entity recognition and machine-learning frameworks. For that latter approach, participants developed methods to derive a set of negative instances, as the databases typically do not store articles that were judged as irrelevant by curators. The supervised approaches proposed by the participating groups achieved significant improvements compared to the baseline established in a previous study and compared to a basic PubMed search."
+  },
+  "qa_pairs": [
+    {
+      "question": "What is the BioCreative VI Kinome Track?",
+      "answer": "The BioCreative VI Kinome Track proposed a competition in literature triage based on the neXtProt unpublished protein kinase dataset."
+    },
+    {
+      "question": "What is the purpose of triage systems?",
+      "answer": "Triage systems that retrieve, filter and/or prioritize the literature can hence help curators focus on articles appropriate for curation."
+    },
+    {
+      "question": "What metrics were used for evaluation?",
+      "answer": "Metrics used are P10 or Precision at rank 10, R30 or Recall at rank 30, P at R0, Mean average precision (MAP), R-prec."
+    },
+    {
+      "question": "How were the Kinome Track benchmarks composed in the study?",
+      "answer": "The Kinome Track benchmarks are composed of three parts:: a collection of documents, a set of queries (the query was a human kinase and a curation axis), and relevance judgments used to evaluate system outputs."
+    },
+    {
+      "question": "What were the key components of the Kinome Track dataset mentioned in the document?",
+      "answer": "The dataset contains >30 000 annotations. Each annotation is supported by a reference to a publication, a PubMed identifier (PMID)."
+    }
+  ]
+  },
+{
+  "paper_uri": "http://orkg.org/orkg/resource/R162364",
+  "title_query": "Overview of the protein-protein interaction annotation extraction task of BioCreative II",
+  "doi": "10.1186/gb-2008-9-s2-s4",
+  "open_access_paper": {
+    "id": "R162364",
+    "title": "Overview of the protein-protein interaction annotation extraction task of BioCreative II",
+    "doi": "10.1186/gb-2008-9-s2-s4",
+    "open_access_url": "https://genomebiology.biomedcentral.com/counter/pdf/10.1186/gb-2008-9-s2-s4",
+    "license": "cc-by",
+    "abstract": "Background:The biomedical literature is the primary information source for manual protein-protein interaction annotations. Text-mining systems have been implemented to extract binary protein interactions from articles, but a comprehensive comparison between the different techniques as well as with manual curation was missing.Results:We designed a community challenge, the BioCreative II protein-protein interaction (PPI) task, based on the main steps of a manual protein interaction annotation workflow. It was structured into four distinct subtasks related to: (a) detection of protein interaction-relevant articles; (b) extraction and normalization of protein interaction pairs; (c) retrieval of the interaction detection methods used; and (d) retrieval of actual text passages that provide evidence for protein interactions. A total of 26 teams submitted runs for at least one of the proposed subtasks. In the interaction article detection subtask, the top scoring team reached an F-score of 0.78. In the interaction pair extraction and mapping to SwissProt, a precision of 0.37 (with recall of 0.33) was obtained. For associating articles with an experimental interaction detection method, an F-score of 0.65 was achieved. As for the retrieval of the PPI passages best summarizing a given protein interaction in full-text articles, 19% of the submissions returned by one of the runs corresponded to curator-selected sentences. Curators extracted only the passages that best summarized a given interaction, implying that many of the automatically extracted ones could contain interaction information but did not correspond to the most informative sentences.Conclusion:The BioCreative II PPI task is the first attempt to compare the performance of text-mining tools specific for each of the basic steps of the PPI extraction pipeline. The challenges identified range from problems in full-text format conversion of articles to difficulties in detecting interactor protein pairs and then linking them to their database records. Some limitations were also encountered when using a single (and possibly incomplete) reference database for protein normalization or when limiting search for interactor proteins to co-occurrence within a single sentence, when a mention might span neighboring sentences. Finally, distinguishing between novel, experimentally verified interactions (annotation relevant) and previously known interactions adds additional complexity to these tasks."
+  },
+  "qa_pairs": [
+    {
+      "question": "What was the main objective of the BioCreative II Protein-Protein Interaction (PPI) task?",
+      "answer": "The main objective of the BioCreative II PPI task was to compare the performance of text-mining tools specific for each of the basic steps of the PPI extraction pipeline."
+    },
+    {
+      "question": "What are the four subtasks included in the BioCreative II PPI task?",
+      "answer": "The four subtasks are: (a) detection of protein interaction-relevant articles; (b) extraction and normalization of protein interaction pairs; (c) retrieval of the interaction detection methods used; and (d) retrieval of actual text passages that provide evidence for protein interactions."
+    },
+    {
+      "question": "What is the purpose of text-mining systems in PPI extraction?",
+      "answer": "Text-mining systems have been implemented to extract binary protein interactions from articles."
+    },
+    {
+      "question": "What does the Interaction Pair Subtask (IPS) involve?",
+      "answer": "The Interaction Pair Subtask (IPS) involves the extraction of binary protein-protein interaction pairs from full-text articles."
+    },
+    {
+      "question": "What does the Interaction Method Subtask (IMS) involve?",
+      "answer": "The Interaction Method Subtask (IMS) involves the extraction of the interaction detection method used to characterize the protein interactions described in full-text articles."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R164162",
+    "title_query": "Ontology design patterns to disambiguate relations between genes and gene products in GENIA",
+    "doi": "10.1186/2041-1480-2-s5-s1",
+    "open_access_paper": {
+      "id": "R164162",
+      "title": "Ontology design patterns to disambiguate relations between genes and gene products in GENIA",
+      "doi": "10.1186/2041-1480-2-s5-s1",
+      "open_access_url": "https://jbiomedsem.biomedcentral.com/track/pdf/10.1186/2041-1480-2-S5-S1",
+      "license": "cc-by",
+      "abstract": "MotivationAnnotated reference corpora play an important role in biomedical information extraction. A semantic annotation of the natural language texts in these reference corpora using formal ontologies is challenging due to the inherent ambiguity of natural language. The provision of formal definitions and axioms for semantic annotations offers the means for ensuring consistency as well as enables the development of verifiable annotation guidelines. Consistent semantic annotations facilitate the automatic discovery of new information through deductive inferences.ResultsWe provide a formal characterization of the relations used in the recent GENIA corpus annotations. For this purpose, we both select existing axiom systems based on the desired properties of the relations within the domain and develop new axioms for several relations. To apply this ontology of relations to the semantic annotation of text corpora, we implement two ontology design patterns. In addition, we provide a software application to convert annotated GENIA abstracts into OWL ontologies by combining both the ontology of relations and the design patterns. As a result, the GENIA abstracts become available as OWL ontologies and are amenable for automated verification, deductive inferences and other knowledge-based applications.AvailabilityDocumentation, implementation and examples are available from http://www-tsujii.is.s.u-tokyo.ac.jp/GENIA/."
+    },
+     "qa_pairs": [
+    {
+      "question": "What was the main goal of this work on the GENIA corpus?",
+      "answer": "The main goal was to provide a formal characterization of relations used in the GENIA corpus, including defining axioms and ontology design patterns, enabling automated verification, deductive inference, and knowledge-based applications."
+    },
+    {
+      "question": "How were GENIA corpus abstracts represented after this work?",
+      "answer": "GENIA abstracts were converted into OWL ontologies by combining the ontology of relations with ontology design patterns, making them amenable for automated verification, reasoning, and other knowledge-based applications."
+    },
+    {
+      "question": "What kinds of entities are connected through relations in the GENIA corpus?",
+      "answer": "Relations in GENIA corpus annotations typically connect names and biomedical domain terms, especially genes, gene products (GGPs), DNA, RNA, and proteins, which are treated as classes for named entity recognition purposes."
+    },
+    {
+      "question": "What is the equivalence assumption in GENIA relation annotations?",
+      "answer": "The equivalence assumption states that names or terms referring to the same class of genes, proteins, RNAs, or gene products are considered equivalent within the context of the GENIA relation annotations, simplifying automatic extraction and enabling generic relations."
+    },
+    {
+      "question": "How does the formalization connect different types of gene/gene product entities?",
+      "answer": "The formalization defines a class for a GGP and connects DNA, RNA, and protein entities through transcription and translation relations. For example, a protein instance is linked to its RNA through a translated-from relation, and RNA is linked to DNA through a transcribed-from relation, forming a structured hierarchy."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R162352",
+    "title_query": "Evaluation of BioCreAtIvE assessment of task 2",
+    "doi": "10.1186/1471-2105-6-s1-s16",
+    "open_access_paper": {
+      "id": "R162352",
+      "title": "Evaluation of BioCreAtIvE assessment of task 2",
+      "doi": "10.1186/1471-2105-6-s1-s16",
+      "open_access_url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-6-S1-S16",
+      "license": "cc-by",
+      "abstract": "BackgroundMolecular Biology accumulated substantial amounts of data concerning functions of genes and proteins. Information relating to functional descriptions is generally extracted manually from textual data and stored in biological databases to build up annotations for large collections of gene products. Those annotation databases are crucial for the interpretation of large scale analysis approaches using bioinformatics or experimental techniques. Due to the growing accumulation of functional descriptions in biomedical literature the need for text mining tools to facilitate the extraction of such annotations is urgent. In order to make text mining tools useable in real world scenarios, for instance to assist database curators during annotation of protein function, comparisons and evaluations of different approaches on full text articles are needed.ResultsThe Critical Assessment for Information Extraction in Biology (BioCreAtIvE) contest consists of a community wide competition aiming to evaluate different strategies for text mining tools, as applied to biomedical literature. We report on task two which addressed the automatic extraction and assignment of Gene Ontology (GO) annotations of human proteins, using full text articles. The predictions of task 2 are based on triplets of protein \u2013 GO term \u2013 article passage. The annotation-relevant text passages were returned by the participants and evaluated by expert curators of the GO annotation (GOA) team at the European Institute of Bioinformatics (EBI). Each participant could submit up to three results for each sub-task comprising task 2. In total more than 15,000 individual results were provided by the participants. The curators evaluated in addition to the annotation itself, whether the protein and the GO term were correctly predicted and traceable through the submitted text fragment.ConclusionConcepts provided by GO are currently the most extended set of terms used for annotating gene products, thus they were explored to assess how effectively text mining tools are able to extract those annotations automatically. Although the obtained results are promising, they are still far from reaching the required performance demanded by real world applications. Among the principal difficulties encountered to address the proposed task, were the complex nature of the GO terms and protein names (the large range of variants which are used to express proteins and especially GO terms in free text), and the lack of a standard training set. A range of very different strategies were used to tackle this task. The dataset generated in line with the BioCreative challenge is publicly available and will allow new possibilities for training information extraction methods in the domain of molecular biology."
+    },
+    "qa_pairs": [
+    {
+      "question": "What was the main goal of BioCreAtIvE Task 2?",
+      "answer": "The main goal was to evaluate text mining tools for automatically extracting and assigning Gene Ontology (GO) annotations of human proteins from full-text articles, including providing relevant textual evidence passages."
+    },
+    {
+      "question": "How were the predictions structured in Task 2?",
+      "answer": "Predictions were structured as triplets consisting of protein – GO term – article passage, with participants returning the annotation-relevant text passages for evaluation."
+    },
+    {
+      "question": "Who evaluated the submitted predictions and what criteria were used?",
+      "answer": "Expert curators from the GO Annotation (GOA) team at the European Bioinformatics Institute evaluated the submissions. They assessed whether the protein and GO term were correctly predicted and whether the annotations were traceable through the submitted text fragments."
+    },
+    {
+      "question": "What were the main challenges encountered in Task 2?",
+      "answer": "The main challenges included the complex nature of GO terms and protein names, the large variability in how proteins and GO terms are expressed in free text, and the lack of a standardized training dataset."
+    },
+    {
+      "question": "What was concluded regarding the performance of text mining tools in this task?",
+      "answer": "Although the results were promising, text mining tools were still far from achieving the level of performance required for real-world applications. The variety of strategies used showed potential, and the publicly available dataset provides a foundation for further improvement."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R162482",
+    "title_query": "BioCreative V track 4: a shared task for the extraction of causal network information using the Biological Expression Language",
+    "doi": "10.1093/database/baw067",
+    "open_access_paper": {
+      "id": "R162482",
+      "title": "BioCreative V track 4: a shared task for the extraction of causal network information using the Biological Expression Language",
+      "doi": "10.1093/database/baw067",
+      "open_access_url": "https://academic.oup.com/database/article-pdf/doi/10.1093/database/baw067/8224465/baw067.pdf",
+      "license": "cc-by",
+      "abstract": "Automatic extraction of biological network information is one of the most desired and most complex tasks in biological and medical text mining. Track 4 at BioCreative V attempts to approach this complexity using fragments of large-scale manually curated biological networks, represented in Biological Expression Language (BEL), as training and test data. BEL is an advanced knowledge representation format which has been designed to be both human readable and machine processable. The specific goal of track 4 was to evaluate text mining systems capable of automatically constructing BEL statements from given evidence text, and of retrieving evidence text for given BEL statements. Given the complexity of the task, we designed an evaluation methodology which gives credit to partially correct statements. We identified various levels of information expressed by BEL statements, such as entities, functions, relations, and introduced an evaluation framework which rewards systems capable of delivering useful BEL fragments at each of these levels. The aim of this evaluation method is to help identify the characteristics of the systems which, if combined, would be most useful for achieving the overall goal of automatically constructing causal biological networks from text."
+    },
+     "qa_pairs": [
+    {
+      "question": "What was the main objective of BioCreative V Track 4 (BEL track)?",
+      "answer": "The main objective was to evaluate text mining systems capable of automatically constructing Biological Expression Language (BEL) statements from evidence text and retrieving evidence text for given BEL statements, facilitating the construction of causal biological networks from text."
+    },
+    {
+      "question": "What datasets were used for training and testing in the BEL track?",
+      "answer": "The BEL track used three main datasets: the BEL_Extraction training corpus with 6,353 evidence texts and 11,066 BEL statements, the smaller BEL_Extraction sample corpus with 191 sentences and 296 BEL statements for development, and the BEL_Extraction test corpus with 105 sentences and 202 BEL statements for final evaluation."
+    },
+    {
+      "question": "How was system performance evaluated for BEL statement extraction?",
+      "answer": "Performance was evaluated at multiple levels of BEL statements: entities, functions, relations, and full statements. Precision, recall, and F-measure were computed, and partial credit was given for partially correct statements. Two stages were conducted: one with system-detected entities and one using gold-standard entities to highlight the importance of term recognition."
+    },
+    {
+      "question": "What were the key results for Task 1 (extracting BEL statements from text)?",
+      "answer": "For Task 1, the best system achieved 20% F-measure on full statements in stage 1 and 35.2% in stage 2 using gold-standard entities. High scores on relation or function levels did not always correlate with full statement performance. Ensemble approaches improved recall but often at the cost of precision."
+    },
+    {
+      "question": "What was the significance of Task 2 (retrieving evidence sentences for BEL statements)?",
+      "answer": "Task 2 addressed the challenge of finding supporting evidence in biomedical literature. Although only one team participated, they provided 806 evidence sentences for 96 BEL statements. The task highlighted the importance of contextual information and provides a valuable large-scale training resource for future text mining development."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R162388",
+    "title_query": "The gene normalization task in BioCreative III",
+    "doi": "10.1186/1471-2105-12-s8-s2",
+    "open_access_paper": {
+      "id": "R162388",
+      "title": "The gene normalization task in BioCreative III",
+      "doi": "10.1186/1471-2105-12-s8-s2",
+      "open_access_url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/1471-2105-12-S8-S2",
+      "license": "cc-by",
+      "abstract": "BackgroundWe report the Gene Normalization (GN) challenge in BioCreative III where participating teams were asked to return a ranked list of identifiers of the genes detected in full-text articles. For training, 32 fully and 500 partially annotated articles were prepared. A total of 507 articles were selected as the test set. Due to the high annotation cost, it was not feasible to obtain gold-standard human annotations for all test articles. Instead, we developed an Expectation Maximization (EM) algorithm approach for choosing a small number of test articles for manual annotation that were most capable of differentiating team performance. Moreover, the same algorithm was subsequently used for inferring ground truth based solely on team submissions. We report team performance on both gold standard and inferred ground truth using a newly proposed metric called Threshold Average Precision (TAP-k).ResultsWe received a total of 37 runs from 14 different teams for the task. When evaluated using the gold-standard annotations of the 50 articles, the highest TAP-k scores were 0.3297 (k=5), 0.3538 (k=10), and 0.3535 (k=20), respectively. Higher TAP-k scores of 0.4916 (k=5, 10, 20) were observed when evaluated using the inferred ground truth over the full test set. When combining team results using machine learning, the best composite system achieved TAP-k scores of 0.3707 (k=5), 0.4311 (k=10), and 0.4477 (k=20) on the gold standard, representing improvements of 12.4%, 21.8%, and 26.6% over the best team results, respectively.ConclusionsBy using full text and being species non-specific, the GN task in BioCreative III has moved closer to a real literature curation task than similar tasks in the past and presents additional challenges for the text mining community, as revealed in the overall team results. By evaluating teams using the gold standard, we show that the EM algorithm allows team submissions to be differentiated while keeping the manual annotation effort feasible. Using the inferred ground truth we show measures of comparative performance between teams. Finally, by comparing team rankings on gold standard vs. inferred ground truth, we further demonstrate that the inferred ground truth is as effective as the gold standard for detecting good team performance."
+    },"qa_pairs": [
+    {
+      "question": "What was the main goal of the Gene Normalization (GN) challenge in BioCreative III?",
+      "answer": "The main goal of the GN challenge was to have participating teams return a ranked list of gene identifiers detected in full-text biomedical articles, simulating a real literature curation task."
+    },
+    {
+      "question": "How were the training and test datasets prepared for the GN challenge?",
+      "answer": "For training, 32 fully annotated and 500 partially annotated articles were prepared. A total of 507 articles were selected as the test set. Due to high annotation costs, only a small number of test articles were manually annotated, chosen using an Expectation Maximization (EM) algorithm."
+    },
+    {
+      "question": "What role did the Expectation Maximization (EM) algorithm play in the challenge?",
+      "answer": "The EM algorithm was used to select the most informative test articles for manual annotation and later to infer ground truth for the full test set based solely on team submissions, helping differentiate team performance without requiring full manual annotation."
+    },
+    {
+      "question": "What metric was used to evaluate team performance, and how does it work?",
+      "answer": "Team performance was evaluated using Threshold Average Precision (TAP-k), which measures the precision of the top k ranked gene predictions for each article, allowing assessment of both gold-standard and inferred ground truth results."
+    },
+    {
+      "question": "What were the key findings and implications of the GN challenge?",
+      "answer": "The challenge showed that using full text and being species non-specific made the task more realistic and challenging. The EM-based inferred ground truth was as effective as gold-standard annotations in differentiating team performance. Combining team results with machine learning further improved TAP-k scores, demonstrating the potential for ensemble approaches in gene normalization."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R156121",
+    "title_query": "The Web as a Knowledge-Base for Answering Complex Questions",
+    "doi": "10.18653/v1/n18-1059",
+    "open_access_paper": {
+      "id": "R156121",
+      "title": "The Web as a Knowledge-Base for Answering Complex Questions",
+      "doi": "10.18653/v1/n18-1059",
+      "open_access_url": "https://www.aclweb.org/anthology/N18-1059.pdf",
+      "license": "cc-by",
+      "abstract": "Answering complex questions is a time-consuming activity for humans that requires reasoning and integration of information. Recent work on reading comprehension made headway in answering simple questions, but tackling complex questions is still an ongoing research challenge. Conversely, semantic parsers have been successful at handling compositionality, but only when the information resides in a target knowledge-base. In this paper, we present a novel framework for answering broad and complex questions, assuming answering simple questions is possible using a search engine and a reading comprehension model. We propose to decompose complex questions into a sequence of simple questions, and compute the final answer from the sequence of answers. To illustrate the viability of our approach, we create a new dataset of complex questions, ComplexWebQuestions, and present a model that decomposes questions and interacts with the web to compute an answer. We empirically demonstrate that question decomposition improves performance from 20.8 precision@1 to 27.5 precision@1 on this new dataset."
+    },"qa_pairs": [
+    {
+      "question": "What is the main approach proposed for answering complex questions in this study?",
+      "answer": "The study proposes decomposing complex questions into a sequence of simple questions and then computing the final answer from the sequence of answers, leveraging a search engine and a reading comprehension model for the simple questions."
+    },
+    {
+      "question": "What is a computation tree and how is it used in the proposed framework?",
+      "answer": "A computation tree is a tree where leaves are labeled with strings and inner nodes with functions. The tree recursively applies functions to its children to compute the answer. It represents the decomposition of a complex question into simpler steps and guides the QA model in combining the answers."
+    },
+    {
+      "question": "What functions are included in the formal language of the proposed framework?",
+      "answer": "The formal language includes SIMPQA(·) for answering simple questions, COMP(·,·) for function composition over previously-computed answers, CONJ(·,·) for intersections of answer sets, and ADD(·,·) for numeric addition. Other logical and set operations can also be supported but were not required in the dataset."
+    },
+    {
+      "question": "What is the COMPLEXWEBQUESTIONS dataset and its purpose?",
+      "answer": "COMPLEXWEBQUESTIONS is a dataset of complex questions paired with their decompositions, answers, SPARQL programs, and web snippets. It is designed to support research on question decomposition, compositionality, and interaction with the web for complex question answering."
+    },
+    {
+      "question": "What are the limitations and future directions mentioned for this framework?",
+      "answer": "Limitations include handling superlative, comparative, and negation questions directly from the web, since these require structured knowledge. Future work involves incorporating tables and knowledge bases for set operations, and training the model with weak supervision to extract information from both web and structured sources."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R154294",
+    "title_query": "The Value of Semantic Parse Labeling for Knowledge Base Question Answering",
+    "doi": "10.18653/v1/p16-2033",
+    "open_access_paper": {
+      "id": "R154294",
+      "title": "The Value of Semantic Parse Labeling for Knowledge Base Question Answering",
+      "doi": "10.18653/v1/p16-2033",
+      "open_access_url": "https://doi.org/10.18653/v1/p16-2033",
+      "license": "cc-by",
+      "abstract": "We demonstrate the value of collecting semantic parse labels for knowledge base question answering. In particular, (1) unlike previous studies on small-scale datasets, we show that learning from labeled semantic parses significantly improves overall performance, resulting in absolute 5 point gain compared to learning from answers, (2) we show that with an appropriate user interface, one can obtain semantic parses with high accuracy and at a cost comparable or lower than obtaining just answers, and (3) we have created and shared the largest semantic-parse labeled dataset to date in order to advance research in question answering."
+    },
+    "qa_pairs": [
+    {
+      "question": "How does training with semantic parses compare to training with question-answer pairs in knowledge base QA?",
+      "answer": "Training with labeled semantic parses significantly improves knowledge base question answering performance compared to training with question-answer pairs, yielding an absolute 5-point gain in accuracy and reducing the number of incorrect candidate query graphs."
+    },
+    {
+      "question": "Which algorithm is used to generate and evaluate semantic parses in this study?",
+      "answer": "The study uses the Staged Query Graph Generation (STAGG) algorithm, which represents semantic parses as query graphs and scores candidate graphs based on how well they match the question and semantic parse labels."
+    },
+    {
+      "question": "What is the WEBQUESTIONSSP dataset and its significance?",
+      "answer": "WEBQUESTIONSSP is the largest semantic-parse labeled dataset to date. It provides high-quality annotations for entity linking, relation extraction, temporal constraints, and other semantic tasks, serving as a benchmark for knowledge base question answering research."
+    },
+    {
+      "question": "How can semantic parse labels improve answer quality and robustness?",
+      "answer": "Semantic parse labels ensure answers are faithful to the knowledge base, improve completeness for questions with large answer sets, and remain robust when knowledge base facts are updated, because answers are computed via execution of the semantic representation."
+    },
+    {
+      "question": "How can user interface design impact the collection of semantic parses?",
+      "answer": "An appropriate user interface allows annotators to provide semantic parses accurately and efficiently, at a cost comparable to collecting answers. Future improvements may include dialog-driven interfaces and knowledge graph visualizations to handle more complex questions."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R151315",
+    "title_query": "CitationIE: Leveraging the Citation Graph for Scientific Information Extraction",
+    "doi": "10.18653/v1/2021.acl-long.59",
+    "open_access_paper": {
+      "id": "R151315",
+      "title": "CitationIE: Leveraging the Citation Graph for Scientific Information Extraction",
+      "doi": "10.18653/v1/2021.acl-long.59",
+      "open_access_url": "https://aclanthology.org/2021.acl-long.59.pdf",
+      "license": "cc-by",
+      "abstract": "Automatically extracting key information from scientific documents has the potential to help scientists work more efficiently and accelerate the pace of scientific progress. Prior work has considered extracting document-level entity clusters and relations end-to-end from raw scientific text, which can improve literature search and help identify methods and materials for a given problem. Despite the importance of this task, most existing works on scientific information extraction (SciIE) consider extraction solely based on the content of an individual paper, without considering the paper\u2019s place in the broader literature. In contrast to prior work, we augment our text representations by leveraging a complementary source of document context: the citation graph of referential links between citing and cited papers. On a test set of English-language scientific documents, we show that simple ways of utilizing the structure and content of the citation graph can each lead to significant gains in different scientific information extraction tasks. When these tasks are combined, we observe a sizable improvement in end-to-end information extraction over the state-of-the-art, suggesting the potential for future work along this direction. We release software tools to facilitate citation-aware SciIE development."
+    },
+     "qa_pairs": [
+    {
+      "question": "What is the main objective of the CitationIE model?",
+      "answer": "The main objective of CitationIE is to improve scientific information extraction (SciIE) by leveraging citation graph information, in addition to the content of individual papers, to enhance mention identification, salient entity classification, and relation extraction."
+    },
+    {
+      "question": "How does CitationIE incorporate citation graph information into SciIE?",
+      "answer": "CitationIE uses graph embeddings and citances (text from citing or cited documents) to augment text representations, allowing the model to capture context from related documents in the citation graph, which improves entity saliency and relation extraction."
+    },
+    {
+      "question": "Which SciIE tasks showed the most improvement when using citation graph information?",
+      "answer": "Salient entity classification and relation extraction benefited the most from citation graph information, with significant gains in document-level and corpus-level F1 scores. Mention identification showed little change."
+    },
+    {
+      "question": "How was the CitationIE model evaluated and compared to baselines?",
+      "answer": "CitationIE was evaluated on English-language scientific documents using end-to-end and per-task metrics. It was compared against the baseline SciREX model and the DocTAET model, using document-level and corpus-level F1 scores, and significance was tested with paired bootstrap sampling."
+    },
+    {
+      "question": "What are the future directions suggested for citation-aware SciIE?",
+      "answer": "Future directions include developing more sophisticated methods to extract richer information from citation graphs, better capturing the interplay between citation structure and content, and validating the approach on other scientific domains beyond machine learning."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R147122",
+    "title_query": "An overview of the BIOASQ large-scale biomedical semantic indexing and question answering competition",
+    "doi": "10.1186/s12859-015-0564-6",
+    "open_access_paper": {
+      "id": "R147122",
+      "title": "An overview of the BIOASQ large-scale biomedical semantic indexing and question answering competition",
+      "doi": "10.1186/s12859-015-0564-6",
+      "open_access_url": "https://bmcbioinformatics.biomedcentral.com/counter/pdf/10.1186/s12859-015-0564-6",
+      "license": "cc-by",
+      "abstract": "This article provides an overview of the first BioASQ challenge, a competition on large-scale biomedical semantic indexing and question answering (QA), which took place between March and September 2013. BioASQ assesses the ability of systems to semantically index very large numbers of biomedical scientific articles, and to return concise and user-understandable answers to given natural language questions by combining information from biomedical articles and ontologies. The 2013 BioASQ competition comprised two tasks, Task 1a and Task 1b. In Task 1a participants were asked to automatically annotate new PubMed documents with MeSH headings. Twelve teams participated in Task 1a, with a total of 46 system runs submitted, and one of the teams performing consistently better than the MTI indexer used by NLM to suggest MeSH headings to curators. Task 1b used benchmark datasets containing 29 development and 282 test English questions, along with gold standard (reference) answers, prepared by a team of biomedical experts from around Europe and participants had to automatically produce answers. Three teams participated in Task 1b, with 11 system runs. The BioASQ infrastructure, including benchmark datasets, evaluation mechanisms, and the results of the participants and baseline methods, is publicly available. A publicly available evaluation infrastructure for biomedical semantic indexing and QA has been developed, which includes benchmark datasets, and can be used to evaluate systems that: assign MeSH headings to published articles or to English questions; retrieve relevant RDF triples from ontologies, relevant articles and snippets from PubMed Central; produce \u201cexact\u201d and paragraph-sized \u201cideal\u201d answers (summaries). The results of the systems that participated in the 2013 BioASQ competition are promising. In Task 1a one of the systems performed consistently better from the NLM\u2019s MTI indexer. In Task 1b the systems received high scores in the manual evaluation of the \u201cideal\u201d answers; hence, they produced high quality summaries as answers. Overall, BioASQ helped obtain a unified view of how techniques from text classification, semantic indexing, document and passage retrieval, question answering, and text summarization can be combined to allow biomedical experts to obtain concise, user-understandable answers to questions reflecting their real information needs."
+    },
+    "qa_pairs": [
+    {
+      "question": "What was the main goal of the first BIOASQ challenge?",
+      "answer": "The main goal of the first BIOASQ challenge was to assess systems’ ability to semantically index large numbers of biomedical articles and provide concise, user-understandable answers to natural language questions by combining information from biomedical articles and ontologies."
+    },
+    {
+      "question": "What were the two main tasks in the BIOASQ 2013 competition?",
+      "answer": "Task 1a involved automatically annotating new PubMed documents with MESH headings, while Task 1b required participants to automatically produce answers to benchmark English questions using biomedical articles and ontologies."
+    },
+    {
+      "question": "How many teams participated in Tasks 1a and 1b, and how did they perform?",
+      "answer": "In Task 1a, 12 teams submitted 46 system runs, with one team performing consistently better than NLM’s MTI indexer. In Task 1b, 3 teams submitted 11 system runs, achieving high scores in manual evaluation for the 'ideal' answers, producing high-quality summaries."
+    },
+    {
+      "question": "What resources and infrastructure did BIOASQ provide for evaluation?",
+      "answer": "BIOASQ provided benchmark datasets, evaluation mechanisms, and publicly available infrastructure to evaluate systems for MESH annotation, retrieval of relevant articles or RDF triples, and generation of exact and paragraph-sized 'ideal' answers."
+    },
+    {
+      "question": "What was the overall significance and impact of the BIOASQ 2013 challenge?",
+      "answer": "BIOASQ helped unify techniques from text classification, semantic indexing, document and passage retrieval, question answering, and multi-document summarization, enabling biomedical experts to obtain concise, understandable answers to real-world information needs."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R147129",
+    "title_query": "A Hierarchical Attention Retrieval Model for Healthcare Question Answering",
+    "doi": "10.1145/3308558.3313699",
+    "open_access_paper": {
+      "id": "R147129",
+      "title": "A Hierarchical Attention Retrieval Model for Healthcare Question Answering",
+      "doi": "10.1145/3308558.3313699",
+      "open_access_url": "https://dl.acm.org/doi/pdf/10.1145/3308558.3313699",
+      "license": "cc-by",
+      "abstract": "The growth of the Web in recent years has resulted in the development of various online platforms that provide healthcare information services. These platforms contain an enormous amount of information, which could be beneficial for a large number of people. However, navigating through such knowledgebases to answer specific queries of healthcare consumers is a challenging task. A majority of such queries might be non-factoid in nature, and hence, traditional keyword-based retrieval models do not work well for such cases. Furthermore, in many scenarios, it might be desirable to get a short answer that sufficiently answers the query, instead of a long document with only a small amount of useful information. In this paper, we propose a neural network model for ranking documents for question answering in the healthcare domain. The proposed model uses a deep attention mechanism at word, sentence, and document levels, for efficient retrieval for both factoid and non-factoid queries, on documents of varied lengths. Specifically, the word-level cross-attention allows the model to identify words that might be most relevant for a query, and the hierarchical attention at sentence and document levels allows it to do effective retrieval on both long and short documents. We also construct a new large-scale healthcare question-answering dataset, which we use to evaluate our model. Experimental evaluation results against several state-of-the-art baselines show that our model outperforms the existing retrieval techniques."
+    },
+    "qa_pairs": [
+    {
+      "question": "What is the HAR model and what problem does it address?",
+      "answer": "The HAR (Hierarchical Attention Retrieval) model is a neural network designed to rank documents for healthcare-related queries. It addresses the challenge of efficiently retrieving relevant information from long or short documents for both factoid and non-factoid questions."
+    },
+    {
+      "question": "What are the main components of the HAR model?",
+      "answer": "HAR consists of several components: word embeddings, query and document Bi-GRU encoders, cross attention between query and document words, query inner attention, hierarchical inner attention over words and sentences in documents, and a score computation layer to output relevance scores."
+    },
+    {
+      "question": "How does the cross-attention mechanism in HAR work?",
+      "answer": "The cross-attention layer computes the relevance between each query word and each word in the document. It uses document-to-query and query-to-document attention to generate attended embeddings that highlight important words in both the query and document."
+    },
+    {
+      "question": "How does HAR handle variable-length queries and long documents?",
+      "answer": "HAR uses query inner attention to create a fixed-size embedding that emphasizes important query words. For documents, it applies a two-level hierarchical attention: word-level attention within sentences and sentence-level attention across the document, allowing it to focus on relevant sections."
+    },
+    {
+      "question": "What are the main contributions and results of the paper?",
+      "answer": "The paper proposes the HAR model, introduces a large-scale healthcare QA dataset (HealthQA), and demonstrates that HAR outperforms several state-of-the-art retrieval methods. The model can also extract probable answer snippets, making healthcare information more accessible."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R146872",
+    "title_query": "Identification of Tasks, Datasets, Evaluation Metrics, and Numeric Scores for Scientific Leaderboards Construction",
+    "doi": "10.18653/v1/p19-1513",
+    "open_access_paper": {
+      "id": "R146872",
+      "title": "Identification of Tasks, Datasets, Evaluation Metrics, and Numeric Scores for Scientific Leaderboards Construction",
+      "doi": "10.18653/v1/p19-1513",
+      "open_access_url": "https://www.aclweb.org/anthology/P19-1513.pdf",
+      "license": "cc-by",
+      "abstract": "While the fast-paced inception of novel tasks and new datasets helps foster active research in a community towards interesting directions, keeping track of the abundance of research activity in different areas on different datasets is likely to become increasingly difficult. The community could greatly benefit from an automatic system able to summarize scientific results, e.g., in the form of a leaderboard. In this paper we build two datasets and develop a framework (TDMS-IE) aimed at automatically extracting task, dataset, metric and score from NLP papers, towards the automatic construction of leaderboards. Experiments show that our model outperforms several baselines by a large margin. Our model is a first step towards automatic leaderboard construction, e.g., in the NLP domain."
+    },
+  "qa_pairs": [
+    {
+      "question": "What is the main objective of the study presented in this paper?",
+      "answer": "The study aims to develop a system that can automatically extract structured information—namely tasks, datasets, evaluation metrics, and numeric scores (TDMS)—from scientific papers in NLP. This enables the construction of scientific leaderboards and helps track progress in the field."
+    },
+    {
+      "question": "What is TDMS-IE, and what components does it extract from scientific literature?",
+      "answer": "TDMS-IE is the proposed information extraction framework that identifies four key components from NLP papers: Tasks, Datasets, Metrics, and Scores. These elements are extracted to support the automatic generation of leaderboards."
+    },
+    {
+      "question": "What data resources did the authors build to train and evaluate their system?",
+      "answer": "The authors constructed two datasets: one for identifying mentions of tasks, datasets, and metrics (TDMS-Span), and another for linking these mentions with numeric scores (TDMS-Relation). These resources were manually annotated from ACL anthology papers."
+    },
+    {
+      "question": "What model architecture was used in TDMS-IE, and how was it trained?",
+      "answer": "The architecture is a neural model based on BiLSTM-CRF for span extraction, and a feed-forward network for relation classification. It was trained using the manually annotated TDMS datasets to recognize relevant spans and link them to their corresponding numeric scores."
+    },
+    {
+      "question": "What were the key findings from the evaluation of TDMS-IE?",
+      "answer": "The system significantly outperformed strong baselines in extracting tasks, datasets, metrics, and scores. It demonstrated the feasibility of building automatic leaderboard generation systems, though challenges like ambiguous phrasing and domain variation remain."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R146853",
+    "title_query": "SciREX: A Challenge Dataset for Document-Level Information Extraction",
+    "doi": "10.18653/v1/2020.acl-main.670",
+    "open_access_paper": {
+      "id": "R146853",
+      "title": "SciREX: A Challenge Dataset for Document-Level Information Extraction",
+      "doi": "10.18653/v1/2020.acl-main.670",
+      "open_access_url": "https://www.aclweb.org/anthology/2020.acl-main.670.pdf",
+      "license": "cc-by",
+      "abstract": "Extracting information from full documents is an important problem in many domains, but most previous work focus on identifying relationships within a sentence or a paragraph. It is challenging to create a large-scale information extraction (IE) dataset at the document level since it requires an understanding of the whole document to annotate entities and their document-level relationships that usually span beyond sentences or even sections. In this paper, we introduce SciREX, a document level IE dataset that encompasses multiple IE tasks, including salient entity identification and document level N-ary relation identification from scientific articles. We annotate our dataset by integrating automatic and human annotations, leveraging existing scientific knowledge resources. We develop a neural model as a strong baseline that extends previous state-of-the-art IE models to document-level IE. Analyzing the model performance shows a significant gap between human performance and current baselines, inviting the community to use our dataset as a challenge to develop document-level IE models. Our data and code are publicly available at https://github.com/allenai/SciREX ."
+    },
+    "qa_pairs": [
+    {
+      "question": "What is the main motivation behind the SciREX dataset?",
+      "answer": "The main motivation is to address the limitations of existing information extraction datasets, which typically focus on sentence- or paragraph-level relations. SciREX supports document-level IE, where entities and relations can span multiple sentences or sections, making the task more realistic and challenging for scientific literature."
+    },
+    {
+      "question": "What key tasks are encompassed within the SciREX dataset?",
+      "answer": "SciREX includes multiple document-level IE tasks: salient entity identification, N-ary relation extraction (linking task, method, and dataset), evidence span detection (supporting text), and coreference resolution to link entity mentions across the document."
+    },
+    {
+      "question": "How was the SciREX dataset constructed?",
+      "answer": "The dataset was constructed using a semi-automated process that combined automatic heuristics—leveraging document structure and metadata—with human annotation. Tools like SciIE and scientific knowledge bases helped identify candidate entities and relations for manual validation."
+    },
+    {
+      "question": "What architecture did the authors propose as a baseline model for the SciREX dataset?",
+      "answer": "The authors extended the SciIE model for document-level use, applying a multi-task learning framework with a shared SciBERT-based document encoder. Task-specific layers then predicted entities, coreference clusters, and relations."
+    },
+    {
+      "question": "What challenges and gaps were revealed through evaluation of the baseline model?",
+      "answer": "Evaluation revealed a substantial performance gap between the baseline model and human annotators, especially in identifying document-level relations and evidence. This underscores the complexity of the task and the need for more advanced models capable of long-range context understanding."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R145803",
+    "title_query": "End-to-end Neural Coreference Resolution",
+    "doi": "10.18653/v1/d17-1018",
+    "open_access_paper": {
+      "id": "R145803",
+      "title": "End-to-end Neural Coreference Resolution",
+      "doi": "10.18653/v1/d17-1018",
+      "open_access_url": "https://www.aclweb.org/anthology/D17-1018.pdf",
+      "license": "cc-by",
+      "abstract": "We introduce the first end-to-end coreference resolution model and show that it significantly outperforms all previous work without using a syntactic parser or hand-engineered mention detector. The key idea is to directly consider all spans in a document as potential mentions and learn distributions over possible antecedents for each. The model computes span embeddings that combine context-dependent boundary representations with a head-finding attention mechanism. It is trained to maximize the marginal likelihood of gold antecedent spans from coreference clusters and is factored to enable aggressive pruning of potential mentions. Experiments demonstrate state-of-the-art performance, with a gain of 1.5 F1 on the OntoNotes benchmark and by 3.1 F1 using a 5-model ensemble, despite the fact that this is the first approach to be successfully trained with no external resources."
+     },
+      "qa_pairs": [
+    {
+      "question": "What is the primary characteristic of the neural coreference resolution model introduced in the paper?",
+      "answer": "The model is the first end-to-end neural coreference resolution model that does not rely on syntactic parsers or hand-engineered mention detectors."
+    },
+    {
+      "question": "How does the model handle span selection to manage computational complexity?",
+      "answer": "The model considers spans up to length L, keeps the top λT spans based on mention scores, and limits antecedents to K per span, enforcing non-crossing structures."
+    },
+    {
+      "question": "What methods are used to compute span embeddings in the model?",
+      "answer": "Span embeddings are computed using boundary representations and attention-based head word features."
+    },
+    {
+      "question": "How does the model learn mention detection and clustering?",
+      "answer": "The model jointly learns mention detection and clustering by maximizing the likelihood of gold coreference links."
+    },
+    {
+      "question": "What are some of the strengths and weaknesses of the model as discussed in the paper?",
+      "answer": "Strengths include attention mechanisms aligning with syntactic heads and handling complex noun phrases; weaknesses involve false positives due to word similarity and lack of world knowledge."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R141066",
+    "title_query": "CLPsych 2018 Shared Task: Predicting Current and Future Psychological Health from Childhood Essays",
+    "doi": "10.18653/v1/w18-0604",
+    "open_access_paper": {
+      "id": "R141066",
+      "title": "CLPsych 2018 Shared Task: Predicting Current and Future Psychological Health from Childhood Essays",
+      "doi": "10.18653/v1/w18-0604",
+      "open_access_url": "https://www.aclweb.org/anthology/W18-0604.pdf",
+      "license": "cc-by",
+      "abstract": "We describe the shared task for the CLPsych 2018 workshop, which focused on predicting current and future psychological health from an essay authored in childhood. Language-based predictions of a person\u2019s current health have the potential to supplement traditional psychological assessment such as questionnaires, improving intake risk measurement and monitoring. Predictions of future psychological health can aid with both early detection and the development of preventative care. Research into the mental health trajectory of people, beginning from their childhood, has thus far been an area of little work within the NLP community. This shared task represents one of the first attempts to evaluate the use of early language to predict future health; this has the potential to support a wide variety of clinical health care tasks, from early assessment of lifetime risk for mental health problems, to optimal timing for targeted interventions aimed at both prevention and treatment."
+         },
+  "qa_pairs": [
+    {
+      "question": "What is the primary focus of the shared task discussed in the paper?",
+      "answer": "The shared task focuses on using language-based assessments to predict psychological and mental health outcomes over time."
+    },
+    {
+      "question": "Which models were primarily used by participants in the study to predict mental health scores?",
+      "answer": "Participants used various models, primarily regularized linear regression, neural networks, and ensemble methods, with top systems often combining multiple techniques."
+    },
+    {
+      "question": "What evaluation metrics were employed to assess the performance of the models?",
+      "answer": "Evaluation metrics include disattenuated Pearson correlations and mean absolute error, accounting for measurement reliability."
+    },
+    {
+      "question": "How did the baseline models differ from the participant systems in terms of features?",
+      "answer": "The baseline models relied on simple unigrams and demographic controls, but most participant systems outperformed these baselines."
+    },
+    {
+      "question": "What additional methods were used to evaluate the quality of generated essays in the study?",
+      "answer": "Additional evaluation involved comparing generated essays to actual ones using BLEU scores and semantic similarity measures, though these metrics have limitations."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R141092",
+    "title_query": "DSTC7 Task 1: Noetic End-to-End Response Selection",
+    "doi": "10.18653/v1/w19-4107",
+    "open_access_paper": {
+      "id": "R141092",
+      "title": "DSTC7 Task 1: Noetic End-to-End Response Selection",
+      "doi": "10.18653/v1/w19-4107",
+      "open_access_url": "https://www.aclweb.org/anthology/W19-4107.pdf",
+      "license": "cc-by",
+      "abstract": "Goal-oriented dialogue in complex domains is an extremely challenging problem and there are relatively few datasets. This task provided two new resources that presented different challenges: one was focused but small, while the other was large but diverse. We also considered several new variations on the next utterance selection problem: (1) increasing the number of candidates, (2) including paraphrases, and (3) not including a correct option in the candidate set. Twenty teams participated, developing a range of neural network models, including some that successfully incorporated external data to boost performance. Both datasets have been publicly released, enabling future work to build on these results, working towards robust goal-oriented dialogue systems."
+    },
+    "qa_pairs": [
+    {
+      "question": "What are the primary neural models used by teams in the shared task for dialogue systems as discussed in the paper?",
+      "answer": "The primary neural models used include Enhanced LSTM (ESIM), Transformers, Memory Networks, CNNs, and models incorporating contextual embeddings like ELMo."
+    },
+    {
+      "question": "How do the models evaluated in the paper measure their performance in the dialogue system shared task?",
+      "answer": "Performance was evaluated using metrics such as Recall@N, MRR, and MAP across multiple subtasks and datasets, including Ubuntu and Advising dialogues."
+    },
+    {
+      "question": "What are some of the external data sources incorporated into the neural dialogue models described in the paper?",
+      "answer": "External data sources include Ubuntu man pages, advising information, and other domain-specific datasets."
+    },
+    {
+      "question": "What are the main challenges identified in the shared task for neural dialogue models?",
+      "answer": "The main challenges include handling large candidate sets and domain generalization."
+    },
+    {
+      "question": "What is the overarching goal of the shared task as outlined in the paper?",
+      "answer": "The task aims to foster development of more realistic, challenging dialogue systems, with datasets and baselines publicly available for future research."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R141070",
+    "title_query": "Named Entity Recognition on Code-Switched Data: Overview of the CALCS 2018 Shared Task",
+    "doi": "10.18653/v1/w18-3219",
+    "open_access_paper": {
+      "id": "R141070",
+      "title": "Named Entity Recognition on Code-Switched Data: Overview of the CALCS 2018 Shared Task",
+      "doi": "10.18653/v1/w18-3219",
+      "open_access_url": "https://www.aclweb.org/anthology/W18-3219.pdf",
+      "license": "cc-by",
+      "abstract": "In the third shared task of the Computational Approaches to Linguistic Code-Switching (CALCS) workshop, we focus on Named Entity Recognition (NER) on code-switched social-media data. We divide the shared task into two competitions based on the English-Spanish (ENG-SPA) and Modern Standard Arabic-Egyptian (MSA-EGY) language pairs. We use Twitter data and 9 entity types to establish a new dataset for code-switched NER benchmarks. In addition to the CS phenomenon, the diversity of the entities and the social media challenges make the task considerably hard to process. As a result, the best scores of the competitions are 63.76% and 71.61% for ENG-SPA and MSA-EGY, respectively. We present the scores of 9 participants and discuss the most common challenges among submissions."
+    },
+    "qa_pairs": [
+    {
+      "question": "What are the primary challenges faced in Named Entity Recognition (NER) for code-switched social media data as discussed in the paper?",
+      "answer": "The primary challenges include the informal and heterogeneous nature of social media text, the presence of code-switching, social media noise, data imbalance, and the difficulty of accurately identifying entities across closely related language variants like Modern Standard Arabic and Egyptian dialect."
+    },
+    {
+      "question": "What datasets were created and annotated for the purpose of NER in the study, and what languages do they focus on?",
+      "answer": "The datasets were created and annotated for NER in code-switched social media data focusing on Arabic-Egyptian and English-Spanish language pairs, with careful annotation using crowdsourcing and validation."
+    },
+    {
+      "question": "Which types of models were employed in the systems summarized in the paper, and what was the general outcome of their performance?",
+      "answer": "The systems employed neural models such as bidirectional LSTM combined with Conditional Random Fields (CRF), as well as traditional models. The results showed that NER performance remains challenging in social media contexts, especially for closely related language variants."
+    },
+    {
+      "question": "What was the main objective of the CALCS 2018 shared task as described in the paper?",
+      "answer": "The main objective was to develop models to identify 9 entity types (e.g., person, organization, location, etc.) in Twitter data containing code-switched language pairs (English-Spanish and Modern Standard Arabic-Egyptian), providing a benchmark for future research in multilingual, code-switched NER."
+    },
+    {
+      "question": "According to the paper, what are the key factors that contribute to the difficulty of NER in noisy, social media, and code-switched data?",
+      "answer": "The key factors include data noise, domain variation, code-switching, and the complexity of multilingual data, which cause most approaches to achieve lower scores than monolingual text."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R141010",
+    "title_query": "UnImplicit Shared Task Report: Detecting Clarification Requirements in Instructional Text",
+    "doi": "10.18653/v1/2021.unimplicit-1.4",
+    "open_access_paper": {
+      "id": "R141010",
+      "title": "UnImplicit Shared Task Report: Detecting Clarification Requirements in Instructional Text",
+      "doi": "10.18653/v1/2021.unimplicit-1.4",
+      "open_access_url": "https://aclanthology.org/2021.unimplicit-1.4.pdf",
+      "license": "cc-by",
+      "abstract": "This paper describes the data, task setup, and results of the shared task at the First Workshop on Understanding Implicit and Underspecified Language (UnImplicit). The task requires computational models to predict whether a sentence contains aspects of meaning that are contextually unspecified and thus require clarification. Two teams participated and the best scoring system achieved an accuracy of 68%."
+    },
+    "qa_pairs": [
+    {
+      "question": "What is the primary focus of the shared task discussed in the paper?",
+      "answer": "The primary focus of the shared task is predicting when clarifications are needed in text, specifically classifying sentences as requiring or not requiring clarification based on revision histories."
+    },
+    {
+      "question": "Which types of revision differences are highlighted as potentially influencing the results between in-domain and out-of-domain data?",
+      "answer": "Differences in revision types such as insertions of modifiers or complements are highlighted as potentially influencing the results."
+    },
+    {
+      "question": "What approaches did participants use to identify clarification needs in the study?",
+      "answer": "Participants used approaches like identifying pronouns requiring revision and leveraging sentence label distributions."
+    },
+    {
+      "question": "What was the top accuracy achieved by transformer-based models in the shared task?",
+      "answer": "Transformer-based models achieved a top accuracy of 68.4%."
+    },
+    {
+      "question": "What are some of the challenges identified in predicting clarification needs according to the paper?",
+      "answer": "Challenges include predicting subtle, context-specific edits and understanding what constitutes a necessary revision."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R141003",
+    "title_query": "SemEval-2021 Task 5: Toxic Spans Detection",
+    "doi": "10.18653/v1/2021.semeval-1.6",
+    "open_access_paper": {
+      "id": "R141003",
+      "title": "SemEval-2021 Task 5: Toxic Spans Detection",
+      "doi": "10.18653/v1/2021.semeval-1.6",
+      "open_access_url": "https://aclanthology.org/2021.semeval-1.6.pdf",
+      "license": "cc-by",
+      "abstract": "The Toxic Spans Detection task of SemEval-2021 required participants to predict the spans of toxic posts that were responsible for the toxic label of the posts. The task could be addressed as supervised sequence labeling, using training data with gold toxic spans provided by the organisers. It could also be treated as rationale extraction, using classifiers trained on potentially larger external datasets of posts manually annotated as toxic or not, without toxic span annotations. For the supervised sequence labeling approach and evaluation purposes, posts previously labeled as toxic were crowd-annotated for toxic spans. Participants submitted their predicted spans for a held-out test set and were scored using character-based F1. This overview summarises the work of the 36 teams that provided system descriptions."
+    },
+    "qa_pairs": [
+    {
+      "question": "What is the definition of a toxic span as introduced in the paper?",
+      "answer": "A toxic span is defined as a sequence of words that attribute to the post’s toxicity, with gold labels provided at the character level counting from zero."
+    },
+    {
+      "question": "What is the architecture of BENCHMARK I described in the paper?",
+      "answer": "BENCHMARK I is based on a RoBERTa model fine-tuned to predict if a post is toxic or not, and further fine-tuned to predict toxic spans by using a CRF layer on top."
+    },
+    {
+      "question": "What is the architecture of BENCHMARK II described in the paper?",
+      "answer": "BENCHMARK II is a lexicon-based system that extracts likely toxic words from the training data and tags them during inference, using a lexicon of words that frequently appear inside toxic spans and not outside."
+    },
+    {
+      "question": "What is the official evaluation measure used in the task?",
+      "answer": "The official evaluation measure is the macro-averaged F1 score computed on character offsets between predicted and ground truth toxic spans, assigning a perfect score when both are empty and zero otherwise."
+    },
+    {
+      "question": "What are the main challenges in detecting long toxic spans as discussed in the paper?",
+      "answer": "Long toxic spans are more likely context-dependent and less frequent in the dataset compared to single-word spans, making their detection a challenge."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R141060",
+    "title_query": "The CoNLL-2014 Shared Task on Grammatical Error Correction",
+    "doi": "10.3115/v1/w14-1701",
+    "open_access_paper": {
+      "id": "R141060",
+      "title": "The CoNLL-2014 Shared Task on Grammatical Error Correction",
+      "doi": "10.3115/v1/w14-1701",
+      "open_access_url": "https://aclanthology.org/W14-1701.pdf",
+      "license": "cc-by",
+      "abstract": "The CoNLL-2014 shared task was devoted to grammatical error correction of all error types. In this paper, we give the task definition, present the data sets, and describe the evaluation metric and scorer used in the shared task. We also give an overview of the various approaches adopted by the participating teams, and present the evaluation results. Compared to the CoNLL2013 shared task, we have introduced the following changes in CoNLL-2014: (1) A participating system is expected to detect and correct grammatical errors of all types, instead of just the five error types in CoNLL-2013; (2) The evaluation metric was changed from F1 to F0.5, to emphasize precision over recall; and (3) We have two human annotators who independently annotated the test essays, compared to just one human annotator in CoNLL-2013."
+    },
+    "qa_pairs": [
+    {
+      "question": "What is the primary goal of the CoNLL-2014 shared task?",
+      "answer": "The goal of the CoNLL-2014 shared task is to evaluate algorithms and systems for automatically detecting and correcting grammatical errors present in English essays written by second language learners of English."
+    },
+    {
+      "question": "What key change was made to the evaluation metric in CoNLL-2014 compared to CoNLL-2013?",
+      "answer": "The evaluation metric was changed from F1 to F0.5, to emphasize precision over recall."
+    },
+    {
+      "question": "What is the MaxMatch (M2) scorer used for in the shared task?",
+      "answer": "The MaxMatch (M2) scorer efficiently searches for a set of system edits that maximally matches the set of gold-standard edits specified by an annotator."
+    },
+    {
+      "question": "What is one of the most popular approaches used by participating teams to correct all error types?",
+      "answer": "One of the most popular approaches to nonspecific error type correction was the Language Model (LM) based approach, where the probability of a learner n-gram is compared with the probability of a candidate corrected n-gram, and if the difference is greater than some threshold, an error was perceived to have been detected and a higher scoring replacement n-gram could be suggested."
+    },
+    {
+      "question": "Why does the CoNLL-2014 shared task include all 28 error types instead of focusing on just a few?",
+      "answer": "It was felt that the community is now ready to deal with all error types, and including all 28 error types increases the complexity of the task by introducing a greater chance of encountering multiple, interacting errors in a sentence."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R172664",
+    "title_query": "End-to-end Sequence Labeling via Bi-directional LSTM-CNNs-CRF",
+    "doi": "10.18653/v1/p16-1101",
+    "open_access_paper": {
+      "id": "R172664",
+      "title": "End-to-end Sequence Labeling via Bi-directional LSTM-CNNs-CRF",
+      "doi": "10.18653/v1/p16-1101",
+      "open_access_url": "https://www.aclweb.org/anthology/P16-1101.pdf",
+      "license": "cc-by",
+      "abstract": "State-of-the-art sequence labeling systems traditionally require large amounts of task-specific knowledge in the form of hand-crafted features and data pre-processing. In this paper, we introduce a novel neutral network architecture that benefits from both word- and character-level representations automatically, by using combination of bidirectional LSTM, CNN and CRF. Our system is truly end-to-end, requiring no feature engineering or data pre-processing, thus making it applicable to a wide range of sequence labeling tasks. We evaluate our system on two data sets for two sequence labeling tasks --- Penn Treebank WSJ corpus for part-of-speech (POS) tagging and CoNLL 2003 corpus for named entity recognition (NER). We obtain state-of-the-art performance on both the two data --- 97.55\\% accuracy for POS tagging and 91.21\\% F1 for NER."
+    },
+    "qa_pairs": [
+    {
+      "question": "What is the main contribution of the paper in terms of sequence labeling systems?",
+      "answer": "The paper introduces a novel neural network architecture that benefits from both word- and character-level representations automatically, by using a combination of bidirectional LSTM, CNN and CRF. The system is truly end-to-end, requiring no feature engineering or data preprocessing, making it applicable to a wide range of sequence labeling tasks."
+    },
+    {
+      "question": "How does the proposed CNN extract character-level representations?",
+      "answer": "The CNN extracts morphological information (like the prefix or suffix of a word) from characters of words and encodes it into neural representations. The CNN uses only character embeddings as inputs, without character type features, and a dropout layer is applied before character embeddings are input to the CNN."
+    },
+    {
+      "question": "What is the purpose of using a Bi-directional LSTM (BLSTM) in the architecture?",
+      "answer": "The purpose of using a BLSTM is to have access to both past (left) and future (right) contexts in sequence labeling tasks. BLSTM presents each sequence forwards and backwards to two separate hidden states to capture past and future information, respectively, and then concatenates the two hidden states to form the final output."
+    },
+    {
+      "question": "Why is a Conditional Random Field (CRF) layer added on top of the BLSTM output?",
+      "answer": "A CRF layer is added to model label sequences jointly and consider correlations between labels in neighborhoods, rather than decoding each label independently. This allows the system to decode the best chain of labels for a given input sentence, which significantly benefits the final performance of the neural network model."
+    },
+    {
+      "question": "How is the final BLSTM-CNNs-CRF model structured?",
+      "answer": "For each word, the character-level representation is computed by the CNN with character embeddings as inputs. This character-level representation vector is concatenated with the word embedding vector and fed into the BLSTM network. Finally, the output vectors of BLSTM are fed to the CRF layer to jointly decode the best label sequence, with dropout layers applied on both the input and output vectors of BLSTM."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R175469",
+    "title_query": "Extracting a Knowledge Base of Mechanisms from COVID-19 Papers",
+    "doi": "10.18653/v1/2021.naacl-main.355",
+    "open_access_paper": {
+      "id": "R175469",
+      "title": "Extracting a Knowledge Base of Mechanisms from COVID-19 Papers",
+      "doi": "10.18653/v1/2021.naacl-main.355",
+
+      "open_access_url": "https://aclanthology.org/2021.naacl-main.355.pdf",
+      "license": "cc-by",
+      "abstract": "The COVID-19 pandemic has spawned a diverse body of scientific literature that is challenging to navigate, stimulating interest in automated tools to help find useful knowledge. We pursue the construction of a knowledge base (KB) of mechanisms\u2014a fundamental concept across the sciences, which encompasses activities, functions and causal relations, ranging from cellular processes to economic impacts. We extract this information from the natural language of scientific papers by developing a broad, unified schema that strikes a balance between relevance and breadth. We annotate a dataset of mechanisms with our schema and train a model to extract mechanism relations from papers. Our experiments demonstrate the utility of our KB in supporting interdisciplinary scientific search over COVID-19 literature, outperforming the prominent PubMed search in a study with clinical experts. Our search engine, dataset and code are publicly available."
+    },
+     "qa_pairs": [
+    {
+      "question": "What is the unified mechanism relation schema proposed in the paper, and what are its key properties?",
+      "answer": "The schema is defined as a relation (E1, E2, class) between entities E1 and E2, where each entity is a text span and the class indicates the type of the mechanism relation. Its three key properties are: (1) it uses a generalized concept of mechanism relations, capturing and extending existing types of mechanisms; (2) it includes flexible, generic entities not limited to predefined types; and (3) it is simple enough for human annotators and models to identify in scientific texts."
+    },
+    {
+      "question": "How are mechanisms categorized in the proposed schema?",
+      "answer": "Mechanisms are categorized into two coarse-grained classes: Direct mechanisms, which include activities of a mechanistic nature or explicit functions (e.g., a virus binding to a cell or a drug being used for treatment), and Indirect mechanisms, which include influences or associations without explicit mechanistic information (e.g., COVID-19 may lead to economic impacts)."
+    },
+    {
+      "question": "What process was followed to construct the MECHANIC dataset of mechanism annotations?",
+      "answer": "The dataset was constructed through a three-stage process: (1) biomedical experts annotated entities and relations as direct or indirect mechanisms; (2) an NLP expert unified annotation span boundaries for consistency; and (3) a bio-NLP expert verified and corrected annotations. This resulted in 2,370 relation instances (1,645 direct, 725 indirect) from 1,000 sentences in 250 abstracts."
+    },
+    {
+      "question": "Which model was used for extracting mechanism relations, and how was it applied to build the KB?",
+      "answer": "The DyGIE++ model with SciBERT embeddings was trained on MECHANIC to jointly extract entities and classify relations as {DIRECT, INDIRECT}. It was then applied to 160K abstracts in the CORD-19 corpus, extracting and filtering mechanism relations with high confidence to construct the COMB knowledge base, which contains 1.5M relations."
+    },
+    {
+      "question": "How does the semantic relation search over COMB work?",
+      "answer": "For a given query (Eanswer, Equestion, class), entity spans are encoded into a vector space using a fine-tuned language model. Relations in COMB are ranked by the minimum similarity between query and candidate entity encodings, with the class used to filter relation types. An index of 900K unique entity surface forms is stored using FAISS for fast similarity-based search."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R182418",
+    "title_query": "SPECTER: Document-level Representation Learning using Citation-informed Transformers",
+    "doi": "10.18653/v1/2020.acl-main.207",
+    "open_access_paper": {
+      "id": "R182418",
+      "title": "SPECTER: Document-level Representation Learning using Citation-informed Transformers",
+      "doi": "10.18653/v1/2020.acl-main.207",
+      "open_access_url": "https://www.aclweb.org/anthology/2020.acl-main.207.pdf",
+      "license": "cc-by",
+      "abstract": "Representation learning is a critical ingredient for natural language processing systems. Recent Transformer language models like BERT learn powerful textual representations, but these models are targeted towards token- and sentence-level training objectives and do not leverage information on inter-document relatedness, which limits their document-level representation power. For applications on scientific documents, such as classification and recommendation, accurate embeddings of documents are a necessity. We propose SPECTER, a new method to generate document-level embedding of scientific papers based on pretraining a Transformer language model on a powerful signal of document-level relatedness: the citation graph. Unlike existing pretrained language models, Specter can be easily applied to downstream applications without task-specific fine-tuning. Additionally, to encourage further research on document-level models, we introduce SciDocs, a new evaluation benchmark consisting of seven document-level tasks ranging from citation prediction, to document classification and recommendation. We show that Specter outperforms a variety of competitive baselines on the benchmark."
+    },
+    "qa_pairs": [
+    {
+      "question": "What is the main contribution of SPECTER as proposed in the paper?",
+      "answer": "SPECTER is a new method to generate document-level embeddings of scientific documents by pretraining a Transformer language model on the citation graph as a signal of document-level relatedness. Unlike existing pretrained language models, SPECTER can be easily applied to downstream applications without task-specific fine-tuning."
+    },
+    {
+      "question": "Why are existing Transformer language models like BERT limited for document-level representation learning?",
+      "answer": "Existing models such as BERT are primarily based on masked language modeling objectives, which only consider intra-document context and do not leverage inter-document information, thereby limiting their ability to learn optimal document-level representations."
+    },
+    {
+      "question": "How does SPECTER use citations to improve representation learning?",
+      "answer": "SPECTER formulates citation information as a triplet loss learning objective, where the model is pretrained on a large corpus of citations, encouraging it to output representations that are more similar for papers that share a citation link than for those that do not."
+    },
+    {
+      "question": "What is SCIDOCS and why was it introduced?",
+      "answer": "SCIDOCS is a new evaluation benchmark consisting of seven document-level tasks, ranging from citation prediction to document classification and recommendation. It was introduced to encourage further research on document-level models and to evaluate the effectiveness of approaches like SPECTER."
+    },
+    {
+      "question": "What directions for future work are suggested in the paper?",
+      "answer": "The paper suggests future work in initializing model weights from newer Transformer models, developing multitask approaches to leverage multiple signals of relatedness beyond citations, exploring bibliometrics-based relatedness metrics, and incorporating additional inputs such as outgoing citations."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R203383",
+    "title_query": "TDMSci: A Specialized Corpus for Scientific Literature Entity Tagging of Tasks Datasets and Metrics",
+    "doi": "10.18653/v1/2021.eacl-main.59",
+    "open_access_paper": {
+      "id": "R203383",
+      "title": "TDMSci: A Specialized Corpus for Scientific Literature Entity Tagging of Tasks Datasets and Metrics",
+      "doi": "10.18653/v1/2021.eacl-main.59",
+      "open_access_url": "https://aclanthology.org/2021.eacl-main.59.pdf",
+      "license": "cc-by",
+      "abstract": "Tasks, Datasets and Evaluation Metrics are important concepts for understanding experimental scientific papers. However, previous work on information extraction for scientific literature mainly focuses on the abstracts only, and does not treat datasets as a separate type of entity (Zadeh and Schumann, 2016; Luan et al., 2018). In this paper, we present a new corpus that contains domain expert annotations for Task (T), Dataset (D), Metric (M) entities 2,000 sentences extracted from NLP papers. We report experiment results on TDM extraction using a simple data augmentation strategy and apply our tagger to around 30,000 NLP papers from the ACL Anthology. The corpus is made publicly available to the community for fostering research on scientific publication summarization (Erera et al., 2019) and knowledge discovery."
+    },
+    "qa_pairs": [
+    {
+      "question": "What is the main contribution of the paper?",
+      "answer": "The paper presents a new corpus (TDMSci) containing expert annotations for Task (T), Dataset (D), and Metric (M) entities on 2,000 sentences extracted from NLP papers. The authors also develop a TDM tagger using a data augmentation strategy and apply it to around 30,000 NLP papers from the ACL Anthology."
+    },
+    {
+      "question": "How is the TDM entity extraction task modeled in this study?",
+      "answer": "The TDM entity extraction task is modeled as a sequence tagging problem. The authors apply a CRF model with lexical features, a BiLSTM-CRF model using the Flair framework, and adapt the SciIE model (Luan et al., 2018) for TDM entity extraction."
+    },
+    {
+      "question": "What features are used in the CRF model for TDM extraction?",
+      "answer": "The CRF model uses features such as unigrams of the previous, current, and next words, current word character n-grams, current POS tag, surrounding POS tag sequence, current word shape, and surrounding word shape sequence."
+    },
+    {
+      "question": "What is the purpose of the proposed data augmentation strategy?",
+      "answer": "The data augmentation strategy is designed to improve TDM entity extraction by generating additional masked training data. It replaces every token within an annotated TDM entity with UNK, leveraging the importance of surrounding context in identifying entities."
+    },
+    {
+      "question": "What is the significance of the TDMSci corpus and TDM tagger?",
+      "answer": "The TDMSci corpus and TDM tagger enable the extraction of essential scientific information (Task, Dataset, Metric) from NLP papers. Experiments on 30,000 NLP papers demonstrate that they can help build TDM knowledge resources for the NLP domain."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R189373",
+    "title_query": "Falcon 2.0: An Entity and Relation Linking Tool over Wikidata",
+    "doi": "10.1145/3340531.3412777",
+    "open_access_paper": {
+      "id": "R189373",
+      "title": "Falcon 2.0: An Entity and Relation Linking Tool over Wikidata",
+      "doi": "10.1145/3340531.3412777",
+      "open_access_url": "https://dl.acm.org/doi/pdf/10.1145/3340531.3412777",
+      "license": "cc-by",
+      "abstract": "The Natural Language Processing (NLP) community has significantly contributed to the solutions for entity and relation recognition from a natural language text, and possibly linking them to proper matches in Knowledge Graphs (KGs). Considering Wikidata as the background KG, there are still limited tools to link knowledge within the text to Wikidata. In this paper, we present Falcon 2.0, the first joint entity and relation linking tool over Wikidata. It receives a short natural language text in the English language and outputs a ranked list of entities and relations annotated with the proper candidates in Wikidata. The candidates are represented by their Internationalized Resource Identifier (IRI) in Wikidata. Falcon 2.0 resorts to the English language model for the recognition task (e.g., N-Gram tiling and N-Gram splitting), and then an optimization approach for the linking task. We have empirically studied the performance of Falcon 2.0 on Wikidata and concluded that it outperforms all the existing baselines. Falcon 2.0 is open source and can be reused by the community; all the required instructions of Falcon 2.0 are well-documented at our GitHub repository (https://github.com/SDM-TIB/falcon2.0). We also demonstrate an online API, which can be run without any technical expertise. Falcon 2.0 and its background knowledge bases are available as resources at https://labs.tib.eu/falcon/falcon2/."
+    },"qa_pairs": [
+    {
+      "question": "What is Falcon 2.0 and what does it achieve?",
+      "answer": "Falcon 2.0 is the first joint entity and relation linking tool over Wikidata. It receives a short natural language text in English and outputs a ranked list of entities and relations annotated with the proper candidates in Wikidata, represented by their Internationalized Resource Identifier (IRI)."
+    },
+    {
+      "question": "What are the main components of the Falcon 2.0 architecture?",
+      "answer": "Falcon 2.0 comprises several modules including POS Tagging, Tokenization & Compounding, N-Gram Tiling, Candidate List Generation, Matching & Ranking, Query Classifier, and N-Gram Splitting. It also relies on a background knowledge base combining Wikidata labels and aliases, alignments stored in a text search engine, and rules maintained in a catalog for English morphology."
+    },
+    {
+      "question": "What role does the catalog of rules play in Falcon 2.0?",
+      "answer": "The catalog of rules, based on English morphological principles, guides entity and relation extraction. For example, verbs are excluded from entity candidates, stopwords between entities are ignored to treat them as one entity, and question headwords like 'When' and 'Where' are used to resolve relation ambiguities."
+    },
+    {
+      "question": "How does Falcon 2.0 perform the recognition phase?",
+      "answer": "The recognition phase includes POS Tagging, Tokenization & Compounding, and N-Gram Tiling. POS Tagging identifies word types such as nouns and verbs. Tokenization & Compounding removes stopwords and separates verbs from nouns, while N-Gram Tiling combines tokens separated only by stopwords, producing candidate surface forms for entities and relations."
+    },
+    {
+      "question": "How does Falcon 2.0 handle candidate linking and ranking?",
+      "answer": "In the linking phase, Candidate List Generation queries the text search engine for each token, producing candidate lists. Matching & Ranking checks candidate triples against Wikidata with ASK queries, ranking entities and relations accordingly. Relevant Rule Selection adjusts rankings based on catalog rules, and N-Gram Splitting addresses cases where compounding incorrectly merged separate entities."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R189391",
+    "title_query": "Deep Reinforcement Learning for Mention-Ranking Coreference Models",
+    "doi": "10.18653/v1/d16-1245",
+    "open_access_paper": {
+      "id": "R189391",
+      "title": "Deep Reinforcement Learning for Mention-Ranking Coreference Models",
+      "doi": "10.18653/v1/d16-1245",
+      "open_access_url": "https://www.aclweb.org/anthology/D16-1245.pdf",
+      "license": "cc-by",
+      "abstract": "Coreference resolution systems are typically trained with heuristic loss functions that require careful tuning. In this paper we instead apply reinforcement learning to directly optimize a neural mention-ranking model for coreference evaluation metrics. We experiment with two approaches: the REINFORCE policy gradient algorithm and a reward-rescaled max-margin objective. We find the latter to be more effective, resulting in significant improvements over the current state-of-the-art on the English and Chinese portions of the CoNLL 2012 Shared Task."
+    },"qa_pairs": [
+    {
+      "question": "What problem does this paper address?",
+      "answer": "The paper addresses the reliance on heuristic loss functions for training coreference resolution models and proposes reinforcement learning to directly optimize for evaluation metrics."
+    },
+    {
+      "question": "What baseline model do the authors build on?",
+      "answer": "They build on the neural mention-ranking model by Clark and Manning (2016), which scores mention-antecedent pairs using a feedforward neural network."
+    },
+    {
+      "question": "Why are heuristic loss functions limited?",
+      "answer": "They require extensive hyperparameter tuning to balance error types and only indirectly optimize for coreference evaluation metrics."
+    },
+    {
+      "question": "How does reinforcement learning improve coreference resolution?",
+      "answer": "It treats coreference decisions as actions, uses evaluation metrics as rewards, and directly optimizes the model to improve accuracy without tuned hyperparameters."
+    },
+    {
+      "question": "What are the main results of this approach?",
+      "answer": "The reinforcement learning approach, especially reward rescaling, achieves significant improvements over the state of the art on English and Chinese CoNLL 2012 tasks."
+    }
+  ]
+  },
+  {
+    "paper_uri": "http://orkg.org/orkg/resource/R189458",
+    "title_query": "AxCell: Automatic Extraction of Results from Machine Learning Papers",
+    "doi": "10.18653/v1/2020.emnlp-main.692",
+    "open_access_paper": {
+      "id": "R189458",
+      "title": "AxCell: Automatic Extraction of Results from Machine Learning Papers",
+      "doi": "10.18653/v1/2020.emnlp-main.692",
+      "open_access_url": "https://www.aclweb.org/anthology/2020.emnlp-main.692.pdf",
+      "license": "cc-by",
+      "abstract": "Tracking progress in machine learning has become increasingly difficult with the recent explosion in the number of papers. In this paper, we present AxCell, an automatic machine learning pipeline for extracting results from papers. AxCell uses several novel components, including a table segmentation subtask, to learn relevant structural knowledge that aids extraction. When compared with existing methods, our approach significantly improves the state of the art for results extraction. We also release a structured, annotated dataset for training models for results extraction, and a dataset for evaluating the performance of models on this task. Lastly, we show the viability of our approach enables it to be used for semi-automated results extraction in production, suggesting our improvements make this task practically viable for the first time. Code is available on GitHub."
+    },
+    "qa_pairs": [
+    {
+      "question": "What is AXCELL and what problem does it solve?",
+      "answer": "AXCELL is an automatic machine learning pipeline for extracting structured results from research papers. It addresses the challenge of tracking ML progress by reliably extracting tuples of the form (task, dataset, metric, value) from tables in papers."
+    },
+    {
+      "question": "What are the key subtasks in the AXCELL pipeline?",
+      "answer": "The pipeline includes: (i) table type classification (leaderboard, ablation, irrelevant), (ii) table segmentation (classifying table cells), (iii) cell context generation, (iv) linking results to leaderboards, and (v) filtering results to keep the best entries."
+    },
+    {
+      "question": "How does AXCELL perform table type classification?",
+      "answer": "It uses a ULMFiT-based classifier with LSTM layers and SentencePiece tokenization to categorize tables as leaderboard, ablation, or irrelevant, trained on a large dataset of segmented tables."
+    },
+    {
+      "question": "How does AXCELL link numeric values to leaderboards?",
+      "answer": "AXCELL collects contextual evidence from table structure and paper text, then applies a generative probabilistic model to associate metric values with leaderboards defined by task, dataset, and metric."
+    },
+    {
+      "question": "What are the main contributions and results of the paper?",
+      "answer": "The paper introduces AXCELL, releases new datasets for training and evaluation, and demonstrates significant performance improvements over the state of the art in results extraction. The pipeline also makes semi-automated extraction practically viable."
+    }
+  ]
+  }
+]
