@@ -170,10 +170,10 @@ def get_similar_questions(question, similar_questions: str):
     second_question, second_sparql = sim_questions[1]['text'], sim_questions[1]['sparql']
     return [
         f"Question: {nl_query}",
-        f"Similar Question 1: {first_question}",
-        first_sparql,
-        f"Similar Question 2: {second_question}",
-        second_sparql
+        f"Similar Question: {first_question}",
+        f"Sparql: {first_sparql}",
+        #f"Similar Question 2: {second_question}",
+       # f"Sparql 2: {second_sparql}",
         ]
   
    
@@ -194,7 +194,11 @@ def dblp_entity_linker(question: str):
     payload = {  "question": question }
     response = requests.post(url, json=payload, headers=headers)
     if response.status_code == 200:
-        return [res['result'][0][1][0] for res in response.json()["entitylinkingresults"]]
+        try: 
+            ids = [res['result'][0][1][0] for res in response.json()["entitylinkingresults"]]
+            return ids
+        except:
+            return None
     else:
         print(f"Request failed with status {response.status_code}: {response.text}")
         return None

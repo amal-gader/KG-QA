@@ -76,7 +76,7 @@ def setup_models(config: dict[str, Any]):
     llm = OpenAILike(
     api_base="https://llms-inference.innkube.fim.uni-passau.de",
     api_key=api_key,
-    model="deepseekr1")
+    model="llama3.1")
     Settings.llm = llm
 
     Settings.transformations = [
@@ -169,12 +169,10 @@ def pipeline_for_one_document(query:str, title: str):
     
 
 
+
 def main():
-    # Load dataset
-    #dataset = load_dataset("allenai/qasper")
-    #df = dataset["train"].to_pandas()
     
-    with open("qasper_dblp_merged.json", "r") as file:
+    with open("ORKG_papers.json", "r") as file:
         dataset =json.load(file)
         df = pd.DataFrame(dataset)
    
@@ -193,6 +191,71 @@ def main():
     results = []
 
     for i, row in tqdm(df.iterrows(), desc="Generating Answers from Docs"):
+        title = row["title_query"]
+        #filename = title_to_filename(title)
+        filename = title
+        pdf_path = f"orkg_papers/papers/{filename}.pdf"
+        
+        if not os.path.exists(pdf_path):
+            print(f"PDF not found: {pdf_path}")
+            continue
+        
+        
+        # Load document
+        documents = SimpleDirectoryReader(input_files=[pdf_path]).load_data()
+        try:
+            index = create_index(documents, vector_store)
+        except Exception as e:
+            print(f"Indexing failed for {title}: {e}")
+            continue
+        
+         # Iterate over each QA pair
+        for qa in row.get("qa_pairs", []):
+            question = qa.get("question", None)
+            answer = qa.get("answer", None)
+            if not question:
+                continue
+
+            try:
+                response = query_document(index, question, config["top_k"])
+                results.append({
+                    "title": title,
+                    "question": question,
+                    "response": response,
+                    "ground_truth": answer
+                })
+                print(f"Done: {title} | Q: {question[:20]}...")
+            except Exception as e:
+                print(f"Querying failed for {title}, Q: {question}: {e}")
+                continue
+            
+    # Save results (row per QA pair)
+    pd.DataFrame(results).to_csv("llama_orkg_rag_responses.csv", index=False)
+     
+
+
+def main_old():
+    
+
+    with open("qasper_dblp_merged.json", "r") as file:
+        dataset =json.load(file)
+        df = pd.DataFrame(dataset)
+   
+    # Parse command line arguments
+    args = get_parser().parse_args()
+
+    # Initialize configuration
+    config = init_config(args)
+
+    # Setup models
+    setup_models(config)
+
+    # Setup vector store
+    vector_store = setup_vector_store(config["db_path"])
+
+    results = []
+    
+    for i, row in tqdm(df.iterrows(), desc="Generating Answers from Docs"):
         title = row["title"]
         filename = title_to_filename(title)
         pdf_path = f"dblp/{filename}.pdf"
@@ -201,34 +264,53 @@ def main():
             print(f"PDF not found: {pdf_path}")
             continue
         
-        # Get the first question
-        try:
-            question = row['qas'][0]['question']
-        except (IndexError, KeyError, TypeError):
-            print(f" No valid question found for: {title}")
-            continue
-
+        
         # Load document
         documents = SimpleDirectoryReader(input_files=[pdf_path]).load_data()
-        
-        ground_truth = add_answer(row["qas"])
-        # Build index and query
         try:
             index = create_index(documents, vector_store)
-            response = query_document(index, question, config["top_k"])
-            results.append({
-                "title": title,
-                "question": question,
-                "response": response,
-                "ground_truth": ground_truth
-            })
-            print(f"Done: {title}")
         except Exception as e:
-            print(f"Querying failed for {title}: {e}")
+            print(f"Indexing failed for {title}: {e}")
+            continue
+        
+        for qa in row.get("qas", []):
+            question = qa.get("question", None)
+            answers = qa.get("answers", [])
             
-    #save results
-    pd.DataFrame(results).to_csv("deepseek_dblp_qasper_rag_responses.csv", index=False)
-    print("Results saved to deepseek_dblp_qasper_rag_responses.csv.")
+            if not question or not answers:
+                continue
+            
+            # Keep only answerable answers
+            answer_texts = []
+            for ans in answers:
+                if not ans.get("unanswerable", False):
+                    # Prefer free_form_answer, fallback to extractive spans
+                    if ans.get("free_form_answer"):
+                        answer_texts.append(ans["free_form_answer"])
+                    elif ans.get("extractive_spans"):
+                        answer_texts.extend(ans["extractive_spans"])
+            
+            # If all answers were unanswerable, skip this QA
+            if not answer_texts:
+                continue
+            
+            ground_truth = " | ".join(answer_texts)  # join multiple answers if needed
+
+            try:
+                response = query_document(index, question, config["top_k"])
+                results.append({
+                    "title": title,
+                    "question": question,
+                    "response": response,
+                    "ground_truth": ground_truth
+                })
+                print(f"Done: {title} | Q: {question[:20]}...")
+            except Exception as e:
+                print(f"Querying failed for {title}, Q: {question}: {e}")
+                continue
+            
+    pd.DataFrame(results).to_csv("llama_dblp_rag_responses.csv", index=False)
+     
 
 
 
@@ -259,4 +341,4 @@ def route_question(question, bench):
 
 if __name__ == "__main__":
     #route_question("What is the Wikidata identifier of the author Robert S.?")
-    main()
+    main_old()
