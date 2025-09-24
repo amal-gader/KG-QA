@@ -9,8 +9,6 @@ milvus_demo.db
 /intersection
 /dblp
 /orkg_papers
-/results
-/DBLP-QuAD
-/SciQA-dataset
-test.ipynb
-eval.ipynb
+/exp_results
+/QuAD-DBLP
+/SciQA
