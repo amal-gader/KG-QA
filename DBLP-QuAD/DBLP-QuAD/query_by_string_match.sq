@@ -1,7 +1,0 @@
-
-SELECT DISTINCT ?coauthor ?paper WHERE {
-  ?paper <https://dblp.org/rdf/schema#authoredBy> <https://dblp.org/pid/40/9937> .
-  ?paper <https://dblp.org/rdf/schema#authoredBy> ?coauthor .
-  ?coauthor <https://dblp.org/rdf/schema#primaryFullCreatorName> ?name .
-  FILTER(REGEX(?name, "liang.*zheng", "i"))
-}

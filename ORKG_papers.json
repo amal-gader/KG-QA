@@ -83,7 +83,7 @@
   },
   "qa_pairs": [
     {
-      "question": "Wwhat does SCIERC include?",
+      "question": "What does SCIERC include?",
       "answer": "SCIERC is a dataset created for scientific information extraction, including annotations annotations for scientific entities, their relations, and coreference clusters for 500 scientific abstracts."
     },
     {

@@ -58,18 +58,19 @@ if __name__=='__main__':
 
     #df = pd.read_csv(f"results/{bench}_{model}_nl2sparql_results.csv")
     #df = df.iloc[1000:]
-    df= pd.read_csv("queries.csv")
+    df= pd.read_csv("mismatched_queries_dblp.csv")
+    df = df.iloc[100:500]
 
     df = df.assign(
         **{
-            #"generated_sparql": lambda df: df["generated_sparql"].progress_apply(postprocess_sparql),
-            "answer": lambda df: df["generated_sparql"].progress_apply(lambda x: generator.execute(x, db=bench)),
+            "generated_sparql": lambda df: df["generated_sparql"].progress_apply(lambda x: postprocess_sparql(x) if pd.notna(x) else None),
+            "answer": lambda df: df["generated_sparql"].progress_apply(lambda x: generator.execute(x, db=bench)if pd.notna(x) else None),
             "gt_answer": lambda df: df["gt_sparql"].progress_apply(lambda x: generator.execute(x, db=bench)),
             "metrics": lambda df: df.progress_apply(lambda x: evaluate_multiset_results(x["answer"], x["gt_answer"]), axis=1)   
         })
 
 
-    df.to_csv(f"{bench}_{model}_qa_results_queries.csv")
+    df.to_csv(f"{bench}_{model}_qa_results_queries_no_el_batch_2.csv")
 
 
 

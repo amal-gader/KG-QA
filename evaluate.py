@@ -26,6 +26,8 @@ def bert_score_metrics(generated_answer: str, reference_answer: str):
 
 
 def jaccard_similarity(query1: str, query2: str):
+    query1=query1.lower()
+    query2=query2.lower()
     set1 = set(query1)
     set2 = set(query2)
     intersection = set1 & set2

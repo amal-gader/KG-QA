@@ -9,3 +9,6 @@ milvus_demo.db
 /intersection
 /dblp
 /orkg_papers
+/results
+test.ipynb
+eval.ipynb

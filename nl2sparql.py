@@ -34,10 +34,10 @@ client = openai.OpenAI(
 
 class SPARQLGenerator:
     
-    def __init__(self, model="llama3.1", max_retries=2):
+    def __init__(self, model="llama3.1", max_retries=1):
         self.model = model
         self.max_retries = max_retries
-        self.delay=0,5
+        self.delay=0.5
 
 
     def generate(self, question, templates, db="orkg", ent_link=False, link_dblp=False):
@@ -76,7 +76,7 @@ class SPARQLGenerator:
             query = prefix + '\n' + query
             url = "http://localhost:7200/repositories/orkg_kg"
         else:
-            url = "http://localhost:9999/blazegraph/namespace/kb/sparql"
+            url = "http://192.168.0.163:9999/blazegraph/namespace/test/sparql"
 
         headers = {"Accept": "application/sparql-results+json"}
 
