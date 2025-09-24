@@ -42,15 +42,11 @@ Our proposed system is an end-to-end pipeline for scholarly question answering:
 - Generate answers using LLMs.
 
 
-## Benchmarks and Evaluation
-
-Existing KGQA benchmarks focus primarily on general-purpose knowledge graphs. Our system is evaluated on real-world scholarly datasets, demonstrating its ability to:
-
-- Bridge the gap between metadata and full-text content.
-
-- Handle open-ended questions about publications and research topics.
-
 
 ## References
 - DBLP: https://dblp.org
 - ORKG: https://orkg.org
+- QASPER pub: https://aclanthology.org/2021.naacl-main.365.pdf
+- QASPER Dataset: https://huggingface.co/datasets/allenai/qasper
+- DBLP-QuAD: https://zenodo.org/records/7554379
+- SciQA:  https://huggingface.co/datasets/orkg/SciQA
