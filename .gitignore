@@ -10,5 +10,7 @@ milvus_demo.db
 /dblp
 /orkg_papers
 /results
+/DBLP-QuAD
+/SciQA-dataset
 test.ipynb
 eval.ipynb
